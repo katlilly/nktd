@@ -1,22 +1,109 @@
-\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
-\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\documentclass[11pt, oneside]{article}  
+\usepackage{geometry}                	
 \geometry{a4paper}                   			
-\usepackage[parfill]{parskip}		% Activate to begin paragraphs with an empty line rather than an indent
-\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
-								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage[parfill]{parskip}		
+\usepackage{graphicx}			
+					
 \usepackage{amssymb}
 
-
 \title{COSC 345 Assignment 1}
-\author{Nathan, Kat, Tobyn, Daniel}
-\date{\today}							% Activate to display a given date or no date
+\author{Nathan Kennedy, Kat Lilly, Tobyn Packer, Daniel Davidson}
+\date{\today}							
 
 \begin{document}
 \maketitle
-\section{what we are going to build}
 
-\section{timeline / milestones}
-%\subsection{}
+\section*{What we are going to build}
+
+We intend to build an app containing a suite of games that can be
+played without the use of one's hands. Entry to the app as well as
+control of the games will all be voice controlled.
+
+We will begin with a tetris game as a way to get started and learn all
+the various things we'll need to learn, such as how to use the voice
+to text software, how to write an android app, etc. This is a game
+that has very simple keyboard inputs, so there shouldn't be
+significant challenges beyond capturing the voice commands.
+
+After this we intend to add one or more additional games. Hopefully
+we'll come up with some ideas for games that are a bit more
+interesting to control by voice than tetris, maybe something where the
+gameplay is improved or changed by controlling it this way.
+
+\subsubsection*{Intended users}
+
+Our target users are anyone who does not have full use of their hands,
+either permanently or temporarily. The app will be launched with the
+voice control in the operating system, and the user will be able to
+select a game and play it using only voice commands.
+
+\section*{How we will build it}
+
+Daniel has found some open source voice to text libraries that he is
+working with, and we will use these to take voice commands from the
+user that will control the games.
+
+Kat found an open source cpp implementation of tetris with ASCII
+graphics that she is making modifications (using ncurses.h library
+functions rather than Windows.h) to so it will run in a linux/OSX
+terminal. Tobyn is working on getting it to run in Windows. Kat is
+also working on rewriting this in Java, which might be an easy way to
+do the graphics and also gets us some of the way towards an Android
+app.
+
+Other games...?
+
+\section*{Platforms}
+
+We intend to make our games run both as Android apps and as terminal
+based games with ASCII graphics to run on both OSX/linux and Windows.
+
+The desktop terminal versions of the games serve as an easier way to
+get started writing stuff and figuring out game logic etc before we
+learn how to write Android apps.
+
+
+\section*{Timeline}
+
+Things that need doing at the moment:
+\begin{itemize}
+\item Understanding the voice to text stuff - Daniel is working on
+  this and will write a simple program that takes voice inputs and
+  outputs them to screen or perhaps tries to match them to a list of
+  game control commands
+\item Figuring out how to get started writing an Android app - one of
+  us should write a very simple app that starts up with a menu asking
+  you to select which game to play
+\item Getting the tetris.cpp code working in both windows and
+  linux/osx, Kat and Tobyn working on this
+\item Implementing tetris in Java - Kat is working on this
+\item Understanding the voice controls that come with the Android
+  operating system
+\item Linking our slack workspace to the nktd github repo
+  
+\end{itemize}
+
+\subsection*{Project timeline}
+
+Some made up dates...
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|l|}
+    \hline
+    Date & Milestone\\
+    \hline
+    Friday 7th April & a working Java implementation of Tetris \\
+    Friday 7th April & a bare bones nktd Android app that just has a menu of games \\ 
+    Monday 16th April & 1st report due \\
+    Friday 4th May & set some goals to finish by this date \\
+    Monday 28th May & 2nd assignment due - alpha release of nktd \\
+    \hline
+  \end{tabular}
+\end{table}
+
+
+%\subsection*{}
 
 
 
