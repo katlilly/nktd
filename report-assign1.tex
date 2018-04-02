@@ -2,7 +2,8 @@
 \usepackage{geometry}                	
 \geometry{a4paper}                   			
 \usepackage[parfill]{parskip}		
-\usepackage{graphicx}			
+\usepackage{graphicx}	
+\usepackage{pgfgantt}		
 					
 \usepackage{amssymb}
 
@@ -30,37 +31,48 @@ we'll come up with some ideas for games that are a bit more
 interesting to control by voice than tetris, maybe something where the
 gameplay is improved or changed by controlling it this way.
 
-\subsubsection*{Intended users}
+\subsection*{Intended users}
 
 Our target users are anyone who does not have full use of their hands,
 either permanently or temporarily. The app will be launched with the
 voice control in the operating system, and the user will be able to
-select a game and play it using only voice commands.
+select a game and play it using only voice commands. 
+
+Our intended users are defined not by a particular illness or injury or other source of disability, but only by this particular aspect of their interaction with a device, that is that that are unable to use their hands at this time.
+
+\subsection*{Platforms}
+
+We will build an Android app that runs on both smartphones and tablets, and possibly also on smart watches if one or more of the games we write is suitable for such a small screen.
+
+
 
 \section*{How we will build it}
 
-Daniel has found some open source voice to text libraries that he is
-working with, and we will use these to take voice commands from the
-user that will control the games.
+{\em I think in this section we should give each of us roles, we should talk about how we want to divide up the work. task oriented roles?}
 
-Kat found an open source cpp implementation of tetris with ASCII
-graphics that she is making modifications (using ncurses.h library
-functions rather than Windows.h) to so it will run in a linux/OSX
-terminal. Tobyn is working on getting it to run in Windows. Kat is
-also working on rewriting this in Java, which might be an easy way to
-do the graphics and also gets us some of the way towards an Android
-app.
+{\bf Nathan} currently working on getting the app started
 
-Other games...?
+{\bf Kat} currently writing java tetris game (mostly from tutorials), using keyboard controls that will later be replaced with voice control.
 
-\section*{Platforms}
+{\bf Tobyn} something
 
-We intend to make our games run both as Android apps and as terminal
-based games with ASCII graphics to run on both OSX/linux and Windows.
+{\bf Daniel} working with the voice recognition software 
 
-The desktop terminal versions of the games serve as an easier way to
-get started writing stuff and figuring out game logic etc before we
-learn how to write Android apps.
+
+\begin{ganttchart}{1}{12}
+\gantttitle{2018}{12} \\
+\gantttitlelist{1,...,12}{1} \\
+\ganttgroup[progress=50]{Group 1}{1}{7} \\
+\ganttbar{Task 1}{1}{2} \\
+%\ganttbar{Task 1}\\
+\ganttlinkedbar[progress=20]{Task 2}{3}{7} \ganttnewline
+\ganttmilestone{Assignment 1 (report)}{7} \ganttnewline
+\ganttbar{Final Task}{8}{12} \ganttnewline
+\ganttmilestone{Assignment 2 (alpha release)}{7} \ganttnewline
+\ganttlink{elem2}{elem3}
+\ganttlink{elem3}{elem4}
+\ganttlink{elem1}{elem3}
+\end{ganttchart}
 
 
 \section*{Timeline}
@@ -79,13 +91,14 @@ Things that need doing at the moment:
 \item Implementing tetris in Java - Kat is working on this
 \item Understanding the voice controls that come with the Android
   operating system
-\item Linking our slack workspace to the nktd github repo
+
   
 \end{itemize}
 
 \subsection*{Project timeline}
 
-Some made up dates...
+{\em Should insert a Gantt chart here}
+
 
 \begin{table}[h!]
   \centering
