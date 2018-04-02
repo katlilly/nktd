@@ -4,3 +4,4 @@
 *.log
 *.class
 *~
+*.java#
