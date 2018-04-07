@@ -25,8 +25,8 @@ public class Main {
         Configuration configuration = new Configuration();
                 
         configuration.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
-        configuration.setDictionaryPath("resource:/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict");
-        configuration.setLanguageModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us.lm.bin");
+        configuration.setDictionaryPath("src/main/resources/1922.dic");
+        configuration.setLanguageModelPath("src/main/resources/1922.lm");
         configuration.setGrammarPath("src/main/resources/grammars/");
         configuration.setUseGrammar(true);
         configuration.setGrammarName("tetrisCommand");
