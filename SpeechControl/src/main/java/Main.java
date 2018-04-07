@@ -13,7 +13,7 @@ public class Main {
         recognizer.startRecognition(true);
         while (true) {
             String utterance = recognizer.getResult().getHypothesis();
-            if (utterance.equals("one zero one") || utterance.equals("one oh one"))
+            if (utterance.equals("right seven"))
                 break;
             else
                 System.out.println(utterance);
