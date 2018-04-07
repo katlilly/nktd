@@ -24,7 +24,7 @@ public class Main {
         
         Configuration configuration = new Configuration();
                 
-        configuration.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
+        configuration.setAcousticModelPath("src/main/resources/cmusphinx-en-us-ptm-5.2");
         configuration.setDictionaryPath("src/main/resources/1922.dic");
         configuration.setLanguageModelPath("src/main/resources/1922.lm");
         configuration.setGrammarPath("src/main/resources/grammars/");
