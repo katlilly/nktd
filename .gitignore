@@ -6,6 +6,8 @@
 *~
 *.java#
 *.bin
+*.out
+
 
 bin/
 out/
