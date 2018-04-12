@@ -1,0 +1,155 @@
+\documentclass[11pt, oneside]{article}  
+\usepackage{geometry}                	
+\geometry{a4paper}                   			
+\usepackage[parfill]{parskip}		
+\usepackage{graphicx}	
+\usepackage{pgfgantt}		
+\usepackage{blindtext}					
+\usepackage{amssymb}
+
+\title{COSC 345 Assignment 1} \author{Nathan Kennedy \texttt{1234567},
+  Kat Lilly \texttt{8867318}, Tobyn Packer \texttt{1234567}, and
+  \\Daniel Davidson \texttt{1234567}} \date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{What we are going to build}
+
+We intend to build an app containing a suite of games that can be
+played without the use of one's hands. Entry to the app as well as
+control of the games will all be voice controlled.
+
+We have begun with a tetris game as a way to get started and learn the
+various things we'll need to learn, such as how to use open source
+speech recognition software, how to write an android app, etc. Tetris
+is a game that has very simple keyboard inputs, and for which there
+are many online tutorials for writing the game, so there shouldn't be
+significant challenges beyond capturing the voice commands.
+
+After this we intend to add additional games. We intend to explore the
+possibility of games that may be more interesting to control by voice
+than tetris is. One can imagine games where the gameplay could be
+changed or improved by controlling this with changes in the pitch or
+loudness of your voice rather than keyboard or touch screen inputs,
+but don't have any well formed ideas about this yet.
+
+The working title of our app is `nktd', the most pleasing permutation
+of our initials.
+
+
+\subsection*{Intended users}
+
+Our target users are anyone who does not have full use of their hands,
+either permanently or temporarily. The app will be launched with the
+voice control in the operating system, and the user will be able to
+select a game and play it using only voice commands. 
+
+Our intended users are defined not by a particular illness, injury
+or other source of disability, but by this particular aspect of their
+interaction with a device, that they are unable to use their hands at
+this time. Our users may include amputees, people with a hand tremor,
+people with a broken arm, and so on.
+
+We are beginning with voice control as a substitute for key presses
+and touch screen control, but also want to explore the possibility of
+using eye tracking for some aspects of our app. With our current
+understanding, it seems that this may be a bigger, harder problem
+than using voice control, and is not one of our primary goals.
+
+
+\subsection*{Platforms}
+
+We will build an Android app that runs on both smartphones and
+tablets. If one or more of the games we write is suitable for a very
+small screen we will also consider including a smartwatch version.
+
+We intend to have an optional login function in our app, that would
+allow the user's saved settings and high scores to be transferred between
+devices.
+
+
+\section*{How we will build it}
+
+The game logic and the Android app will be written in Java. We are
+using open source voice recognition software *name* from *github link*
+
+{\em This section and team member roles both need more detail}
+
+\subsection*{Team member roles}
+
+\begin{description}
+\item [Nathan] Android app development, user interface and graphics
+\item [Kat] Reporting, documentation, writing game logic
+\item [Tobyn] Graphics, ideas for new games
+\item [Daniel] Voice recognition software
+\end{description}
+
+
+\subsection*{Managing the workflow}
+
+We will manage our project using the Scrum framework, currently
+working with two week sprints. We have a regular team meeting on
+Mondays (more often when needed), where we catch each other up on what
+we have acheived over the previous week and what needs doing next. So
+far these meetings have mostly been about evolving our idea of what we
+are actually trying to make.
+
+We have a Slack workspace for our project that is linked to the nktd
+repository on github, which we use to communicate about the project
+between meetings.
+
+We also are using Google Drive to host a spreadsheet with our Scrum
+workflow stuff.
+
+We are using the github wiki to record what was discussed at meetings
+and for notes about how aspects of the project work.
+
+
+\section*{Project Timeline}
+
+{\em Kat currently working on a couple of gantt charts to put here}
+
+%% \begin{ganttchart}{1}{12}
+%% \gantttitle{2018}{7} \\
+%% \gantttitlelist{1,...,7}{1} \\
+%% \ganttgroup[progress=50]{Group 1}{1}{7} \\
+%% \ganttbar{Task 1}{1}{2} \\
+%% %\ganttbar{Task 1}\\
+%% \ganttlinkedbar[progress=20]{Task 2}{3}{7} \ganttnewline
+%% \ganttmilestone{Assignment 1 due}{7} \ganttnewline
+%% \ganttbar{Final Task}{8}{12} \ganttnewline
+%% \ganttmilestone{Alpha release}{7} \ganttnewline
+%% \ganttlink{elem2}{elem3}
+%% \ganttlink{elem3}{elem4}
+%% \ganttmilestone{Beta release}{6} \ganttnewline
+%% \ganttlink{elem1}{elem3}
+%% \end{ganttchart}
+
+
+
+\end{document}
+
+
+
+
+\begin{ganttchart}{1}{12}
+\gantttitle{2018}{12} \\
+\gantttitlelist{1,...,12}{1} \\
+\ganttgroup[progress=50]{Group 1}{1}{7} \\
+\ganttbar{Task 1}{1}{2} \\
+%\ganttbar{Task 1}\\
+\ganttlinkedbar[progress=20]{Task 2}{3}{7} \ganttnewline
+\ganttmilestone{Assignment 1 (report)}{7} \ganttnewline
+\ganttbar{Final Task}{8}{12} \ganttnewline
+\ganttmilestone{Assignment 2 (alpha release)}{7} \ganttnewline
+\ganttlink{elem2}{elem3}
+\ganttlink{elem3}{elem4}
+\ganttlink{elem1}{elem3}
+\end{ganttchart}
+
+
+
+
+\end{document}  
+
