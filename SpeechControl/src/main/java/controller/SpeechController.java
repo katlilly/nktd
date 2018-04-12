@@ -73,7 +73,7 @@ public class SpeechController {
     }
     
     
-    private static void runLiveSpeechRecognizer(String gameName) throws IOException{
+    private static void testLiveSpeechRecognizer(String gameName) throws IOException{
         SpeechController controller = new SpeechController(gameName);
         String exitPhrase = "right seven ";
         String utterance = null;
@@ -84,7 +84,7 @@ public class SpeechController {
         }
     }
     
-    private static void runStreamSpeechRecognizer(String gameName, String audioFileName) throws IOException{
+    private static void testStreamSpeechRecognizer(String gameName, String audioFileName) throws IOException{
         FileInputStream audioFile = new FileInputStream
                         ("src/main/resources/audio/" + audioFileName);
         SpeechController controller = new SpeechController(gameName, audioFile);
@@ -95,8 +95,8 @@ public class SpeechController {
     
     
     public static void main(String[] args) throws IOException{
-        runStreamSpeechRecognizer("tetris", "left-one.wav");
-        //runLiveSpeechRecognizer("tetris");
+        testStreamSpeechRecognizer("tetris", "left-one.wav");
+        //testLiveSpeechRecognizer("tetris");
     }
     
 }
