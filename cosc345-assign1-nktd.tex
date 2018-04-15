@@ -11,7 +11,7 @@
 
 \title{COSC 345 Assignment 1} \author{Nathan Kennedy \texttt{1234567},
   Kat Lilly \texttt{8867318}, Tobyn Packer \texttt{1234567}, and
-  \\Daniel Davidson \texttt{1234567}} \date{\today}
+  \\Daniel Davidson \texttt{375621}} \date{\today}
 
 \begin{document}
 \maketitle
@@ -74,7 +74,25 @@ devices.
 \section*{How we will build it}
 
 The game logic and the Android app will be written in Java. We are
-using open source voice recognition software *name* from *github link*
+using open source voice recognition software CMUSphinx from 
+https://cmusphinx.github.io. More specifically, we are using sphinx4.
+
+The speech recognition system requires three parts:
+An acoustic model consisting of acoustic properties for each 'phone' or unit of sound.
+A dictionary mapping combinations of phones to words.
+A grammar model that tells the system valid combinations of words it will hear.
+
+The dictionary and the acoustic model can be shared among all games we make, but we
+will need to write a new grammar model for each game.
+
+We will be using one of cmusphinx's pre-built acoustic models downloaded from here: https://sourceforge.net/projects/cmusphinx/files/Acoustic\%20and\%20Language\%20Models/US\%20English/
+Our dictionaries will be generated for us by cmusphinx's LMTool here: www.speech.cs.cmu.edu/tools/lmtool-new.html
+The grammar models we need to write ourselves in JSFG - Java Speech Grammar Format
+
+The speech recognition will only work accurately on audio of the same sample rate/number of channels 
+as the audio its acoustic model was trained on. The CMUSphinx model was trained on 16Khz, 16bit Mono
+audio. This means that potentially we will need to downsample the audio being recieved from the user's
+microphone before it is interpreted. We can do this using the Java Sound API.
 
 {\em This section and team member roles both need more detail}
 
@@ -112,19 +130,54 @@ and for notes about how aspects of the project work.
 
 {\em Kat currently working on a couple of gantt charts to put here}
 
-%\begin{ganttchart}[%hgrid,%vgrid,%time slot format=isodate-yearmonth,%time slot unit=month%]{2012-03}{2014-1}%\gantttitlecalendar{year, month} \\%\ganttbar{}{2012-05}{2013-01}%\end{ganttchart}
-
-%\begin{ganttchart}[%hgrid,%vgrid,%x unit=4mm,
+%\begin{ganttchart}[
+%hgrid,
+%vgrid,
 %time slot format=isodate-yearmonth,
-%time slot unit=month%]{2018-04-16}{2018-05-28}
-%\gantttitlecalendar{year, month=name} \\%%\gantttitlecalendar{year, month, day, week=3, weekday} \\%%\ganttbar{}{2018-01-14}{2013-01-17}%\end{ganttchart}
+%time slot unit=month
+%]{2012-03}{2014-1}
+%\gantttitlecalendar{year, month} \\
+%\ganttbar{}{2012-05}{2013-01}
+%\end{ganttchart}
+
+%\begin{ganttchart}[
+%hgrid,
+%vgrid,
+%x unit=4mm,
+%time slot format=isodate-yearmonth,
+%time slot unit=month
+%]{2018-04-16}{2018-05-28}
+%\gantttitlecalendar{year, month=name} \\
+%%\gantttitlecalendar{year, month, day, week=3, weekday} \\
+%%\ganttbar{}{2018-01-14}{2013-01-17}
+%\end{ganttchart}
 %
 %\begin{ganttchart}{3}{4}[vgrid]{2259.55}{2259.67}
-%  \gantttitle{2018}%  \gantttitlecalendar{year, month=shortname, day} \\%\end{ganttchart}
+%  \gantttitle{2018}
+%  \gantttitlecalendar{year, month=shortname, day} \\
+%\end{ganttchart}
 
-%\begin{ganttchart}[%    hgrid,%    vgrid,%    time slot format=isodate-yearmonth,%    time slot unit=month%  ]{2012-03}{2014-1}%\gantttitlecalendar{year, month} \\%  \ganttbar{}{2012-05}{2013-01}%\end{ganttchart}
+%\begin{ganttchart}[
+%    hgrid,
+%    vgrid,
+%    time slot format=isodate-yearmonth,
+%    time slot unit=month
+%  ]{2012-03}{2014-1}
+%\gantttitlecalendar{year, month} \\
+%  \ganttbar{}{2012-05}{2013-01}
+%\end{ganttchart}
 
-\begin{ganttchart}{1}{12}  \gantttitle{2011}{12} \\  \gantttitlelist{1,...,12}{1} \\\ganttgroup{Group 1}{1}{7} \\\ganttbar{Task 1}{1}{2} \\\ganttlinkedbar{Task 2}{3}{7} \ganttnewline\ganttmilestone{Milestone}{7} \ganttnewline\ganttbar{Final Task}{8}{12}\ganttlink{elem2}{elem3}\ganttlink{elem3}{elem4}\end{ganttchart}
+\begin{ganttchart}{1}{12}
+  \gantttitle{2011}{12} \\
+  \gantttitlelist{1,...,12}{1} \\
+\ganttgroup{Group 1}{1}{7} \\
+\ganttbar{Task 1}{1}{2} \\
+\ganttlinkedbar{Task 2}{3}{7} \ganttnewline
+\ganttmilestone{Milestone}{7} \ganttnewline
+\ganttbar{Final Task}{8}{12}
+\ganttlink{elem2}{elem3}
+\ganttlink{elem3}{elem4}
+\end{ganttchart}
 
 %
 %\begin{ganttchart}{1}{12}
