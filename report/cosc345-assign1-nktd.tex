@@ -1,6 +1,7 @@
 \documentclass[11pt, oneside]{article}  
 \usepackage{geometry}                	
-\geometry{a4paper}                   			
+\geometry{a4paper}
+%\geometry{USletter}
 \usepackage[parfill]{parskip}		
 \usepackage{graphicx}	
 \usepackage{pgfgantt}
@@ -36,19 +37,26 @@ We intend to build an app containing a suite of games that can be
 played without the use of one's hands. Entry to the app as well as
 control of the games will be by voice command.
 
-We have begun with a tetris game as a way to get started, to familiarize ourselves with speech recognition software, and to learn
+We have begun with a tetris game as a way to get started, to
+familiarize ourselves with speech recognition software, and to learn
 how to write an Android app. Tetris is a game that has very simple
 keyboard inputs, and for which there are many online tutorials for
 writing the game, so there shouldn't be significant challenges beyond
 capturing the voice commands.
 
-After this we intend to add at least one additional game. We are exploring the possibility of games that may be more interesting to
-control by voice than tetris is, where the gameplay is improved or changed by
-being voice controlled. For example, there is a Mario-like game called Scream Go
-\url{} where the character is controlled by the pitch and volume of
-the player's voice, rather than with voice commands. Another example
-is Full Voice Throttle \url{}, a car racing game where acceleration is
-controlled by ... pitch? turning?
+After this we intend to add at least one additional game. We are
+exploring the possibility of games that may be more interesting to
+control by voice than tetris is, where the gameplay is improved or
+changed by being voice controlled. For example, there is a Mario-like
+game called Scream Go
+\url{https://www.youtube.com/watch?v=IyvjpgS9TAs} where a character
+navigates a world by walking and jumping movements, which are
+controlled by pitch and loudness of the player's voice. Another
+example is Full Voice Throttle
+\url{https://kushulain.itch.io/full-voice-throttle}, a motorbike
+racing game where acceleration is achieved by increasing the pitch of
+the player's voice, and the gear is changed by starting again at a
+lower pitch.
 
 The working title of our app is `nktd', the most pleasing permutation
 of our initials. \url{http://github.com/katlilly/nktd}
@@ -56,13 +64,24 @@ of our initials. \url{http://github.com/katlilly/nktd}
 
 \subsection*{Intended users}
 
-We spoke to the manager of the disability support unit here at Otago, and talked
-with her about what the real needs of students and staff here are. Her
-main point was that mental health issues are the biggest issue, and so we briefly explored the possibility of a project aimed at supporting Otago students in this area. However, none of us were particularly keen to take on such a weighty issue as this, and we also felt that a project like this would involve a lot of work writing content and doing research about non CS topics, which is not how we would prefer to spend most of our effort.
+We spoke to the manager of the disability support unit here at Otago,
+and talked with her about what the real needs of students and staff
+here are. Her main point was that mental health issues are the biggest
+issue, and so we briefly explored the possibility of a project aimed
+at supporting Otago students in this area. However, none of us were
+particularly keen to take on such a weighty issue as this, and we also
+felt that a project like this would involve a lot of work writing
+content and doing research about non CS topics, which is not how we
+would prefer to spend most of our effort.
 
-Instead we have chosen to write games that can be controlled without the use of hands. None of us had written games before, and we were all keen for that particular challenge. In addition, we believe this will be a project where there is a very achievable minimum product that we can get started with, as well as lots of opportunity to expand on it within the timescale of one academic year. We feel that this will be a good project for learning a lot of the skills we want to get out of this software engineering course.
-
-%what proportion of population have this...?
+Instead we have chosen to write games that can be controlled without
+the use of hands. None of us had written games before, and we were all
+keen for that particular challenge. In addition, we believe this will
+be a project where there is a very achievable minimum product that we
+can get started with, as well as lots of opportunity to expand on it
+within the timescale of one academic year. We feel that this will be a
+good project for learning a lot of the skills we want to get out of
+this software engineering course.
 
 Our target users are anyone who does not have full use of their hands,
 either permanently or temporarily. The app will be launched with the
@@ -70,25 +89,36 @@ voice control in the operating system, and the user will be able to
 select a game and play it using only voice commands. 
 
 Our intended users are defined not by a particular illness, injury or
-other source of disability, but by this particular aspect of their
-interaction with a device, that they are unable to use their hands at
-this time. Our users may include amputees, quadriplegics, or people with a hand tremor,
-a broken arm, arthritis, and so on.
+other source of disability, but are unable to use their hands, and we
+are focusing on this particular interaction with a device. Our users
+may include amputees, quadriplegics, or people with a hand tremor, a
+broken arm, arthritis, and so on.
 
-A particular user might be a child who has broken both their wrists and is in pain, as we know from personal experience that playing games is not only a solution to boredom but can be really good for coping with pain.
+% of course not limited to those unable to use hands, hopefully our
+% game is fun enough to be worth playing for anyone
+
+A particular user might be a child who has broken both their wrists
+and is in pain. We know from personal experience that playing games
+is not only a solution to boredom but can be really good for coping
+with pain.
 
 We assume that our users have already solved the problem of holding
-and unlocking their device, and are using the operating system's voice recognition features. We will use the system-provided Voice Actions to allow users to open our app by a voice command such as ``OK Google, play tetris''.
+and unlocking their device, and are using the operating system's voice
+recognition features. We will use the system-provided Voice Actions to
+allow users to open our app by a voice command such as ``OK Google,
+play tetris''.
 
-No specialised hardware will be necessary, just the built in microphone that all phones and tablets have.
+No specialised hardware will be necessary, just the built in
+microphone that all phones and tablets have.
 
 %look up best practice for writing software for this disability....?
 
 We are beginning with voice control as a substitute for key presses
 and touch screen control, but also want to explore the possibility of
-using eye tracking for some aspects of our app. It is likely that this will be more than
-we can get working well within the timeframe of this project, but we
-will make the call after further research, and not at the expense of getting voice control working well.
+using eye tracking for some aspects of our app. It is likely that this
+will be more than we can get working well within the timeframe of this
+project, but we will make the call after further research, and not at
+the expense of getting voice control working well.
 
 
 \subsection*{Platforms}
@@ -106,8 +136,7 @@ devices.
 
 The game logic and the Android app will be written in Java. We are
 using open source voice recognition software CMUSphinx from
-\url{https://cmusphinx.github.io} using open source voice recognition
-software. More specifically, we are using sphinx4.
+\url{https://cmusphinx.github.io}. More specifically, we are using sphinx4.
 
 The speech recognition system requires three parts:
 \begin{itemize}
@@ -143,10 +172,14 @@ project.
 \subsection*{Team member roles}
 
 \begin{description}
-\item [Nathan] Android app development, designing user interface and graphics.
-\item [Kat] Writing reports and meeting minutes, writing game logic, some testing.
-\item [Tobyn] Graphics, ideas for new games and coding them. Writing user documentation
-\item [Daniel] Lead test developer, working with open source voice recognition software, speech recognition and audio inputs.
+\item [Nathan] Android app development, designing user interface and
+  graphics.
+\item [Kat] Writing reports and meeting minutes, writing game logic,
+  some testing.
+\item [Tobyn] Graphics, ideas for new games and coding them. Writing
+  user documentation
+\item [Daniel] Lead test developer, working with open source voice
+  recognition software, speech recognition and audio inputs.
 \end{description}
 
 
@@ -172,13 +205,21 @@ and for notes about how aspects of the project work.
 
 \section*{Project Timeline}
 
-Our alpha release (assignment 2) will be an app in which the user can play tetris purely with voice commands, and will work on both Android phones and Android tablets.
+Our alpha release (Assignment 2) will be an app in which the user can
+play tetris purely with voice commands, and will work on both Android
+phones and Android tablets.
 
-Improvements in our beta release (assignment 3) will include the addition of a second game, and the ability to log in to the app and keep your preferences and high scores between devices.
+Improvements in our beta release (Assignment 3) will include the
+addition of a second game, and the ability to log in to the app and
+keep your preferences and high scores between devices.
 
-Our finished product (assignment 4) will be a thorougly tested, less buggy version of assigment 3, with faster and more accurate interpretation of voice commands as well as the possible addition of a third game and/or a smartwatch version.
+Our finished product (Assignment 4) will be a thorougly tested, less
+buggy version than Assigment 3, with faster and more accurate
+interpretation of voice commands as well as the possible addition of a
+third game and/or a smartwatch version.
 
-See Figure \ref{fig:ganttyear} for a broad brush timeline for the project.
+See Figure \ref{fig:ganttsem1} for our Semester One timeline, and
+Figure \ref{fig:ganttsem2} for a broad brush timeline for Semester Two.
 
 % alpha release timeline gantt chart
 %\setcounter{myWeekNum}{6}
@@ -305,7 +346,9 @@ See Figure \ref{fig:ganttyear} for a broad brush timeline for the project.
 
 
 \end{ganttchart}
-\caption{Rough outline of the whole-project timeline. We have divided the time into 15 two-week sprints, beginning Monday 5th March and ending Monday 1st October}
+\caption{Rough outline of the whole-project timeline. We have divided
+  the time into 15 two-week sprints, beginning Monday 5th March and
+  ending Monday 1st October}
 \label{fig:ganttyear}
 \end{figure}
 %\end{landscape}
