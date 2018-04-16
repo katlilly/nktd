@@ -36,19 +36,22 @@ We intend to build an app containing a suite of games that can be
 played without the use of one's hands. Entry to the app as well as
 control of the games will all be voice controlled.
 
-We have begun with a tetris game as a way to get started and learn the
-various things we'll need to learn, such as how to use open source
-speech recognition software, how to write an android app, etc. Tetris
-is a game that has very simple keyboard inputs, and for which there
-are many online tutorials for writing the game, so there shouldn't be
-significant challenges beyond capturing the voice commands.
+We have begun with a tetris game as a way to get started and
+familiarise ourselves with the speech recognition software and learn
+how to write an Android app. Tetris is a game that has very simple
+keyboard inputs, and for which there are many online tutorials for
+writing the game, so there shouldn't be significant challenges beyond
+capturing the voice commands.
 
-After this we intend to add additional games. We intend to explore the
-possibility of games that may be more interesting to control by voice
-than tetris is. One can imagine games where the gameplay could be
-changed or improved by controlling this with changes in the pitch or
-loudness of your voice rather than keyboard or touch screen inputs,
-but don't have any well formed ideas about this yet.
+After this we intend to add at least one additional game. We intend to
+explore the possibility of games that may be more interesting to
+control by voice than tetris is, where the gameplay is improved by
+being voice controlled rather than keyboard or touchscreen
+controlled. For example, there is a Mario-like game called Scream Go
+\url{} where the character is controlled by the pitch and volume of
+the player's voice, rather than with voice commands. Another example
+is Full Voice Throttle \url{}, a car racing game where accelaration is
+controlled by ... pitch? turning?
 
 The working title of our app is `nktd', the most pleasing permutation
 of our initials. \url{http://github.com/katlilly/nktd}
@@ -60,6 +63,13 @@ We spoke to the manager of disability students here at otago, talked
 to her about what the real needs of students and staff here are. Her
 main point was that mental health issues are the biggest contributer, and we
 
+talk about why games
+
+what we want to get out of this project - a fun challenge, none of us
+had written games before. doable goals within the one year timescale,
+eg, using existing games to get started with.
+
+
 what proportion of population have this...?
 
 
@@ -68,22 +78,33 @@ either permanently or temporarily. The app will be launched with the
 voice control in the operating system, and the user will be able to
 select a game and play it using only voice commands. 
 
-Our intended users are defined not by a particular illness, injury
-or other source of disability, but by this particular aspect of their
+Our intended users are defined not by a particular illness, injury or
+other source of disability, but by this particular aspect of their
 interaction with a device, that they are unable to use their hands at
 this time. Our users may include amputees, people with a hand tremor,
-people with a broken arm, and so on.
+people with a broken arm, people with arthritis, carpel tunnel
+syndrome and so on.
 
-We assume that our users have already solved the problem of holding and unlocking their device, and already have their device set up to use the OS voice recognition features, which will allow them to open the app by voice control. The only hardware necessary is the built in microphone that all phones and tablets have so far as we are aware.
+We assume that our users have already solved the problem of holding
+and unlocking their device, and already have their device set up to
+use the OS voice recognition features, which will allow them to open
+the app by voice control.  The only hardware necessary is the built in
+microphone that all phones and tablets have so far as we are aware.
+Daniel says you can add a 'voice action' to okay google in our app
+that allows users to open it by voice command.
 
+An example user eg a child who is stuck in hospital or in bed with an
+injury, games can alleviate bordem but also can help with coping with
+pain.
 
 look up best practice for writing software for this disability....?
 
 We are beginning with voice control as a substitute for key presses
 and touch screen control, but also want to explore the possibility of
-using eye tracking for some aspects of our app. With our current
-understanding, it seems that this may be a bigger, harder problem
-than using voice control, and is not one of our primary goals.
+using eye tracking for some aspects of our app. This may be more than
+we can get working well within the timeframe of this project, but we
+will make the call on whether or not to include this in the future,
+and won't do so at the expence of getting voice control working well.
 
 
 \subsection*{Platforms}
@@ -99,35 +120,51 @@ devices.
 
 \section*{How we will build it}
 
-The game logic and the Android app will be written in Java. We are using open source voice recognition software CMUSphinx from \url{https://cmusphinx.github.io} using open source voice recognition software. More specifically, we are using sphinx4.
+The game logic and the Android app will be written in Java. We are
+using open source voice recognition software CMUSphinx from
+\url{https://cmusphinx.github.io} using open source voice recognition
+software. More specifically, we are using sphinx4.
 
 The speech recognition system requires three parts:
 \begin{itemize}
-\item An acoustic model consisting of acoustic properties for each `phone' or unit of sound.
+\item An acoustic model consisting of acoustic properties for each
+  `phone' or unit of sound.
 \item A dictionary mapping combinations of phones to words.
-\item A grammar model that tells the system valid combinations of words it will hear.
+\item A grammar model that tells the system valid combinations of
+  words it will hear.
 \end{itemize}
 
-The dictionary and the acoustic model can be shared among all games we make, but we
-will need to write a new grammar model for each game.
+The dictionary and the acoustic model can be shared among all games we
+make, but we will need to write a new grammar model for each game.
 
-We will be using one of CMUSphinx's pre-built acoustic models downloaded from \url{https://sourceforge.net/projects/cmusphinx}. Our dictionaries will be generated for us by CMUSphinx's LMTool here: \url{www.speech.cs.cmu.edu/tools/lmtool-new.html}. The grammar models we need to write ourselves in JSFG - Java Speech Grammar Format
+We will be using one of CMUSphinx's pre-built acoustic models
+downloaded from \url{https://sourceforge.net/projects/cmusphinx}. Our
+dictionaries will be generated for us by CMUSphinx's LMTool here:
+\url{www.speech.cs.cmu.edu/tools/lmtool-new.html}. The grammar models
+we need to write ourselves in JSFG - Java Speech Grammar Format
 
-The speech recognition will only work accurately on audio of the same sample rate/number of channels 
-as the audio its acoustic model was trained on. The CMUSphinx model was trained on 16Khz, 16bit Mono
-audio. This means that potentially we will need to downsample the audio being recieved from the user's
-microphone before it is interpreted. We can do this using the Java Sound API.
+The speech recognition will only work accurately on audio of the same
+sample rate/number of channels as the audio its acoustic model was
+trained on. The CMUSphinx model was trained on 16Khz, 16bit Mono
+audio. This means that potentially we will need to downsample the
+audio being recieved from the user's microphone before it is
+interpreted. We can do this using the Java Sound API.
+
+We will also need to learn how to incorporate pitch and volume
+information into our game control, this won't be done with CMUSphinx,
+but we have not yet done any real research into this aspect of the
+project.
 
 
 \subsection*{Team member roles}
 
 \begin{description}
-\item [Nathan] Android app development, has created a basic framework
+\item [Nathan:] Android app development, has created a basic framework
   for our games to sit in. Designing user interface and graphics.
-\item [Kat] Reporting, documentation, writing game logic. Secondary tester.
-\item [Tobyn] Graphics, ideas for new games and coding them
+\item [Kat:] Reporting, documentation, writing game logic. Secondary tester.
+\item [Tobyn:] Graphics, ideas for new games and coding them
   up. Writing user documentation
-\item [Daniel] Lead test developer. Working with open source voice
+\item [Daniel:] Lead test developer. Working with open source voice
   recognition software, speech recognition and audio inputs.
 \end{description}
 
