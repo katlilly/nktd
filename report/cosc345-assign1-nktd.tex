@@ -9,12 +9,25 @@
 \usepackage{blindtext}					
 \usepackage{amssymb}
 \usepackage{hyperref}
+\usepackage{lscape}
+\usepackage{floatpag}
+\newcounter{myWeekNum}
+\stepcounter{myWeekNum}
+\floatpagestyle{empty}
+
+\newcommand{\myWeek}{\themyWeekNum
+    \stepcounter{myWeekNum}
+    \ifnum\themyWeekNum=53
+         \setcounter{myWeekNum}{1}
+    \else\fi
+}
 
 \title{COSC 345 Assignment 1} \author{Nathan Kennedy \texttt{1006384},
-  Kat Lilly \texttt{8867318}, Tobyn Packer \texttt{1234567}, and
+  Kat Lilly \texttt{8867318}, Tobyn Packer \texttt{5003352}, and
   \\Daniel Davidson \texttt{375621}} \date{\today}
 
 \begin{document}
+
 \maketitle
 
 \section*{What we are going to build}
@@ -61,11 +74,10 @@ interaction with a device, that they are unable to use their hands at
 this time. Our users may include amputees, people with a hand tremor,
 people with a broken arm, and so on.
 
-other problems like holding the device...?
+We assume that our users have already solved the problem of holding and unlocking their device, and already have their device set up to use the OS voice recognition features, which will allow them to open the app by voice control. The only hardware necessary is the built in microphone that all phones and tablets have so far as we are aware.
+
 
 look up best practice for writing software for this disability....?
-
-every phone and tablet has a microphone, the os has voice control stuff built in...
 
 We are beginning with voice control as a substitute for key presses
 and touch screen control, but also want to explore the possibility of
@@ -87,13 +99,25 @@ devices.
 
 \section*{How we will build it}
 
-The game logic and the Android app will be written in Java. We are
-using open source voice recognition software CMUSphinx from \url{http://github.com/}
+The game logic and the Android app will be written in Java. We are using open source voice recognition software CMUSphinx from \url{https://cmusphinx.github.io} using open source voice recognition software. More specifically, we are using sphinx4.
 
-% daniel will write a paragraph about app structure to put here
+The speech recognition system requires three parts:
+\begin{itemize}
+\item An acoustic model consisting of acoustic properties for each `phone' or unit of sound.
+\item A dictionary mapping combinations of phones to words.
+\item A grammar model that tells the system valid combinations of words it will hear.
+\end{itemize}
 
+The dictionary and the acoustic model can be shared among all games we make, but we
+will need to write a new grammar model for each game.
 
-{\em This section and team member roles both need more detail}
+We will be using one of CMUSphinx's pre-built acoustic models downloaded from \url{https://sourceforge.net/projects/cmusphinx}. Our dictionaries will be generated for us by CMUSphinx's LMTool here: \url{www.speech.cs.cmu.edu/tools/lmtool-new.html}. The grammar models we need to write ourselves in JSFG - Java Speech Grammar Format
+
+The speech recognition will only work accurately on audio of the same sample rate/number of channels 
+as the audio its acoustic model was trained on. The CMUSphinx model was trained on 16Khz, 16bit Mono
+audio. This means that potentially we will need to downsample the audio being recieved from the user's
+microphone before it is interpreted. We can do this using the Java Sound API.
+
 
 \subsection*{Team member roles}
 
@@ -130,7 +154,131 @@ and for notes about how aspects of the project work.
 
 \section*{Project Timeline}
 
-{\em Kat currently working on a couple of gantt charts to put here}
+See figure \ref{fig:ganttyear} for a broad brush timeline for the project.
+
+% alpha release timeline gantt chart
+%\setcounter{myWeekNum}{6}
+%\ganttset{%
+%calendar week text={\myWeek{}}%
+%}
+%\begin{figure}[h!bt]
+%\begin{center}
+%\begin{ganttchart}[
+%vgrid={*{6}{draw=none}, dotted},
+%x unit=.08cm,
+%y unit title=.8cm,
+%y unit chart=.6cm,
+%time slot format=isodate,
+%time slot format/start date=2018-04-16]{2018-04-16}{2018-05-28}
+%\ganttset{bar height=.6}
+%\gantttitlecalendar{year, month=name, week} \\
+%\ganttbar[bar/.append style={fill=none}]{Task 1}{2014-12-01}{2015-01-19}\\
+%\ganttbar[bar/.append style={fill=gray}]{Task 2}{2015-03-10}{2015-04-19}
+%\end{ganttchart}
+%\end{center}
+%\caption{Alpha release timeline}
+%\end{figure}
+
+
+% whole project gantt chart
+\begin{landscape}
+\begin{figure}
+\begin{ganttchart}[
+        title/.append style={fill=black!10},
+        hgrid,
+        %vgrid={draw=none, dotted},
+        x unit=2.3pt,
+        y unit title=0.6cm,
+        y unit chart=0.6cm,
+        title label font={\small},
+        time slot format=simple,
+        milestone/.append style={xscale=4} % adjusting for my small x unit
+        ]{1}{215} %215 days between March 1st and October 1st
+ 
+ % write year, month, and sprint headers
+    \gantttitle{2018}{215} \\
+    \gantttitle{March}{31}
+    \gantttitle{April}{30}
+    \gantttitle{May}{31}
+    \gantttitle{June}{30}
+    \gantttitle{July}{31}
+    \gantttitle{August}{31}
+    \gantttitle{September}{30}
+    \gantttitle{}{1}\\ % estimated date of final assignment is October 1st
+    \gantttitle{}{5} % set start date to 5th March
+    \gantttitle{1}{14} % there are 15 two week sprints in the project timeline
+    \gantttitle{2}{14}
+    \gantttitle{3}{14}
+    \gantttitle{4}{14}
+    \gantttitle{5}{14}
+    \gantttitle{6}{14}
+    \gantttitle{7}{14} 
+    \gantttitle{8}{14}
+    \gantttitle{9}{14}
+    \gantttitle{10}{14}
+    \gantttitle{11}{14}
+    \gantttitle{12}{14}
+    \gantttitle{13}{14}
+    \gantttitle{14}{14}
+    \gantttitle{15}{14}\\
+% end of header stuff
+
+{\small % set text size for tasks to small
+
+% Stage 1
+\ganttbar{\small Develop idea}{5}{16}\\
+\ganttbar{\small Tetris game logic}{19}{29} \\
+\ganttbar{\small Create basic app}{19}{47} \\
+\ganttbar[progress=20]{\small Tetris java graphics}{33}{58} \\
+\ganttbar[progress=80]{\small Basic voice recognition}{19}{58} \\
+\ganttmilestone{1st Report due}{47} \\
+
+% Stage 2 - to Alpha Release
+\ganttbar[bar/.append style={fill=gray}]{\small Tetris in Android app}{61}{72} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Accepting voice commands}{61}{72} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Works on tablet and phone}{75}{89} \\
+\ganttmilestone{Alpha Release}{89}\\
+
+% Stage 3 - to Beta Release
+\ganttbar[bar/.append style={fill=gray}]{\small 1 additional game}{95}{117} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Login feature}{95}{117} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Smartwatch version}{95}{117} \\
+\ganttmilestone{Beta Release}{145}\\
+
+% Stage 4 - To finished product
+\ganttbar[bar/.append style={fill=gray}]{\small 3rd game added}{145}{168} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Fast interpretation of commands}{145}{168} \\
+\ganttbar[bar/.append style={fill=gray}]{\small 90 \% voice command accuracy}{145}{168} \\
+
+\ganttmilestone{Finished product}{215}
+
+} % end set font size
+
+% link dependent elements
+\ganttlink{elem0}{elem5}
+\ganttlink{elem0}{elem1}
+\ganttlink{elem0}{elem2}
+\ganttlink{elem0}{elem3}
+\ganttlink{elem0}{elem4}
+\ganttlink{elem1}{elem6}
+\ganttlink{elem2}{elem6}
+\ganttlink{elem3}{elem6}
+\ganttlink{elem6}{elem8}
+\ganttlink{elem7}{elem8}
+\ganttlink{elem8}{elem9}
+\ganttlink{elem11}{elem13}
+\ganttlink{elem12}{elem13}
+
+
+%\ganttlink{elem}{elem}
+
+
+\end{ganttchart}
+\caption{Rough outline of the whole-project timeline. We have divided the time into 15 two-week sprints, beginning Monday 5th March and ending Monday 1st October}
+\label{fig:ganttyear}
+\end{figure}
+\end{landscape}
+
 
 %% \begin{ganttchart}[hgrid,
 %%     vgrid,
@@ -186,5 +334,4 @@ and for notes about how aspects of the project work.
 
 
 
-\end{document}  
 
