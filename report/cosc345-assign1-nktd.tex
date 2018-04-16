@@ -1,7 +1,6 @@
 \documentclass[11pt, oneside]{article}  
 \usepackage{geometry}                	
 \geometry{a4paper}
-%\geometry{USletter}
 \usepackage[parfill]{parskip}		
 \usepackage{graphicx}	
 \usepackage{pgfgantt}
@@ -11,10 +10,8 @@
 \usepackage{amssymb}
 \usepackage{hyperref}
 \usepackage{lscape}
-\usepackage{floatpag}
 \newcounter{myWeekNum}
 \stepcounter{myWeekNum}
-\floatpagestyle{empty}
 
 \newcommand{\myWeek}{\themyWeekNum
     \stepcounter{myWeekNum}
@@ -47,12 +44,12 @@ capturing the voice commands.
 After this we intend to add at least one additional game. We are
 exploring the possibility of games that may be more interesting to
 control by voice than tetris is, where the gameplay is improved or
-changed by being voice controlled. For example, there is a Mario-like
-game called Scream Go
-\url{https://www.youtube.com/watch?v=IyvjpgS9TAs} where a character
-navigates a world by walking and jumping movements, which are
+changed by being voice controlled. For example, there is a Mario-style
+game called ``Scream Go''
+\url{https://www.youtube.com/watch?v=IyvjpgS9TAs}, where a character
+navigates a world with walking and jumping movements, which are
 controlled by pitch and loudness of the player's voice. Another
-example is Full Voice Throttle
+example is ``Full Voice Throttle''
 \url{https://kushulain.itch.io/full-voice-throttle}, a motorbike
 racing game where acceleration is achieved by increasing the pitch of
 the player's voice, and the gear is changed by starting again at a
@@ -94,8 +91,9 @@ are focusing on this particular interaction with a device. Our users
 may include amputees, quadriplegics, or people with a hand tremor, a
 broken arm, arthritis, and so on.
 
-% of course not limited to those unable to use hands, hopefully our
-% game is fun enough to be worth playing for anyone
+Of course our users will not be restricted to those who are unable to use 
+their hands, and we hope that our games will be fun to play for anyone 
+without an impairment.
 
 A particular user might be a child who has broken both their wrists
 and is in pain. We know from personal experience that playing games
@@ -160,7 +158,7 @@ The speech recognition will only work accurately on audio of the same
 sample rate/number of channels as the audio its acoustic model was
 trained on. The CMUSphinx model was trained on 16Khz, 16bit Mono
 audio. This means that potentially we will need to downsample the
-audio being recieved from the user's microphone before it is
+audio being received from the user's microphone before it is
 interpreted. We can do this using the Java Sound API.
 
 We will also need to learn how to incorporate pitch and volume
@@ -188,7 +186,7 @@ project.
 We will manage our project using the Scrum framework, currently
 working with two week sprints. We have a regular team meeting on
 Mondays (more often when needed), where we catch each other up on what
-we have acheived over the previous week and what needs doing next. So
+we have achieved over the previous week and what needs doing next. So
 far these meetings have mostly been about evolving our idea of what we
 are actually trying to make.
 
@@ -202,6 +200,8 @@ workflow.
 We are using the github wiki to record what was discussed at meetings
 and for notes about how aspects of the project work.
 
+We intend to use a continuous integration tool to keep our code in a non-broken 
+state as much as possible, but don't yet have this functioning.
 
 \section*{Project Timeline}
 
@@ -213,40 +213,16 @@ Improvements in our beta release (Assignment 3) will include the
 addition of a second game, and the ability to log in to the app and
 keep your preferences and high scores between devices.
 
-Our finished product (Assignment 4) will be a thorougly tested, less
-buggy version than Assigment 3, with faster and more accurate
+Our finished product (Assignment 4) will be a thoroughly tested, less
+buggy version than Assignment 3, with faster and more accurate
 interpretation of voice commands as well as the possible addition of a
 third game and/or a smartwatch version.
 
 See Figure \ref{fig:ganttsem1} for our Semester One timeline, and
 Figure \ref{fig:ganttsem2} for a broad brush timeline for Semester Two.
 
-% alpha release timeline gantt chart
-%\setcounter{myWeekNum}{6}
-%\ganttset{%
-%calendar week text={\myWeek{}}%
-%}
-%\begin{figure}[h!bt]
-%\begin{center}
-%\begin{ganttchart}[
-%vgrid={*{6}{draw=none}, dotted},
-%x unit=.08cm,
-%y unit title=.8cm,
-%y unit chart=.6cm,
-%time slot format=isodate,
-%time slot format/start date=2018-04-16]{2018-04-16}{2018-05-28}
-%\ganttset{bar height=.6}
-%\gantttitlecalendar{year, month=name, week} \\
-%\ganttbar[bar/.append style={fill=none}]{Task 1}{2014-12-01}{2015-01-19}\\
-%\ganttbar[bar/.append style={fill=gray}]{Task 2}{2015-03-10}{2015-04-19}
-%\end{ganttchart}
-%\end{center}
-%\caption{Alpha release timeline}
-%\end{figure}
 
-
-% whole project gantt chart
-%\begin{landscape}
+% first semester gantt chart
 \begin{figure}
 \begin{ganttchart}[
         title/.append style={fill=black!10},
@@ -258,152 +234,113 @@ Figure \ref{fig:ganttsem2} for a broad brush timeline for Semester Two.
         title label font={\small},
         time slot format=simple,
         milestone/.append style={xscale=4} % adjusting for my small x unit
-        ]{1}{215} %215 days between March 1st and October 1st
+        ]{1}{84} %215 days between March 1st and October 1st
  
  % write year, month, and sprint headers
-    \gantttitle{2018}{215} \\
-    \gantttitle{March}{31}
+    \gantttitle{2018}{84} \\
+    \gantttitle{March}{26} % set start date to 5th march
     \gantttitle{April}{30}
-    \gantttitle{May}{31}
-    \gantttitle{June}{30}
-    \gantttitle{July}{31}
-    \gantttitle{August}{31}
-    \gantttitle{September}{30}
-    \gantttitle{}{1}\\ % estimated date of final assignment is October 1st
-    \gantttitle{}{5} % set start date to 5th March
+    \gantttitle{May}{28}\\ 
+
     \gantttitle{1}{14} % there are 15 two week sprints in the project timeline
     \gantttitle{2}{14}
     \gantttitle{3}{14}
     \gantttitle{4}{14}
     \gantttitle{5}{14}
-    \gantttitle{6}{14}
-    \gantttitle{7}{14} 
-    \gantttitle{8}{14}
-    \gantttitle{9}{14}
-    \gantttitle{10}{14}
-    \gantttitle{11}{14}
-    \gantttitle{12}{14}
-    \gantttitle{13}{14}
-    \gantttitle{14}{14}
-    \gantttitle{15}{14}\\
+    \gantttitle{6}{14}\\
 % end of header stuff
 
 {\small % set text size for tasks to small
 
 % Stage 1
-\ganttbar{\small Develop idea}{5}{16}\\
-\ganttbar{\small Research voice recognition}{19}{29} \\
-\ganttbar{\small Tetris game logic}{19}{29} \\
-\ganttbar{\small Create basic app}{19}{47} \\
-
-
-\ganttbar{\small Tetris-specific voice commands}{33}{47} \\
-\ganttbar[progress=20]{\small Tetris graphics in java}{33}{58} \\
-\ganttbar[progress=50]{\small Researching other games}{33}{58} \\
+\ganttbar{\small Develop idea}{1}{14}\\
+\ganttbar{\small Research voice recognition}{15}{28} \\
+\ganttbar{\small Tetris game logic}{15}{28} \\
+\ganttbar{\small Create basic app}{15}{28} \\
+\ganttbar{\small Tetris-specific voice commands}{29}{42} \\
+\ganttbar[progress=20]{\small Tetris graphics in java}{29}{56} \\
+\ganttbar[progress=50]{\small Researching other games}{29}{56} \\
 \ganttmilestone{1st Report due}{47} \\
 
 % Stage 2 - to Alpha Release
-\ganttbar[bar/.append style={fill=gray}]{\small Tetris running in Android app}{47}{72} \\
-\ganttbar[bar/.append style={fill=gray}]{\small Tetris controllable by voice}{47}{89} \\
-\ganttbar[bar/.append style={fill=gray}]{\small App works on tablet and phone}{75}{89} \\
-\ganttbar[bar/.append style={fill=gray}]{\small Start writing second game}{75}{117} \\
-
-
-\ganttmilestone{Alpha Release}{89}\\
-
-% Stage 3 - to Beta Release
-\ganttbar[bar/.append style={fill=gray}]{\small 1 additional game}{95}{117} \\
-\ganttbar[bar/.append style={fill=gray}]{\small Login feature}{95}{117} \\
-\ganttbar[bar/.append style={fill=gray}]{\small Smartwatch version}{95}{117} \\
-\ganttmilestone{Beta Release}{145}\\
-
-% Stage 4 - To finished product
-\ganttbar[bar/.append style={fill=gray}]{\small 3rd game added}{145}{168} \\
-\ganttbar[bar/.append style={fill=gray}]{\small Fast interpretation of commands}{145}{168} \\
-\ganttbar[bar/.append style={fill=gray}]{\small 90 \% voice command accuracy}{145}{168} \\
-
-\ganttmilestone{Finished product}{215}
+\ganttbar[bar/.append style={fill=gray}]{\small App works on tablet and phone}{57}{70} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Start writing a second game}{57}{84} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Tetris running in Android app}{71}{81} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Tetris controllable by voice}{71}{81} \\
+\ganttmilestone{Alpha Release}{84}
 
 } % end set font size
 
 % link dependent elements
 %\ganttlink{elem0}{elem5}
 %\ganttlink{elem0}{elem1}
-%\ganttlink{elem0}{elem2}
-%\ganttlink{elem0}{elem3}
-%\ganttlink{elem0}{elem4}
-%\ganttlink{elem1}{elem6}
+
+\end{ganttchart}
+\caption{Semester One timeline. We have divided our first semester efforts into 6 two-week sprints, beginning March 6th and ending with Assignment Two deadline on Monday 28th May.}
+\label{fig:ganttsem1}
+\end{figure}
+
+
+% second semester gantt chart
+\begin{figure}
+\begin{ganttchart}[
+        title/.append style={fill=black!10},
+        hgrid,
+        x unit=2.3pt,
+        y unit title=0.6cm,
+        y unit chart=0.6cm,
+        title label font={\small},
+        time slot format=simple,
+        milestone/.append style={xscale=4} % adjusting for my small x unit
+        ]{1}{84} %215 days between March 1st and October 1st
+ 
+ % write year, month, and sprint headers
+    \gantttitle{2018}{84} \\
+    \gantttitle{July}{22}     % semester 2 starts 9th July
+    \gantttitle{August}{31}
+    \gantttitle{September}{30}
+    \gantttitle{}{1}\\ % estimated date of final assignment is October 1st
+
+    \gantttitle{7}{14} 
+    \gantttitle{8}{14}
+    \gantttitle{9}{14}
+    \gantttitle{10}{14}
+    \gantttitle{11}{14}
+    \gantttitle{12}{14}\\
+% end of header stuff
+
+{\small % set text size for tasks to small
+
+% Stage 3 - to Beta Release
+\ganttbar[bar/.append style={fill=gray}]{\small User testing of alpha release}{1}{14} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Complete logic for second game}{1}{14} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Voice commands for second game}{15}{28} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Add login feature}{15}{28} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Possible smartwatch version?}{29}{42} \\
+\ganttmilestone{Beta Release}{42}\\
+
+% Stage 4 - To finished product
+\ganttbar[bar/.append style={fill=gray}]{\small User testing of beta release}{43}{56} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Addition of 3rd game?}{43}{56} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Fast interpretation of commands}{57}{70} \\
+\ganttbar[bar/.append style={fill=gray}]{\small 90\% voice command accuracy}{57}{70} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Don't panic}{71}{83} \\
+\ganttmilestone{Finished product}{84}
+
+} % end set font size
+
+% link dependent elements
 %\ganttlink{elem2}{elem6}
 %\ganttlink{elem3}{elem6}
 %\ganttlink{elem6}{elem8}
-%\ganttlink{elem7}{elem8}
-%\ganttlink{elem8}{elem9}
-%\ganttlink{elem11}{elem13}
-%\ganttlink{elem12}{elem13}
-
-
-%\ganttlink{elem}{elem}
-
 
 \end{ganttchart}
-\caption{Rough outline of the whole-project timeline. We have divided
-  the time into 15 two-week sprints, beginning Monday 5th March and
-  ending Monday 1st October}
-\label{fig:ganttyear}
+\caption{Rough outline of our Semester Two timeline, composed of 6 two-week sprints beginning Monday 9th July, with an estimated due date for the final product of Monday 1st October.}
+\label{fig:ganttsem2}
 \end{figure}
-%\end{landscape}
-
-
-%% \begin{ganttchart}[hgrid,
-%%     vgrid,
-%%     time slot format=isodate-yearmonth,
-%%     time slot unit=month]{2012-03}{2014-1}
-%%   \gantttitlecalendar{year, month} \\
-%%   \ganttbar{}{2012-05}{2013-01}
-%%   \end{ganttchart}
-
-
-
-%
-%\begin{ganttchart}{1}{12}
-%\gantttitle{2018}{7} \\
-%\gantttitlelist{1,...,7}{1} \\
-%\ganttgroup[progress=50]{Group 1}{1}{7} \\
-%\ganttbar{Task 1}{1}{2} \\
-%\ganttbar{Task 1}\\
-%\ganttlinkedbar[progress=20]{Task 2}{3}{7} \ganttnewline
-%\ganttmilestone{Assignment 1 due}{7} \ganttnewline
-%\ganttbar{Final Task}{8}{12} \ganttnewline
-%\ganttmilestone{Alpha release}{7} \ganttnewline
-%\ganttlink{elem2}{elem3}
-%\ganttlink{elem3}{elem4}
-%\ganttmilestone{Beta release}{6} \ganttnewline
-%\ganttlink{elem1}{elem3}
-%\end{ganttchart}
-%
-
-
 
 
 \end{document}
-
-
-
-
-%\begin{ganttchart}{1}{12}
-%\gantttitle{2018}{12} \\
-%\gantttitlelist{1,...,12}{1} \\
-%\ganttgroup[progress=50]{Group 1}{1}{7} \\
-%\ganttbar{Task 1}{1}{2} \\
-%\ganttbar{Task 1}\\
-%\ganttlinkedbar[progress=20]{Task 2}{3}{7} \ganttnewline
-%\ganttmilestone{Assignment 1 (report)}{7} \ganttnewline
-%\ganttbar{Final Task}{8}{12} \ganttnewline
-%\ganttmilestone{Assignment 2 (alpha release)}{7} \ganttnewline
-%\ganttlink{elem2}{elem3}
-%\ganttlink{elem3}{elem4}
-%\ganttlink{elem1}{elem3}
-%\end{ganttchart}
 
 
 
