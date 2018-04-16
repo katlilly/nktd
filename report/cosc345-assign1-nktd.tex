@@ -34,23 +34,20 @@
 
 We intend to build an app containing a suite of games that can be
 played without the use of one's hands. Entry to the app as well as
-control of the games will all be voice controlled.
+control of the games will be by voice command.
 
-We have begun with a tetris game as a way to get started and
-familiarise ourselves with the speech recognition software and learn
+We have begun with a tetris game as a way to get started, to familiarize ourselves with speech recognition software, and to learn
 how to write an Android app. Tetris is a game that has very simple
 keyboard inputs, and for which there are many online tutorials for
 writing the game, so there shouldn't be significant challenges beyond
 capturing the voice commands.
 
-After this we intend to add at least one additional game. We intend to
-explore the possibility of games that may be more interesting to
-control by voice than tetris is, where the gameplay is improved by
-being voice controlled rather than keyboard or touchscreen
-controlled. For example, there is a Mario-like game called Scream Go
+After this we intend to add at least one additional game. We are exploring the possibility of games that may be more interesting to
+control by voice than tetris is, where the gameplay is improved or changed by
+being voice controlled. For example, there is a Mario-like game called Scream Go
 \url{} where the character is controlled by the pitch and volume of
 the player's voice, rather than with voice commands. Another example
-is Full Voice Throttle \url{}, a car racing game where accelaration is
+is Full Voice Throttle \url{}, a car racing game where acceleration is
 controlled by ... pitch? turning?
 
 The working title of our app is `nktd', the most pleasing permutation
@@ -59,19 +56,13 @@ of our initials. \url{http://github.com/katlilly/nktd}
 
 \subsection*{Intended users}
 
-We spoke to the manager of disability students here at otago, talked
-to her about what the real needs of students and staff here are. Her
-main point was that mental health issues are the biggest contributer, and we
+We spoke to the manager of the disability support unit here at Otago, and talked
+with her about what the real needs of students and staff here are. Her
+main point was that mental health issues are the biggest issue, and so we briefly explored the possibility of a project aimed at supporting Otago students in this area. However, none of us were particularly keen to take on such a weighty issue as this, and we also felt that a project like this would involve a lot of work writing content and doing research about non CS topics, which is not how we would prefer to spend most of our effort.
 
-talk about why games
+Instead we have chosen to write games that can be controlled without the use of hands. None of us had written games before, and we were all keen for that particular challenge. In addition, we believe this will be a project where there is a very achievable minimum product that we can get started with, as well as lots of opportunity to expand on it within the timescale of one academic year. We feel that this will be a good project for learning a lot of the skills we want to get out of this software engineering course.
 
-what we want to get out of this project - a fun challenge, none of us
-had written games before. doable goals within the one year timescale,
-eg, using existing games to get started with.
-
-
-what proportion of population have this...?
-
+%what proportion of population have this...?
 
 Our target users are anyone who does not have full use of their hands,
 either permanently or temporarily. The app will be launched with the
@@ -81,30 +72,23 @@ select a game and play it using only voice commands.
 Our intended users are defined not by a particular illness, injury or
 other source of disability, but by this particular aspect of their
 interaction with a device, that they are unable to use their hands at
-this time. Our users may include amputees, people with a hand tremor,
-people with a broken arm, people with arthritis, carpel tunnel
-syndrome and so on.
+this time. Our users may include amputees, quadriplegics, or people with a hand tremor,
+a broken arm, arthritis, and so on.
+
+A particular user might be a child who has broken both their wrists and is in pain, as we know from personal experience that playing games is not only a solution to boredom but can be really good for coping with pain.
 
 We assume that our users have already solved the problem of holding
-and unlocking their device, and already have their device set up to
-use the OS voice recognition features, which will allow them to open
-the app by voice control.  The only hardware necessary is the built in
-microphone that all phones and tablets have so far as we are aware.
-Daniel says you can add a 'voice action' to okay google in our app
-that allows users to open it by voice command.
+and unlocking their device, and are using the operating system's voice recognition features. We will use the system-provided Voice Actions to allow users to open our app by a voice command such as ``OK Google, play tetris''.
 
-An example user eg a child who is stuck in hospital or in bed with an
-injury, games can alleviate bordem but also can help with coping with
-pain.
+No specialised hardware will be necessary, just the built in microphone that all phones and tablets have.
 
-look up best practice for writing software for this disability....?
+%look up best practice for writing software for this disability....?
 
 We are beginning with voice control as a substitute for key presses
 and touch screen control, but also want to explore the possibility of
-using eye tracking for some aspects of our app. This may be more than
+using eye tracking for some aspects of our app. It is likely that this will be more than
 we can get working well within the timeframe of this project, but we
-will make the call on whether or not to include this in the future,
-and won't do so at the expence of getting voice control working well.
+will make the call after further research, and not at the expense of getting voice control working well.
 
 
 \subsection*{Platforms}
@@ -152,20 +136,17 @@ interpreted. We can do this using the Java Sound API.
 
 We will also need to learn how to incorporate pitch and volume
 information into our game control, this won't be done with CMUSphinx,
-but we have not yet done any real research into this aspect of the
+and we have not yet done any real research into this aspect of the
 project.
 
 
 \subsection*{Team member roles}
 
 \begin{description}
-\item [Nathan:] Android app development, has created a basic framework
-  for our games to sit in. Designing user interface and graphics.
-\item [Kat:] Reporting, documentation, writing game logic. Secondary tester.
-\item [Tobyn:] Graphics, ideas for new games and coding them
-  up. Writing user documentation
-\item [Daniel:] Lead test developer. Working with open source voice
-  recognition software, speech recognition and audio inputs.
+\item [Nathan] Android app development, designing user interface and graphics.
+\item [Kat] Writing reports and meeting minutes, writing game logic, some testing.
+\item [Tobyn] Graphics, ideas for new games and coding them. Writing user documentation
+\item [Daniel] Lead test developer, working with open source voice recognition software, speech recognition and audio inputs.
 \end{description}
 
 
@@ -191,7 +172,13 @@ and for notes about how aspects of the project work.
 
 \section*{Project Timeline}
 
-See figure \ref{fig:ganttyear} for a broad brush timeline for the project.
+Our alpha release (assignment 2) will be an app in which the user can play tetris purely with voice commands, and will work on both Android phones and Android tablets.
+
+Improvements in our beta release (assignment 3) will include the addition of a second game, and the ability to log in to the app and keep your preferences and high scores between devices.
+
+Our finished product (assignment 4) will be a thorougly tested, less buggy version of assigment 3, with faster and more accurate interpretation of voice commands as well as the possible addition of a third game and/or a smartwatch version.
+
+See Figure \ref{fig:ganttyear} for a broad brush timeline for the project.
 
 % alpha release timeline gantt chart
 %\setcounter{myWeekNum}{6}
@@ -218,7 +205,7 @@ See figure \ref{fig:ganttyear} for a broad brush timeline for the project.
 
 
 % whole project gantt chart
-\begin{landscape}
+%\begin{landscape}
 \begin{figure}
 \begin{ganttchart}[
         title/.append style={fill=black!10},
@@ -264,16 +251,23 @@ See figure \ref{fig:ganttyear} for a broad brush timeline for the project.
 
 % Stage 1
 \ganttbar{\small Develop idea}{5}{16}\\
+\ganttbar{\small Research voice recognition}{19}{29} \\
 \ganttbar{\small Tetris game logic}{19}{29} \\
 \ganttbar{\small Create basic app}{19}{47} \\
-\ganttbar[progress=20]{\small Tetris java graphics}{33}{58} \\
-\ganttbar[progress=80]{\small Basic voice recognition}{19}{58} \\
+
+
+\ganttbar{\small Tetris-specific voice commands}{33}{47} \\
+\ganttbar[progress=20]{\small Tetris graphics in java}{33}{58} \\
+\ganttbar[progress=50]{\small Researching other games}{33}{58} \\
 \ganttmilestone{1st Report due}{47} \\
 
 % Stage 2 - to Alpha Release
-\ganttbar[bar/.append style={fill=gray}]{\small Tetris in Android app}{61}{72} \\
-\ganttbar[bar/.append style={fill=gray}]{\small Accepting voice commands}{61}{72} \\
-\ganttbar[bar/.append style={fill=gray}]{\small Works on tablet and phone}{75}{89} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Tetris running in Android app}{47}{72} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Tetris controllable by voice}{47}{89} \\
+\ganttbar[bar/.append style={fill=gray}]{\small App works on tablet and phone}{75}{89} \\
+\ganttbar[bar/.append style={fill=gray}]{\small Start writing second game}{75}{117} \\
+
+
 \ganttmilestone{Alpha Release}{89}\\
 
 % Stage 3 - to Beta Release
@@ -292,19 +286,19 @@ See figure \ref{fig:ganttyear} for a broad brush timeline for the project.
 } % end set font size
 
 % link dependent elements
-\ganttlink{elem0}{elem5}
-\ganttlink{elem0}{elem1}
-\ganttlink{elem0}{elem2}
-\ganttlink{elem0}{elem3}
-\ganttlink{elem0}{elem4}
-\ganttlink{elem1}{elem6}
-\ganttlink{elem2}{elem6}
-\ganttlink{elem3}{elem6}
-\ganttlink{elem6}{elem8}
-\ganttlink{elem7}{elem8}
-\ganttlink{elem8}{elem9}
-\ganttlink{elem11}{elem13}
-\ganttlink{elem12}{elem13}
+%\ganttlink{elem0}{elem5}
+%\ganttlink{elem0}{elem1}
+%\ganttlink{elem0}{elem2}
+%\ganttlink{elem0}{elem3}
+%\ganttlink{elem0}{elem4}
+%\ganttlink{elem1}{elem6}
+%\ganttlink{elem2}{elem6}
+%\ganttlink{elem3}{elem6}
+%\ganttlink{elem6}{elem8}
+%\ganttlink{elem7}{elem8}
+%\ganttlink{elem8}{elem9}
+%\ganttlink{elem11}{elem13}
+%\ganttlink{elem12}{elem13}
 
 
 %\ganttlink{elem}{elem}
@@ -314,7 +308,7 @@ See figure \ref{fig:ganttyear} for a broad brush timeline for the project.
 \caption{Rough outline of the whole-project timeline. We have divided the time into 15 two-week sprints, beginning Monday 5th March and ending Monday 1st October}
 \label{fig:ganttyear}
 \end{figure}
-\end{landscape}
+%\end{landscape}
 
 
 %% \begin{ganttchart}[hgrid,
