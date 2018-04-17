@@ -1,2 +1,2 @@
 # nktd
-345 group project - Nathan, Kat, Tobin, Daniel
+345 group project - Nathan, Kat, Tobyn, Daniel
