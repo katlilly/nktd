@@ -1,4 +1,4 @@
-package controller;
+package SpeechControl.src.main.java.controller;
 
 import edu.cmu.sphinx.api.AbstractSpeechRecognizer;
 import edu.cmu.sphinx.api.Configuration;
