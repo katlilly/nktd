@@ -8,17 +8,6 @@ if (!hasProperty('mainClass')) {
     ext.mainClass = ''
 }
 
-//sourceSets {
-//    main {
-//        java {
-//            srcDir 'src'
-//        }
-//    }
-//    test {
-//        srcDir 'test'
-//    }    
-//}
-
 repositories {
     mavenCentral()
     mavenLocal()
