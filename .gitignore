@@ -27,3 +27,6 @@ local.properties
 .idea/libraries
 .idea/caches
 /NKTD/.nb-gradle/
+NKTD/SpeechControl/build/
+/NKTD/speech_control/.nb-gradle/
+/NKTD/speech_control/build/
