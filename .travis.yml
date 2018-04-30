@@ -3,7 +3,7 @@ jdk: oraclejdk8
 sudo: required
 dist: trusty
 before_install:
-- sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-full
+
 script:
 - javac -d Tetris/ Tetris/*.java
 
