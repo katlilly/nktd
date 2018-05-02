@@ -25,10 +25,10 @@ sudo: required
 dist: trusty
 
 before_install:
-- chmod +x ./gradlew
+- sudo chmod +x ./gradlew
 
 script:
 - javac -d Tetris/ Tetris/*.java
-- gradle check
+- ./gradlew check
 
 

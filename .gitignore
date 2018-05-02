@@ -26,11 +26,10 @@ local.properties
 .idea/dictionaries
 .idea/libraries
 .idea/caches
-/NKTD/.nb-gradle/
-NKTD/SpeechControl/build/
-/NKTD/speech_control/.nb-gradle/
-/NKTD/speech_control/build/
 /.nb-gradle/
 \.gradle/
+local.properties
+
 
 build/
+/tetris/.nb-gradle/
