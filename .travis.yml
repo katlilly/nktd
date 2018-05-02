@@ -7,6 +7,7 @@ before_install:
 
 
 script:
+- chmod +x ./gradlew
 - javac -d Tetris/ Tetris/*.java
 - gradle check
 
