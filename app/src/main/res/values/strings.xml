@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NKTD</string>
+    <string name="button_topleft">Tetris</string>
+    <string name="button_topright">Game 2</string>
+    <string name="button_bottomleft">Game 3</string>
+    <string name="button_bottomright">Game 4</string>
+</resources>
+
