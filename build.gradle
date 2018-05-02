@@ -15,10 +15,6 @@ buildscript {
     }
 }
 
-lintOptions {
-    abortOnError false
-}
-
 allprojects {
     repositories {
         google()
