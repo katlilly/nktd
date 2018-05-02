@@ -8,6 +8,7 @@ before_install:
 
 script:
 - javac -d Tetris/ Tetris/*.java
+- cd/NKTD
 - gradle check
 
 
