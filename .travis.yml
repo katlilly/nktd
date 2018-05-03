@@ -7,9 +7,9 @@ env:
       -ANDROID_BUILD_TOOLS_VERSION=25.0.2
 android:
    licenses:
-   - 'android-sdk-preview-license-.+'
-   - 'android-sdk-license-.+'
-   - 'google-gdk-license-.+'
+   - android-sdk-preview-license-.+
+   - android-sdk-license-.+
+   - google-gdk-license-.+
    components:
    - tools
    - build-tools-$ANDROID_BUILD_TOOLS_VERSION=25.0.2
@@ -28,8 +28,10 @@ before_install:
 - chmod +x ./gradlew
 - chmod +x gradlew
 - mkdir "$ANDROID_HOME/licences" || true
+- touch "$ANDROID_HOME/licences/android-sdk-license"
+- touch "$ANDROID_HOME/licences/android-sdk-preview-license"
 - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
-- echo -e "\n84831b9409646a918e30573bab4c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
+- echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
 
 script:
 - javac -d Tetris/ Tetris/*.java
