@@ -3,10 +3,14 @@ package application;
 import graphical.BoardPanel;
 import graphical.SidePanel;
 import graphical.TileType;
+import input.SoundRecorder;
 import java.awt.BorderLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
@@ -232,7 +236,15 @@ public class Tetris extends JFrame {
                                 resetGame();
                             }
                             break;
-				
+			
+                        case KeyEvent.VK_R:
+                            SoundRecorder recorder;
+                            try {
+                                recorder = new SoundRecorder("test");
+                                recorder.record();
+                            } catch (FileNotFoundException ex) {
+                                System.out.println(ex.getMessage());
+                            }
                     }
                 }
 			
