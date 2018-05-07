@@ -25,8 +25,8 @@ public class TestControls {
 	// don't do above, just test controls for now, later test in game?
 
 	// testing recorded input file version for now
-	audioFile = new InputStreamReader('filename.wav');
-	sc = new SpeechController(game, audioFile);
+	// audioFile = new InputStreamReader('filename.wav');
+	// sc = new SpeechController(game, audioFile);
 	// above is not right, first parameter should be a string
 
 
