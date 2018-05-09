@@ -34,3 +34,5 @@ local.properties
 build/
 /tetris/.nb-gradle/
 tetris/nbproject/project\.properties
+
+\.idea/

@@ -1,1 +1,1 @@
-include ':app', ':speech_control', ':tetris'
+include ':app', ':speech_control', ':tetris', ':audiomanager'
