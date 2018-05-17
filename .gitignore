@@ -30,6 +30,7 @@ local.properties
 \.gradle/
 local.properties
 
+*.gradle
 
 build/
 /tetris/.nb-gradle/
