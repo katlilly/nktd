@@ -1,7 +1,9 @@
-package com.example.nathan.nktd;
+package nktd;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import app.R;
 
 public class Game2Activity extends AppCompatActivity {
 

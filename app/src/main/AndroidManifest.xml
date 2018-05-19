@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.nathan.nktd">
+    package="app">
 
     <application
         android:allowBackup="true"
@@ -9,36 +9,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="nktd.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TetrisActivity"
-            android:parentActivityName=".MainActivity">
+        <activity android:name="nktd.TetrisActivity"
+            android:parentActivityName="nktd.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="nktd.MainActivity" />
         </activity>
-        <activity android:name=".Game2Activity"
-            android:parentActivityName=".MainActivity">
+        <activity android:name="nktd.Game2Activity"
+            android:parentActivityName="nktd.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="nktd.MainActivity" />
         </activity>
-        <activity android:name=".Game3Activity"
-            android:parentActivityName=".MainActivity">
+        <activity android:name="nktd.Game3Activity"
+            android:parentActivityName="nktd.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="nktd.MainActivity" />
         </activity>
-        <activity android:name=".Game4Activity">
-            android:parentActivityName=".MainActivity">
+        <activity android:name="nktd.Game4Activity">
+            android:parentActivityName="nktd.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="nktd.MainActivity" />
         </activity>
     </application>
 
