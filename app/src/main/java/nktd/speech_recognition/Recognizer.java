@@ -17,10 +17,11 @@ import edu.cmu.pocketsphinx.SpeechRecognizerSetup;
 public class Recognizer extends Service implements RecognitionListener{
 
     public class RecognizerBinder extends Binder {
-        Recognizer getService() {
+        public Recognizer getService() {
             return Recognizer.this;
         }
     }
+
     public final String TETRIS_NAME = "tetris-command";
 
     private SpeechRecognizer recognizer;

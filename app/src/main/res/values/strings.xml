@@ -4,5 +4,6 @@
     <string name="button_topright">Game 2</string>
     <string name="button_bottomleft">Game 3</string>
     <string name="button_bottomright">Game 4</string>
+    <string name="recognizer_description">Speech Recognizer</string>
 </resources>
 
