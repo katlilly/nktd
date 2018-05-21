@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">Speech_Recognition</string>
-    <string name="service_name">Recognizer</string>
-    <string name="service_description">A service to recognize spoken game commands</string>
-</resources>

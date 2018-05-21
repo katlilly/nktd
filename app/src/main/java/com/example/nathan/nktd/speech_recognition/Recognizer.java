@@ -1,9 +1,11 @@
 package nktd.speech_recognition;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,37 +19,40 @@ import edu.cmu.pocketsphinx.SpeechRecognizerSetup;
 public class Recognizer extends Service implements RecognitionListener{
 
     public class RecognizerBinder extends Binder {
-        Recognizer getService() {
+        public Recognizer getService() {
             return Recognizer.this;
         }
     }
-    public final String TETRIS_NAME = "tetris-command";
+
+    public static final String TETRIS_NAME = "tetris-command";
 
     private SpeechRecognizer recognizer;
     private String gameName;
     private boolean resultAchieved;
     private String result;
+    private Context parent;
 
-    public Recognizer() throws IOException {
+    public Recognizer(){}
+
+    /*public void setupRecognizer(){
         File assetsDir;
         try {
-            Assets assets = new Assets(this);
+            Assets assets = new Assets();
             assetsDir = assets.syncAssets();
+            recognizer = SpeechRecognizerSetup.defaultSetup()
+                    .setAcousticModel(new File(assetsDir
+                            , "cmusphinx-en-us-ptm-5.2"))
+                    .setDictionary(new File(assetsDir
+                            , "tetris-dictionary.dic"))
+                    .getRecognizer();
+            File grammarFile = new File(assetsDir, "tetris-grammar.gram");
+            recognizer.addGrammarSearch(TETRIS_NAME, grammarFile);
         } catch (IOException ex) {
-            throw ex;
+            Log.e("AssetInit", "failed");
         }
+    }*/
 
-        recognizer = SpeechRecognizerSetup.defaultSetup()
-            .setAcousticModel(new File(assetsDir
-                        , "cmusphinx-en-us-ptm-5.2"))
-            .setDictionary(new File(assetsDir
-                        , "tetris-dictionary.dic"))
-            .getRecognizer();
-        File grammarFile = new File(assetsDir, "tetris-grammar.gram");
-        recognizer.addGrammarSearch(TETRIS_NAME, grammarFile);
-    }
-
-    public String interpretCommand(){
+    public String interpretCommand(SpeechRecognizer recognizer){
         this.result = null;
         this.resultAchieved = false;
         recognizer.startListening(gameName, 10000);
