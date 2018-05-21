@@ -17,6 +17,8 @@ import edu.cmu.pocketsphinx.RecognitionListener;
 import edu.cmu.pocketsphinx.SpeechRecognizer;
 import edu.cmu.pocketsphinx.SpeechRecognizerSetup;
 
+import static android.widget.Toast.makeText;
+
 public class MainActivity extends AppCompatActivity implements RecognitionListener{
     public static final String EXTRA_MESSAGE = "com.example.nathan.nktd.MESSAGE";
 
@@ -26,6 +28,10 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /* Permissions */
+        
+
         new SetupTask(this).execute();
     }
 
@@ -78,7 +84,11 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
     @Override
     public void onResult(Hypothesis hypothesis) {
-
+        ((TextView) findViewById(R.id.resultText)).setText("");
+        if (hypothesis != null) {
+            String text = hypothesis.getHypstr();
+            ((TextView) findViewById(R.id.resultText)).setText(text);
+        }
     }
 
     @Override
