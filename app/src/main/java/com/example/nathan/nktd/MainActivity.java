@@ -1,7 +1,11 @@
 package com.example.nathan.nktd;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +26,8 @@ import static android.widget.Toast.makeText;
 public class MainActivity extends AppCompatActivity implements RecognitionListener{
     public static final String EXTRA_MESSAGE = "com.example.nathan.nktd.MESSAGE";
 
+    private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
+
     private SpeechRecognizer recognizer;
 
     @Override
@@ -30,8 +36,10 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         setContentView(R.layout.activity_main);
 
         /* Permissions */
-        
-
+        int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSIONS_REQUEST_RECORD_AUDIO);
+        }
         new SetupTask(this).execute();
     }
 
