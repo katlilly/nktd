@@ -1,4 +1,4 @@
-package nktd.speech_recognition;
+package com.example.nathan.nktd.speech_recognition;
 
 import android.app.Service;
 import android.content.Context;
@@ -16,7 +16,7 @@ import edu.cmu.pocketsphinx.RecognitionListener;
 import edu.cmu.pocketsphinx.SpeechRecognizer;
 import edu.cmu.pocketsphinx.SpeechRecognizerSetup;
 
-public class Recognizer extends Service implements RecognitionListener{
+public class Recognizer extends Service implements RecognitionListener {
 
     public class RecognizerBinder extends Binder {
         public Recognizer getService() {
