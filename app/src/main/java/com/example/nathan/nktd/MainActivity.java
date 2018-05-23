@@ -117,7 +117,8 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             if (text.equals("game one")) {
             }
             if (text.equals("game two")) {
-                //openG2(null);
+                openG2(null);
+                recognizer.stop();
             }
         }
     }
