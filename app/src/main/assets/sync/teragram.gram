@@ -1,0 +1,8 @@
+#JSGF V1.0;
+
+grammar teragram;
+
+<difficulty> = too (hard | easy)
+public <number> = (one | two | three | four | five | six | seven | eight | nine)
+public <operand> = (addition | subtraction | multiplication)
+public <option> = (<difficulty> | new question | confirm | exit)

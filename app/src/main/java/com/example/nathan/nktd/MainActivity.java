@@ -28,7 +28,12 @@ import static android.widget.Toast.makeText;
 public class MainActivity extends AppCompatActivity implements RecognitionListener{
     public static final String EXTRA_MESSAGE = "com.example.nathan.nktd.MESSAGE";
 
+    public static final String MENU_SEARCH = "menu";
+    public static final String TERAGRAM_SEARCH = "teragram";
+
     private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
+
+    private String result = ""; // what the interpreter hears
 
     private SpeechRecognizer recognizer;
 
@@ -49,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
         while (setupComplete == false) {
         }
-        recognizer.startListening("tetris");
+        recognizer.startListening(MENU_SEARCH);
     }
 
     @Override
@@ -72,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
     public void openG2(View view){
         Intent intent = new Intent(this, TeragramActivity.class);
-        startActivity(intent);
+        swapSearch(TERAGRAM_SEARCH);
+        //startActivity(intent);
     }
 
     public void openG3(View view){
@@ -85,23 +91,34 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         startActivity(intent);
     }
 
+    public String getResult() {
+        return result;
+    }
+
     private void setupRecognizer(File assetsDir) throws IOException {
 
         recognizer = SpeechRecognizerSetup.defaultSetup()
                 .setAcousticModel(new File(assetsDir, "cmusphinx-en-us-ptm-5.2"))
-                .setDictionary(new File(assetsDir, "menu.dic"))
+                .setDictionary(new File(assetsDir, "nktd.dic"))
                 .getRecognizer();
         recognizer.addListener(this);
 
-        File tetrisGrammar = new File(assetsDir, "menu.gram");
-        recognizer.addGrammarSearch("tetris", tetrisGrammar);
+        File menuGrammar = new File(assetsDir, "menu.gram");
+        File teragramGrammar = new File(assetsDir, "teragram.gram");
+        recognizer.addGrammarSearch(MENU_SEARCH, menuGrammar);
+        recognizer.addGrammarSearch(TERAGRAM_SEARCH, teragramGrammar);
+
         this.setupComplete = true;
+    }
+
+    private void swapSearch(String newSearch) {
+        recognizer.stop();
+        recognizer.startListening(newSearch);
     }
 
     @Override
     public void onBeginningOfSpeech() {
-        ((TextView) findViewById(R.id.resultText)).setText("found speech");
-
+        ((TextView) findViewById(R.id.resultText)).setText("say something");
     }
 
     @Override
@@ -112,13 +129,12 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     @Override
     public void onPartialResult(Hypothesis hypothesis) {
         if (hypothesis != null) {
-            String text = hypothesis.getHypstr();
-            ((TextView) findViewById(R.id.resultText)).setText(text);
-            if (text.equals("game one")) {
+            result = hypothesis.getHypstr();
+            ((TextView) findViewById(R.id.resultText)).setText(result);
+            if (result.equals("game one")) {
             }
-            if (text.equals("game two")) {
+            if (result.equals("game two")) {
                 openG2(null);
-                recognizer.stop();
             }
         }
     }
@@ -141,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     public void onTimeout() {
 
     }
-
 
     private static class SetupTask extends AsyncTask<Void, Void, Exception> {
         WeakReference<MainActivity> activityReference;
