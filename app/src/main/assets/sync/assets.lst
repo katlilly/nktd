@@ -7,5 +7,7 @@ cmusphinx-en-us-ptm-5.2/noisedict
 cmusphinx-en-us-ptm-5.2/sendump
 cmusphinx-en-us-ptm-5.2/transition_matrices
 cmusphinx-en-us-ptm-5.2/variances
+menu.dic
+menu.gram
 tetris-dictionary.dic
 tetris-grammar.gram

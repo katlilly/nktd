@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -88,11 +89,11 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
         recognizer = SpeechRecognizerSetup.defaultSetup()
                 .setAcousticModel(new File(assetsDir, "cmusphinx-en-us-ptm-5.2"))
-                .setDictionary(new File(assetsDir, "tetris-dictionary.dic"))
+                .setDictionary(new File(assetsDir, "menu.dic"))
                 .getRecognizer();
         recognizer.addListener(this);
 
-        File tetrisGrammar = new File(assetsDir, "tetris-grammar.gram");
+        File tetrisGrammar = new File(assetsDir, "menu.gram");
         recognizer.addGrammarSearch("tetris", tetrisGrammar);
         this.setupComplete = true;
     }
@@ -113,6 +114,11 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         if (hypothesis != null) {
             String text = hypothesis.getHypstr();
             ((TextView) findViewById(R.id.resultText)).setText(text);
+            if (text.equals("game one")) {
+            }
+            if (text.equals("game two")) {
+                //openG2(null);
+            }
         }
     }
 
@@ -150,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                 File assetDir = assets.syncAssets();
                 activityReference.get().setupRecognizer(assetDir);
             } catch (IOException e) {
+                Log.d("ex msg: ", e.getMessage());
                 return e;
             }
             return null;
