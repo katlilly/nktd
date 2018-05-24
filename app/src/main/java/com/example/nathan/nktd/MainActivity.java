@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* Permissions */
+        /* Permissions taken directly from pocketSphinx's demo app*/
         int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSIONS_REQUEST_RECORD_AUDIO);
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         recognizer.startListening(MENU_SEARCH);
     }
 
+    /* Permissions request taken directly from pocketSphinx's demo app */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions
             , @NonNull int[] grantResults) {
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
     @Override
     public void onEndOfSpeech() {
-
+        result = "";
     }
 
     @Override
@@ -132,11 +133,18 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             result = hypothesis.getHypstr();
             ((TextView) findViewById(R.id.resultText)).setText(result);
             if (result.equals("game one")) {
+                recognizer.stop();
+                recognizer.startListening(MENU_SEARCH);
             }
             if (result.equals("game two")) {
                 openG2(null);
             }
+            if (result.equals("exit")) {
+                recognizer.stop();
+                recognizer.startListening(MENU_SEARCH);
+            }
         }
+
     }
 
     @Override
@@ -158,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
     }
 
+    /* Setup class taken directly from pocketSphinx's demo app */
     private static class SetupTask extends AsyncTask<Void, Void, Exception> {
         WeakReference<MainActivity> activityReference;
 
