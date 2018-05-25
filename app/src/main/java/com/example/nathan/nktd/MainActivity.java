@@ -1,9 +1,12 @@
 package com.example.nathan.nktd;
 
 import android.Manifest;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -15,40 +18,23 @@ import android.widget.TextView;
 
 import com.example.nathan.nktd.interfaces.SpeechResultListener;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import edu.cmu.pocketsphinx.Assets;
-import edu.cmu.pocketsphinx.Hypothesis;
-import edu.cmu.pocketsphinx.RecognitionListener;
-import edu.cmu.pocketsphinx.SpeechRecognizer;
-import edu.cmu.pocketsphinx.SpeechRecognizerSetup;
-
 import static android.widget.Toast.makeText;
 
-public class MainActivity extends AppCompatActivity implements RecognitionListener{
+public class MainActivity extends AppCompatActivity{
     public static final String EXTRA_MESSAGE = "com.example.nathan.nktd.MESSAGE";
-
-    public static final String MENU_SEARCH = "menu";
-    public static final String TERAGRAM_SEARCH = "teragram";
-    public static final String NUMBER_SEARCH = "number";
 
     private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
 
     private String result = ""; // what the interpreter hears
 
-    private SpeechRecognizer recognizer;
     private SpeechResultListener listener;
 
-    private boolean setupComplete = false;
+    private boolean recognizerBound = false;
+    private Recognizer recognizerService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("status", "oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -58,11 +44,10 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSIONS_REQUEST_RECORD_AUDIO);
             return;
         }
-        new SetupTask(this).execute();
-
-        while (setupComplete == false) {
-        }
-        recognizer.startListening(MENU_SEARCH);
+        Intent intent = new Intent(this, Recognizer.class);
+        intent.setAction(Recognizer.MENU_SEARCH);
+        startService(intent);
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
     /* Permissions request taken directly from pocketSphinx's demo app */
@@ -72,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSIONS_REQUEST_RECORD_AUDIO) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                new SetupTask(this).execute();
+                startService(new Intent(this, Recognizer.class));
             } else {
                 finish();
             }
@@ -86,8 +71,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
     public void openG2(View view){
         Intent intent = new Intent(this, TeragramActivity.class);
-        swapSearch(TERAGRAM_SEARCH);
-        //startActivity(intent);
+        startActivity(intent);
     }
 
     public void openG3(View view){
@@ -104,95 +88,32 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         return result;
     }
 
-    private void setupRecognizer(File assetsDir) throws IOException {
-
-        recognizer = SpeechRecognizerSetup.defaultSetup()
-                .setAcousticModel(new File(assetsDir, "cmusphinx-en-us-ptm-5.2"))
-                .setDictionary(new File(assetsDir, "nktd.dic"))
-                .getRecognizer();
-        recognizer.addListener(this);
-
-        File menuGrammar = new File(assetsDir, "menu.gram");
-        File teragramGrammar = new File(assetsDir, "teragram.gram");
-        File numberGrammar = new File(assetsDir, "number.gram");
-        recognizer.addGrammarSearch(MENU_SEARCH, menuGrammar);
-        recognizer.addGrammarSearch(TERAGRAM_SEARCH, teragramGrammar);
-        recognizer.addGrammarSearch(NUMBER_SEARCH, numberGrammar);
-
-        this.setupComplete = true;
+    public void updateResultBox(String string) {
+        TextView resultText = findViewById(R.id.resultText);
+        resultText.setText(string);
     }
 
-    private void swapSearch(String newSearch) {
-        recognizer.startListening(newSearch);
-    }
-
-    @Override
-    public void onBeginningOfSpeech() {
-        ((TextView) findViewById(R.id.resultText)).setText("say something");
-    }
-
-    @Override
-    public void onEndOfSpeech() {
-    }
-
-    @Override
-    public void onPartialResult(Hypothesis hypothesis) {
-        if (hypothesis != null) {
-            String searchName = recognizer.getSearchName();
-            recognizer.stop();
-            result = hypothesis.getHypstr();
-            ((TextView) findViewById(R.id.resultText)).setText(result);
-            if (result.equals("game two")) {
-                openG2(null);
-            } else if (result.equals("number")) {
-                swapSearch(NUMBER_SEARCH);
-            } else {
-                recognizer.startListening(searchName);
-            }
-        }
-    }
-
-    @Override
-    public void onResult(Hypothesis hypothesis) {
-        if (hypothesis != null) {
-            result = hypothesis.getHypstr();
-            ((TextView) findViewById(R.id.resultText)).setText(result);
-        }
-    }
-
-    @Override
-    public void onError(Exception e) {
-
-    }
-
-    @Override
-    public void onTimeout() {
-
-    }
-
-    /* Setup class taken directly from pocketSphinx's demo app */
-    private static class SetupTask extends AsyncTask<Void, Void, Exception> {
-        WeakReference<MainActivity> activityReference;
-
-        SetupTask(MainActivity activity) {
-            this.activityReference = new WeakReference<>(activity);
+    public ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Recognizer.RecognizerBinder binder = (Recognizer.RecognizerBinder) service;
+            recognizerService = binder.getService();
+            recognizerBound = true;
+            Log.d("status", "bound");
+            recognizerService.setListener(new SpeechResultListener() {
+                @Override
+                public void onSpeechResult() {
+                    Log.d("status", "onspeechresult");
+                    updateResultBox(recognizerService.getResult());
+                }
+            });
+            Log.d("status", "setListener");
         }
 
         @Override
-        protected Exception doInBackground(Void... params) {
-            try {
-                Assets assets = new Assets(activityReference.get());
-                File assetDir = assets.syncAssets();
-                activityReference.get().setupRecognizer(assetDir);
-            } catch (IOException e) {
-                Log.d("ex msg: ", e.getMessage());
-                return e;
-            }
-            return null;
+        public void onServiceDisconnected(ComponentName name) {
+            recognizerBound = false;
         }
-    }
+    };
 
-    public void setListener(SpeechResultListener listener) {
-        this.listener = listener;
-    }
 }

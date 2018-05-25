@@ -42,7 +42,7 @@
                 android:value=".MainActivity" />
         </activity>
 
-        <service android:name=".speech_recognition.Recognizer" />
+        <service android:name=".Recognizer" />
     </application>
 
 </manifest>
