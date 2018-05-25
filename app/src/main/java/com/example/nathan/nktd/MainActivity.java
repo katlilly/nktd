@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.nathan.nktd.interfaces.SpeechResultListener;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     private String result = ""; // what the interpreter hears
 
     private SpeechRecognizer recognizer;
+    private SpeechResultListener listener;
 
     private boolean setupComplete = false;
 
@@ -187,5 +190,9 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             }
             return null;
         }
+    }
+
+    public void setListener(SpeechResultListener listener) {
+        this.listener = listener;
     }
 }

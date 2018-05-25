@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.nathan.nktd.interfaces.SpeechResultListener;
+
 import java.util.Random;
 
 
@@ -196,5 +198,7 @@ public class TeragramActivity extends AppCompatActivity {
         });
 
 
+
     }
+
 }
