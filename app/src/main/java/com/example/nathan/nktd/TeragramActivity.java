@@ -197,8 +197,6 @@ public class TeragramActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
 }

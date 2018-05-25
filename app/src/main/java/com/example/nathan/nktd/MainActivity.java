@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     public void openG2(View view){
         Intent intent = new Intent(this, TeragramActivity.class);
         swapSearch(TERAGRAM_SEARCH);
-        startActivity(intent);
+        //startActivity(intent);
     }
 
     public void openG3(View view){
