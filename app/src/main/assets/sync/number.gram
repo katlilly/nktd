@@ -1,0 +1,6 @@
+#JSGF V1.0;
+
+grammar number;
+
+<number> = (one | two | three | four | five | six | seven | eight | nine);
+public <command> = (<number> | confirm);

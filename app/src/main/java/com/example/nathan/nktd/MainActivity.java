@@ -16,6 +16,10 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import edu.cmu.pocketsphinx.Assets;
 import edu.cmu.pocketsphinx.Hypothesis;
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
     public static final String MENU_SEARCH = "menu";
     public static final String TERAGRAM_SEARCH = "teragram";
+    public static final String NUMBER_SEARCH = "number";
 
     private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
 
@@ -106,14 +111,15 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
         File menuGrammar = new File(assetsDir, "menu.gram");
         File teragramGrammar = new File(assetsDir, "teragram.gram");
+        File numberGrammar = new File(assetsDir, "number.gram");
         recognizer.addGrammarSearch(MENU_SEARCH, menuGrammar);
         recognizer.addGrammarSearch(TERAGRAM_SEARCH, teragramGrammar);
+        recognizer.addGrammarSearch(NUMBER_SEARCH, numberGrammar);
 
         this.setupComplete = true;
     }
 
     private void swapSearch(String newSearch) {
-        recognizer.stop();
         recognizer.startListening(newSearch);
     }
 
@@ -124,35 +130,30 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
     @Override
     public void onEndOfSpeech() {
-        result = "";
     }
 
     @Override
     public void onPartialResult(Hypothesis hypothesis) {
         if (hypothesis != null) {
+            String searchName = recognizer.getSearchName();
+            recognizer.stop();
             result = hypothesis.getHypstr();
             ((TextView) findViewById(R.id.resultText)).setText(result);
-            if (result.equals("game one")) {
-                recognizer.stop();
-                recognizer.startListening(MENU_SEARCH);
-            }
             if (result.equals("game two")) {
                 openG2(null);
-            }
-            if (result.equals("exit")) {
-                recognizer.stop();
-                recognizer.startListening(MENU_SEARCH);
+            } else if (result.equals("number")) {
+                swapSearch(NUMBER_SEARCH);
+            } else {
+                recognizer.startListening(searchName);
             }
         }
-
     }
 
     @Override
     public void onResult(Hypothesis hypothesis) {
-        ((TextView) findViewById(R.id.resultText)).setText("");
         if (hypothesis != null) {
-            String text = hypothesis.getHypstr();
-            ((TextView) findViewById(R.id.resultText)).setText(text);
+            result = hypothesis.getHypstr();
+            ((TextView) findViewById(R.id.resultText)).setText(result);
         }
     }
 
