@@ -32,6 +32,9 @@ public class MainActivity extends AppCompatActivity{
     private boolean recognizerBound = false;
     private Recognizer recognizerService;
 
+    private Context context;
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("status", "oncreate");
@@ -44,10 +47,38 @@ public class MainActivity extends AppCompatActivity{
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSIONS_REQUEST_RECORD_AUDIO);
             return;
         }
-        Intent intent = new Intent(this, Recognizer.class);
+        intent = new Intent(this, Recognizer.class);
         intent.setAction(Recognizer.MENU_SEARCH);
         startService(intent);
-        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        context = getApplicationContext();
+        context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("status", "onresume");
+        if (!recognizerBound) {
+            context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("status", "onpause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("status", "onstop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("status", "ondestroy");
     }
 
     /* Permissions request taken directly from pocketSphinx's demo app */
@@ -116,6 +147,7 @@ public class MainActivity extends AppCompatActivity{
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            Log.d("status", "disconnected");
             recognizerBound = false;
         }
     };

@@ -3,4 +3,4 @@
 grammar number;
 
 <number> = (zero | one | two | three | four | five | six | seven | eight | nine);
-public <command> = (<number> | confirm | undo | clear);
+public <command> = (<number> | enter | back | clear | cancel);

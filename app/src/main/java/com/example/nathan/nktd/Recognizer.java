@@ -83,7 +83,7 @@ public class Recognizer extends Service implements RecognitionListener {
             String searchName = interpreter.getSearchName();
             interpreter.stop();
             result = hypothesis.getHypstr();
-
+            Log.d("status", result);
             /* Handle switching between searches here. */
             switch (searchName) {
                 case MENU_SEARCH:
@@ -97,13 +97,15 @@ public class Recognizer extends Service implements RecognitionListener {
                 case TERAGRAM_SEARCH:
                     if (result.equals("number")) {
                         swapSearch(NUMBER_SEARCH);
+                    } else if (result.equals("exit")) {
+                        swapSearch(MENU_SEARCH);
                     } else {
                         interpreter.startListening(searchName);
                     }
                     break;
 
                 case NUMBER_SEARCH:
-                    if (result.equals("confirm")) {
+                    if (result.equals("enter") || result.equals("cancel")) {
                         swapSearch(TERAGRAM_SEARCH);
                     } else {
                         interpreter.startListening(searchName);

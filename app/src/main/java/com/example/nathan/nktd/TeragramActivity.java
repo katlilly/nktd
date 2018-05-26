@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +33,8 @@ import java.util.Random;
 public class TeragramActivity extends AppCompatActivity {
 
     String[] commands = new String[]{"too easy", "too hard", "new question"};
+
+    Context context;
 
     /* Recognizer-related. */
     private SpeechResultListener listener;
@@ -168,8 +171,9 @@ public class TeragramActivity extends AppCompatActivity {
         tryagainSound = MediaPlayer.create(this, R.raw.tryagain);
 
         /* Bind recognizer service */
+        context = getApplicationContext();
         Intent intent = new Intent(this, Recognizer.class);
-        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 
         // create references to the text elements and buttons
         question = (TextView) findViewById(R.id.question);
@@ -272,7 +276,6 @@ public class TeragramActivity extends AppCompatActivity {
              case "eight": return "8";
              case "nine": return "9";
              default: return "0";
-
          }
     }
 
@@ -291,7 +294,6 @@ public class TeragramActivity extends AppCompatActivity {
                     updateResultBox(result);
                     if (recognizerService.getSearchName()
                             .equals(recognizerService.TERAGRAM_SEARCH)) {
-                        Log.d("answer", result);
                         switch (result) {
                             case "easier":
                                 tooHard();
@@ -299,7 +301,7 @@ public class TeragramActivity extends AppCompatActivity {
                             case "harder":
                                 tooEasy();
                                 break;
-                            case "another":
+                            case "new question":
                                 newQuestion();
                                 break;
                             case "exit":
@@ -313,18 +315,24 @@ public class TeragramActivity extends AppCompatActivity {
                             case "multiplication":
                                 multiplication();
                                 break;
-                            case "confirm":
+                            case "enter":
                                 confirm();
                                 break;
+                            case "number":
+                                break;
                         }
+                        // Will be in 'number' search here.
                     } else {
                         String currentText = getAnswerBoxValue();
+                        if (currentText.equals("0")) {
+                            currentText = "";
+                        }
                         switch (result) {
                             case "clear":
                                 currentText = "";
                                 setAnswerBoxValue(currentText);
                                 break;
-                            case "undo":
+                            case "back":
                                 if (currentText.length() > 0) {
                                     currentText = currentText.subSequence(0, currentText.length() - 1)
                                             .toString();

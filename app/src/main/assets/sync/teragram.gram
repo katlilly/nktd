@@ -2,4 +2,4 @@
 
 grammar teragram;
 
-public <option> = (another | exit | easier | harder | addition | subtraction | multiplication | number);
+public <option> = (new question | exit | easier | harder | addition | subtraction | multiplication | number);
