@@ -38,6 +38,10 @@ public class TeragramActivity extends AppCompatActivity {
     private boolean recognizerBound = false;
     private Recognizer recognizerService;
 
+    /* Response files */
+    MediaPlayer correctSound;
+    MediaPlayer tryagainSound;
+
     TextView question;
     EditText answer;
     TextView response;
@@ -117,17 +121,55 @@ public class TeragramActivity extends AppCompatActivity {
         newQuestion();
     }
 
+    public void confirm() {
+        int correctAnswer = 0;
+        if (operation == "+") correctAnswer = operand1 + operand2;
+        else if (operation == "-") correctAnswer = operand1 - operand2;
+        else if (operation == "*") correctAnswer = operand1 * operand2;
+        Log.d("answer", "confirming");
+        try {
+            int submittedAnswer = Integer.parseInt(answer.getText().toString());
+            Log.d("answer", answer.getText().toString());
+            if (submittedAnswer == correctAnswer) {
+                response.setText("correct!");
+                correctSound.start();
+                correctCount++;
+                wrongCount = 0;
+                if (correctCount == 10) {
+                    level++;
+                    correctCount = 0;
+                }
+                clearAnswer();
+                nextQuestion();
+            } else {
+                response.setText("try again");
+                tryagainSound.start();
+                wrongCount++;
+                correctCount = 0;
+                if (wrongCount == 2) {
+                    level--;
+                    wrongCount = 0;
+                }
+                clearAnswer();
+            }
+        } catch (NumberFormatException e) {
+            response.setText("try again");
+            // shouldn't need to do anything here
+            // do nothing in the case that there is no answer to submit
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teragram);
 
+        correctSound = MediaPlayer.create(this, R.raw.correct);
+        tryagainSound = MediaPlayer.create(this, R.raw.tryagain);
+
         /* Bind recognizer service */
         Intent intent = new Intent(this, Recognizer.class);
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-
-        final MediaPlayer correctSound = MediaPlayer.create(this, R.raw.correct);
-        final MediaPlayer tryagainSound = MediaPlayer.create(this, R.raw.tryagain);
 
         // create references to the text elements and buttons
         question = (TextView) findViewById(R.id.question);
@@ -143,41 +185,7 @@ public class TeragramActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
-
-                    int correctAnswer = 0;
-                    if (operation == "+") correctAnswer = operand1 + operand2;
-                    else if (operation == "-") correctAnswer = operand1 - operand2;
-                    else if (operation == "*") correctAnswer = operand1 * operand2;
-
-                    try {
-                        int submittedAnswer = Integer.parseInt(answer.getText().toString());
-                        if (submittedAnswer == correctAnswer) {
-                            response.setText("correct!");
-                            correctSound.start();
-                            correctCount++;
-                            wrongCount = 0;
-                            if (correctCount == 10) {
-                                level++;
-                                correctCount = 0;
-                            }
-                            clearAnswer();
-                            nextQuestion();
-                        } else {
-                            response.setText("try again");
-                            tryagainSound.start();
-                            wrongCount++;
-                            correctCount = 0;
-                            if (wrongCount == 2) {
-                                level--;
-                                wrongCount = 0;
-                            }
-                            clearAnswer();
-                        }
-                    } catch (NumberFormatException e) {
-                        response.setText("try again");
-                        // shouldn't need to do anything here
-                        // do nothing in the case that there is no answer to submit
-                    }
+                    confirm();
                     return true;
                 }
                 return false;
@@ -243,6 +251,31 @@ public class TeragramActivity extends AppCompatActivity {
         }
     }
 
+    public String getAnswerBoxValue() {
+         return answer.getText().toString();
+    }
+
+    public void setAnswerBoxValue(String value) {
+         answer.setText(value);
+    }
+
+    private String stringToDigit(String number) {
+         switch (number) {
+             case "zero": return "0";
+             case "one": return "1";
+             case "two": return "2";
+             case "three": return "3";
+             case "four": return "4";
+             case "five": return "5";
+             case "six": return "6";
+             case "seven": return "7";
+             case "eight": return "8";
+             case "nine": return "9";
+             default: return "0";
+
+         }
+    }
+
     /* Recognizer-related interactions should go here. */
     public ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
@@ -256,31 +289,53 @@ public class TeragramActivity extends AppCompatActivity {
                 public void onSpeechResult() {
                     String result = recognizerService.getResult();
                     updateResultBox(result);
-                    switch (result) {
-                        case "number":
-                            break;
-                        case "easier":
-                            tooHard();
-                            break;
-                        case "harder":
-                            tooEasy();
-                            break;
-                        case "another":
-                            newQuestion();
-                            break;
-                        case "exit":
-                            break;
-                        case "addition":
-                            addition();
-                            break;
-                        case "subtraction":
-                            subtraction();
-                            break;
-                        case "multiplication":
-                            multiplication();
-                            break;
-                        case "confirm":
-                            break;
+                    if (recognizerService.getSearchName()
+                            .equals(recognizerService.TERAGRAM_SEARCH)) {
+                        Log.d("answer", result);
+                        switch (result) {
+                            case "easier":
+                                tooHard();
+                                break;
+                            case "harder":
+                                tooEasy();
+                                break;
+                            case "another":
+                                newQuestion();
+                                break;
+                            case "exit":
+                                break;
+                            case "addition":
+                                addition();
+                                break;
+                            case "subtraction":
+                                subtraction();
+                                break;
+                            case "multiplication":
+                                multiplication();
+                                break;
+                            case "confirm":
+                                confirm();
+                                break;
+                        }
+                    } else {
+                        String currentText = getAnswerBoxValue();
+                        switch (result) {
+                            case "clear":
+                                currentText = "";
+                                setAnswerBoxValue(currentText);
+                                break;
+                            case "undo":
+                                if (currentText.length() > 0) {
+                                    currentText = currentText.subSequence(0, currentText.length() - 1)
+                                            .toString();
+                                    setAnswerBoxValue(currentText);
+                                }
+                                break;
+                            default:
+                                currentText = currentText + stringToDigit(result);
+                                setAnswerBoxValue(currentText);
+                                break;
+                        }
                     }
                 }
             });

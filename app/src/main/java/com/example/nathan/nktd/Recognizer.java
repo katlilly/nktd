@@ -132,6 +132,10 @@ public class Recognizer extends Service implements RecognitionListener {
         return result;
     }
 
+    public String getSearchName() {
+        return interpreter.getSearchName();
+    }
+
     /* Set model, dictionary and grammars for interpreter. */
     private void setupRecognizer(File assetsDir) throws IOException {
 

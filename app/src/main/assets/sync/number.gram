@@ -2,5 +2,5 @@
 
 grammar number;
 
-<number> = (one | two | three | four | five | six | seven | eight | nine);
-public <command> = (<number> | confirm);
+<number> = (zero | one | two | three | four | five | six | seven | eight | nine);
+public <command> = (<number> | confirm | undo | clear);
