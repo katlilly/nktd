@@ -1,5 +1,10 @@
 package com.example.nathan.nktd;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.media.MediaPlayer;
@@ -10,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
@@ -27,9 +33,15 @@ public class TeragramActivity extends AppCompatActivity {
 
     String[] commands = new String[]{"too easy", "too hard", "new question"};
 
+    /* Recognizer-related. */
+    private SpeechResultListener listener;
+    private boolean recognizerBound = false;
+    private Recognizer recognizerService;
+
     TextView question;
     EditText answer;
     TextView response;
+    TextView whatIHeard;
     int level = 1;
     int maxLevel = 20;
     int correctCount = 0;
@@ -81,6 +93,10 @@ public class TeragramActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teragram);
 
+        /* Bind recognizer service */
+        Intent intent = new Intent(this, Recognizer.class);
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+
         final MediaPlayer correctSound = MediaPlayer.create(this, R.raw.correct);
         final MediaPlayer tryagainSound = MediaPlayer.create(this, R.raw.tryagain);
 
@@ -88,6 +104,9 @@ public class TeragramActivity extends AppCompatActivity {
         question = (TextView) findViewById(R.id.question);
         answer = (EditText) findViewById(R.id.answer);
         response = (TextView) findViewById(R.id.response);
+        whatIHeard = findViewById(R.id.speechResult);
+        Log.d("status", "whatIHeard created");
+        Log.d("status", whatIHeard.toString());
         //answer.setText(numyesSounds);
         // set the first question
         question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
@@ -198,5 +217,54 @@ public class TeragramActivity extends AppCompatActivity {
         });
 
     }
+
+    public void updateResultBox(String string) {
+        if (null == whatIHeard) {
+            Log.d("status", "whatIHeard null");
+        } else {
+            whatIHeard.setText(string);
+        }
+    }
+
+    /* Recognizer-related interactions should go here. */
+    public ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Recognizer.RecognizerBinder binder = (Recognizer.RecognizerBinder) service;
+            recognizerService = binder.getService();
+            recognizerBound = true;
+            /* Create listener and link it to recognizer. */
+            recognizerService.setListener(new SpeechResultListener() {
+                @Override
+                public void onSpeechResult() {
+                    String result = recognizerService.getResult();
+                    updateResultBox(result);
+                    switch (result) {
+                            case "number":
+                                break;
+                            case "easier":
+                                break;
+                            case "harder":
+                                break;
+                            case "another":
+                                break;
+                            case "exit":
+                                break;
+                            case "addition":
+                                break;
+                            case "subtraction":
+                                break;
+                            case "multiplication":
+                                break;
+                        }
+                }
+            });
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            recognizerBound = false;
+        }
+    };
 
 }
