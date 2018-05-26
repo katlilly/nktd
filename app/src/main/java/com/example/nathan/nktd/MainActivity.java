@@ -84,15 +84,13 @@ public class MainActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public String getResult() {
-        return result;
-    }
-
+    /* Update text box next to "What I heard" */
     public void updateResultBox(String string) {
         TextView resultText = findViewById(R.id.resultText);
         resultText.setText(string);
     }
 
+    /* Recognizer-related interactions should go here. */
     public ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -100,14 +98,20 @@ public class MainActivity extends AppCompatActivity{
             recognizerService = binder.getService();
             recognizerBound = true;
             Log.d("status", "bound");
+            /* Create listener and link it to recognizer. */
             recognizerService.setListener(new SpeechResultListener() {
                 @Override
                 public void onSpeechResult() {
-                    Log.d("status", "onspeechresult");
-                    updateResultBox(recognizerService.getResult());
+                    String result = recognizerService.getResult();
+                    updateResultBox(result);
+
+                    /* Game opening happens here. */
+                    switch (result) {
+                        case "game two":
+                            openG2(null);
+                    }
                 }
             });
-            Log.d("status", "setListener");
         }
 
         @Override

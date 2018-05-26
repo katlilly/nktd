@@ -42,6 +42,7 @@ public class Recognizer extends Service implements RecognitionListener {
 
     public Recognizer(){}
 
+    /* Asynchronously copy files to phone's memory if necessary. */
     @Override
     public void onCreate() {
         new SetupTask(this).execute();
@@ -66,13 +67,8 @@ public class Recognizer extends Service implements RecognitionListener {
         return true;
     }
 
-    public String test() {
-        return "We did it";
-    }
-
     @Override
     public void onBeginningOfSpeech() {
-        Log.d("status", "beginning of speech");
     }
 
     @Override
@@ -83,22 +79,40 @@ public class Recognizer extends Service implements RecognitionListener {
 
     @Override
     public void onPartialResult(Hypothesis hypothesis) {
-        Log.d("status", "onpartialresult");
         if (hypothesis != null) {
-            Log.d("status", "onPartialResult");
             String searchName = interpreter.getSearchName();
             interpreter.stop();
             result = hypothesis.getHypstr();
-            if (result.equals("game two")) {
-                swapSearch(TERAGRAM_SEARCH);
-            } else if (result.equals("number")) {
-                swapSearch(NUMBER_SEARCH);
-            } else {
-                interpreter.startListening(searchName);
+
+            /* Handle switching between searches here. */
+            switch (searchName) {
+                case MENU_SEARCH:
+                    if (result.equals("game two")) {
+                        swapSearch(TERAGRAM_SEARCH);
+                    } else {
+                        interpreter.startListening(searchName);
+                    }
+                    break;
+
+                case TERAGRAM_SEARCH:
+                    if (result.equals("number")) {
+                        swapSearch(NUMBER_SEARCH);
+                    } else {
+                        interpreter.startListening(searchName);
+                    }
+                    break;
+
+                case NUMBER_SEARCH:
+                    if (result.equals("confirm")) {
+                        swapSearch(TERAGRAM_SEARCH);
+                    } else {
+                        interpreter.startListening(searchName);
+                    }
+                    break;
             }
-            Log.d("status", "partial result");
+
+            /* Let all listeners know there's a result. */
             if (listener != null) {
-                Log.d("status", "recognizer onspeechresult");
                 listener.onSpeechResult();
             }
         }
@@ -118,6 +132,7 @@ public class Recognizer extends Service implements RecognitionListener {
         return result;
     }
 
+    /* Set model, dictionary and grammars for interpreter. */
     private void setupRecognizer(File assetsDir) throws IOException {
 
         interpreter = SpeechRecognizerSetup.defaultSetup()
