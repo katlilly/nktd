@@ -87,6 +87,35 @@ public class TeragramActivity extends AppCompatActivity {
         // don't remove "correct" message unless new question is explicitly asked for
     }
 
+    public void tooEasy() {
+        level++;
+        if (level > maxLevel) level = maxLevel;
+        newQuestion();
+        //operand1 = rand.nextInt(5 + level * 50);
+        //operand2 = rand.nextInt(5 + level * 50);
+        //question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
+    }
+
+    public void tooHard() {
+        level--;
+        if (level < 0) level = 0;
+        newQuestion();
+    }
+
+    public void addition() {
+        operation = "+";
+        newQuestion();
+    }
+
+    public void subtraction() {
+        operation = "-";
+        newQuestion();
+    }
+
+    public void multiplication() {
+        operation = "*";
+        newQuestion();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +134,6 @@ public class TeragramActivity extends AppCompatActivity {
         answer = (EditText) findViewById(R.id.answer);
         response = (TextView) findViewById(R.id.response);
         whatIHeard = findViewById(R.id.speechResult);
-        Log.d("status", "whatIHeard created");
-        Log.d("status", whatIHeard.toString());
         //answer.setText(numyesSounds);
         // set the first question
         question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
@@ -169,12 +196,7 @@ public class TeragramActivity extends AppCompatActivity {
         tooEasy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                level++;
-                if (level > maxLevel) level = maxLevel;
-                newQuestion();
-                //operand1 = rand.nextInt(5 + level * 50);
-                //operand2 = rand.nextInt(5 + level * 50);
-                //question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
+                tooEasy();
             }
         });
 
@@ -182,9 +204,7 @@ public class TeragramActivity extends AppCompatActivity {
         tooHard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                level--;
-                if (level < 0) level = 0;
-                newQuestion();
+                tooHard();
             }
         });
 
@@ -193,8 +213,7 @@ public class TeragramActivity extends AppCompatActivity {
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                operation = "+";
-                newQuestion();
+                addition();
             }
         });
 
@@ -202,8 +221,7 @@ public class TeragramActivity extends AppCompatActivity {
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                operation = "-";
-                newQuestion();
+                subtraction();
             }
         });
 
@@ -211,8 +229,7 @@ public class TeragramActivity extends AppCompatActivity {
         times.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                operation = "*";
-                newQuestion();
+                multiplication();
             }
         });
 
@@ -240,23 +257,31 @@ public class TeragramActivity extends AppCompatActivity {
                     String result = recognizerService.getResult();
                     updateResultBox(result);
                     switch (result) {
-                            case "number":
-                                break;
-                            case "easier":
-                                break;
-                            case "harder":
-                                break;
-                            case "another":
-                                break;
-                            case "exit":
-                                break;
-                            case "addition":
-                                break;
-                            case "subtraction":
-                                break;
-                            case "multiplication":
-                                break;
-                        }
+                        case "number":
+                            break;
+                        case "easier":
+                            tooHard();
+                            break;
+                        case "harder":
+                            tooEasy();
+                            break;
+                        case "another":
+                            newQuestion();
+                            break;
+                        case "exit":
+                            break;
+                        case "addition":
+                            addition();
+                            break;
+                        case "subtraction":
+                            subtraction();
+                            break;
+                        case "multiplication":
+                            multiplication();
+                            break;
+                        case "confirm":
+                            break;
+                    }
                 }
             });
         }
