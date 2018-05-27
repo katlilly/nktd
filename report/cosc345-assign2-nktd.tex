@@ -1,0 +1,162 @@
+\documentclass[11pt, oneside]{article}  
+\usepackage{geometry}                	
+\geometry{a4paper}
+\usepackage[parfill]{parskip}		
+\usepackage{graphicx}	
+\usepackage{pgfgantt}
+\usepackage{pgfcalendar}	
+\usepackage{pgfkeys}	
+\usepackage{blindtext}					
+\usepackage{amssymb}
+\usepackage{lscape}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\urlstyle{same} 
+
+\title{COSC 345 Assignment 2} \author{Nathan Kennedy \texttt{1006384},
+  Kat Lilly \texttt{8867318}, Tobyn Packer \texttt{5003352}, and
+  \\Daniel Davidson \texttt{375621}} \date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Alpha Release}
+
+At this point we have an android application consisting of a stylised
+main menu and from which a user may chose a game to play. The only
+game currently working is `Teragram', a maths game for young
+children. Choice of which game to play, as well as play of the math
+game can be done both by tapping the buttons on screen, or by
+voice command only.
+
+The application uses pocketSphinx to interpret speech commands.
+
+\subsection*{Known issues}
+
+Currently the user can't exit from Teragram via speech commands. Also,
+after manually exiting from Teragram the speech recognition does not
+restart.
+
+\pagebreak
+\section*{User Documentation}
+
+Upon startup, you will be greeted with the main menu. From there:
+
+\subsection*{For the armed}
+
+You can start the maths game `Teragram' from the main menu by tapping
+the teragram button. The game starts up at `level 1', and you can move
+to the easiest level, zero, by tapping the 'too hard' button or go up
+levels by tapping the `too easy' button. Automatic levelling up
+happens when you get ten questions right in a row, or levelling down
+when you get two wrong in a row. You can 
+
+
+\subsection*{For the unarmed}
+
+You can control the game with the following voice commands:
+
+\subsubsection*{Main menu}
+
+\begin{itemize}
+  \item {\em\bf`game one'} - unsupported
+  \item {\em\bf`game two'}  - this will take you to the game Teragram.
+  \item {\em\bf`game three'} - unsupported
+  \item {\em\bf`game four'} - unsupported
+\end{itemize}
+
+\subsubsection*{Teragram}
+
+\begin{itemize}
+  \item {\em\bf`harder'} - Provides a harder question. 
+  \item {\em\bf`new question'} - Provides a new question of the same type
+  \item {\em\bf`addition'} -Provides an addition question
+  \item {\em\bf`subtraction'} - Provides a subtraction question
+  \item {\em\bf`multiplication'} - Provides a multiplication question 
+  \item {\em\bf`number'} - Starts Number Input mode, see below
+  \item {\em\bf`exit'} - unsupported
+\end{itemize}
+
+\subsubsection*{Number Input}
+\begin{itemize}
+  \item {\em\bf numbers 0 – 9 inclusive} – Appends the spoken number
+    to the end of your answer, ie. Speaking `one', `two' will give you
+    12. Note that 0 is to be spoken `zero'
+  \item {\em\bf `enter'} - Submits the current answer and exits Number
+    Input mode
+  \item {\em\bf `back'} - Removes the last number from your answer
+  \item {\em\bf `clear'} - Removes the entirety of your answer
+  \item {\em\bf `cancel'} - Exits Number Input mode
+\end{itemize}
+    
+\pagebreak
+\section*{What we learned}
+
+\subsection*{Android is not `just Java'}
+
+When we first began writing code for our project, we began by writing
+a Java application. It wasn't until we had gotten a not insignificant
+way into the development process that we learned that android uses
+different graphical libraries and not long after, that it used
+different audio libraries too. Everything we had written up to that
+point needed to be translated into android-friendly code or scrapped
+entirely.
+
+\subsection*{Testing is hard}
+
+Our initial efforts were focused on getting an integrated testing
+environment up and running. This involved setting up travis CI and
+writing tests to ensure nothing was being broken between pushes. As it
+turns out, setting up a travis environment for android is not
+simple. There are multiple versions of the Android SDK to worry about
+and licence agreements and of course, gradle. We did ultimately get a
+travis environment set up in the end, so we do know when something is
+pushed that won't build.
+
+\subsection*{Android Studio is hard}
+
+All of us were unfamiliar with the Android Studio IDE and all of us
+have struggled with it. Some of us were having trouble getting it to
+acknowledge that the Android SDK was in fact installed on our
+computers, while for some of us, code that built fine on somebody’s
+computer would not on anothers. It seems to be a problem that occurs
+whenever the project’s file structure was changed. Sometimes
+restarting Android Studio fixes the problem, sometimes explicitly
+forcing Android Studio to sync the project with Gradle fixes the
+problem and sometimes it won’t. In the end we had two out of four
+computers building the same code, enabling us to get something done.
+
+\subsection*{Adapting other people's projects is hard}
+
+When things were starting to look bleak in terms of how much we would
+be able to present for this deliverable, we tried to adapt open-source
+android games and impose our speech commands onto them. Coupled with
+our Android Studio file structure problems, this was a disaster.
+Manifests needed to be edited, other people’s code needed to be
+learnt, and many bugs needed to be found and fixed.  We did waste
+plenty of time on this idea, before writing a new game from scratch
+that has fewer bugs in it and is more well suited to voice control.
+
+
+\section*{What we stole}
+
+The code for the speech recognizer setup/permissions/asset copying is
+taken almost directly from the pocketSphinx demo application here:
+\url{https://github.com/cmusphinx/pocketsphinx-android-demo}
+
+The phoneme definitions in our nktd.dic file are selectively taken
+from the cmudict-en-us.dict file in that same demo.
+
+The acoustic model we use is provided by CMUSphinx at
+\href{https://sourceforge.net/projects/cmusphinx/files/Acoustic\%20and\%20Language\%20Models/US\%20English/}{sorceforge.net}
+
+
+\end{document}
+
+
