@@ -1,4 +1,5 @@
-## To Andrew: You can find our full documentation in report/cosc345-assign2-nktd.pdf
+## To Andrew: 
+You can find our full documentation in report/cosc345-assign2-nktd.pdf
 
 # nktd
 345 group project - Nathan, Kat, Tobyn, Daniel  
