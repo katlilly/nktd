@@ -2,9 +2,9 @@
 345 group project - Nathan, Kat, Tobyn, Daniel  
 [![Build Status](https://travis-ci.org/katlilly/nktd.svg?branch=master)](https://travis-ci.org/katlilly/nktd)
 
-##Voice Commands:
+##V oice Commands:
 
-###Main menu:  
+### Main menu:  
 ‘game one’ - unsupported  
 ‘game two’ - This will take you to the game Teragram.  
 ‘game three’ - unsupported  
