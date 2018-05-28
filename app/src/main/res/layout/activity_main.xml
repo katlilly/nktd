@@ -4,27 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_sound"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#000000" >
+    <!--android:background="@drawable/background_sound"-->
+
 
     <Button
         android:id="@+id/button"
-        android:layout_width="160dp"
+        android:layout_width="140dp"
         android:layout_height="60dp"
         android:background="@drawable/button_background"
         android:onClick="openTetris"
-        android:padding="6dp"
+
         android:text="@string/button_topleft"
         android:textAppearance="@android:style/TextAppearance.Material.Display2"
         android:textColor="@android:color/background_dark"
         android:textSize="32dp"
         android:typeface="serif"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.24" />
+        app:layout_constraintVertical_bias="0.2" />
 
     <Button
         android:id="@+id/button2"
@@ -38,20 +40,17 @@
         android:textSize="32dp"
         android:typeface="serif"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintVertical_bias="0.4" />
 
 
     <Button
         android:id="@+id/button3"
         android:layout_width="160dp"
         android:layout_height="60dp"
-        android:layout_marginLeft="152dp"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="120dp"
         android:background="@drawable/button_background"
         android:onClick="openG3"
         android:text="@string/button_bottomleft"
@@ -60,7 +59,7 @@
         android:textSize="32dp"
         android:typeface="serif"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -70,9 +69,6 @@
         android:id="@+id/button4"
         android:layout_width="160dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="124dp"
         android:background="@drawable/button_background_right"
         android:onClick="openG4"
         android:textAppearance="@android:style/TextAppearance.Material.Display2"
@@ -81,24 +77,23 @@
         android:typeface="serif"
         android:text="@string/button_bottomright"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.88" />
+        app:layout_constraintVertical_bias="0.8" />
 
 
     <ImageView
         android:id="@+id/NKTDLogo"
-        android:layout_width="217dp"
-        android:layout_height="130dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="160dp"
+        android:layout_height="120dp"
         android:rotation="-30"
         android:src="@drawable/nktd_logo"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.064" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <!--<Button-->
         <!--android:id="@+id/button5"-->
