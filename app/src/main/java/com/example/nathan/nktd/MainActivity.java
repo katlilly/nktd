@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity{
     private boolean recognizerBound = false;
     private Recognizer recognizerService;
 
-    private Context context;
+    //private Context context;
     private Intent intent;
 
     @Override
@@ -50,18 +50,18 @@ public class MainActivity extends AppCompatActivity{
         intent = new Intent(this, Recognizer.class);
         intent.setAction(Recognizer.MENU_SEARCH);
         startService(intent);
-        context = getApplicationContext();
-        context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        //context = getApplicationContext();
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d("status", "onresume");
-        if (!recognizerBound) {
-            context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-        }
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        Log.d("status", "onresume");
+//        if (!recognizerBound) {
+//            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+//        }
+//    }
 
     @Override
     protected void onPause() {
@@ -116,10 +116,10 @@ public class MainActivity extends AppCompatActivity{
     }
 
     /* Update text box next to "What I heard" */
-    public void updateResultBox(String string) {
+    /*public void updateResultBox(String string) {
         TextView resultText = findViewById(R.id.resultText);
         resultText.setText(string);
-    }
+    }*/
 
     /* Recognizer-related interactions should go here. */
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity{
                 @Override
                 public void onSpeechResult() {
                     String result = recognizerService.getResult();
-                    updateResultBox(result);
+                    //updateResultBox(result);
 
                     /* Game opening happens here. */
                     switch (result) {
