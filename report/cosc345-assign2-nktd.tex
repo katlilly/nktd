@@ -6,7 +6,6 @@
 \usepackage{pgfgantt}
 \usepackage{pgfcalendar}	
 \usepackage{pgfkeys}	
-\usepackage{blindtext}					
 \usepackage{amssymb}
 \usepackage{lscape}
 \usepackage{hyperref}
@@ -29,33 +28,65 @@
 \section*{Alpha Release}
 
 At this point we have an android application consisting of a stylised
-main menu and from which a user may chose a game to play. The only
+main menu from which a user may chose a game to play. The only
 game currently working is `Teragram', a maths game for young
 children. Choice of which game to play, as well as play of the math
 game can be done both by tapping the buttons on screen, or by
 voice command only.
 
-The application uses pocketSphinx to interpret speech commands.
+The application uses pocketSphinx to interpret speech commands available here:\linebreak
+\href{https://github.com/cmusphinx/pocketsphinx}{https://github.com/cmusphinx/pocketsphinx}
 
 \subsection*{Known issues}
 
-Currently the user can't exit from Teragram via speech commands. Also,
-after manually exiting from Teragram the speech recognition does not
-restart.
+\begin{itemize}
+	\item Currently the user can't exit from Teragram via speech commands. Also,
+	after manually exiting from Teragram the speech recognition does not
+	restart.
+	\item Number input with speech commands is finicky, frustrating and slow.
+	\item Upon first operation of the app, you will experience a crash. This is
+	because on the first operation, pocketsphinx needs to copy our 
+	voice-recognition models into the phone's memory. This produces a crash. 
+	However, upon restarting the application, this crash isn't encountered again.
+\end{itemize}
 
 \pagebreak
+
+\section*{Intended improvements}
+
+\subsubsection*{Speech Recogntion - Visual Feedback}
+We would like to implement some kind of visual feedback telling
+the user which mode the speech-recognizer is in, specifically when it is
+in number entry mode. Currently we only have the 'What I heard' box that 
+we are using for debugging/development and makes it obvious to us what 
+is going on, but to a user unfamiliar with the commands, it could lead 
+to confusion.
+
+\subsubsection*{More robust number entry}
+The current way of inputing numbers using speech is finicky and prone to
+errors. We are unsure whether or not there is some easier way to do this,
+but we would like to try different methods.
+
+\subsubsection*{Speech Recognition off-switch}
+We would like to implement a way of turning off speech recogntion as
+the game will interpret and control the game when it hears anything at
+all, even noises not intended to be interpreted.
+
+\subsubsection*{Help Screen}
+Without this documentation, a user would have no way of knowing exactly 
+what to say to the game to get it to do anything. Some kind of pop-up 
+display you could call at any moment displaying the voice commands is
+neccessary.
+
+\pagebreak
+
 \section*{User Documentation}
 
-Upon startup, you will be greeted with the main menu. From there:
-
-\subsection*{For the armed}
-
-You can start the maths game `Teragram' from the main menu by tapping
-the teragram button. The game starts up at `level 1', and you can move
-to the easiest level, zero, by tapping the 'too hard' button or go up
-levels by tapping the `too easy' button. Automatic levelling up
-happens when you get ten questions right in a row, or levelling down
-when you get two wrong in a row. You can 
+\subsection*{Teragram}
+The game starts up at `level 1', and you can move to the easiest level 
+by tapping the 'too hard' button or go up levels by tapping the `too easy' 
+button. Automatic levelling up happens when you get ten questions right 
+in a row, or levelling down when you get two wrong in a row.
 
 
 \subsection*{For the unarmed}
@@ -75,6 +106,7 @@ You can control the game with the following voice commands:
 
 \begin{itemize}
   \item {\em\bf`harder'} - Provides a harder question. 
+  \item {\em\bf'easier'} - Provides an easier question.
   \item {\em\bf`new question'} - Provides a new question of the same type
   \item {\em\bf`addition'} -Provides an addition question
   \item {\em\bf`subtraction'} - Provides a subtraction question
@@ -82,6 +114,8 @@ You can control the game with the following voice commands:
   \item {\em\bf`number'} - Starts Number Input mode, see below
   \item {\em\bf`exit'} - unsupported
 \end{itemize}
+
+\pagebreak
 
 \subsubsection*{Number Input}
 \begin{itemize}
@@ -94,8 +128,25 @@ You can control the game with the following voice commands:
   \item {\em\bf `clear'} - Removes the entirety of your answer
   \item {\em\bf `cancel'} - Exits Number Input mode
 \end{itemize}
+
+When entering numbers, please wait until the number you have just spoken appears
+in the box before trying to input the next one.
+Good Luck!
+
+\section*{What we stole}
+
+The code for the speech recognizer setup/permissions/asset copying is
+taken almost directly from the pocketSphinx demo application here:
+\url{https://github.com/cmusphinx/pocketsphinx-android-demo}
+
+The phoneme definitions in our nktd.dic file are selectively taken
+from the cmudict-en-us.dict file in that same demo.
+
+The acoustic model we use is provided by CMUSphinx at
+\href{https://sourceforge.net/projects/cmusphinx/files/Acoustic\%20and\%20Language\%20Models/US\%20English/}{sourceforge.net}
     
 \pagebreak
+    
 \section*{What we learned}
 
 \subsection*{Android is not `just Java'}
@@ -142,20 +193,6 @@ Manifests needed to be edited, other people’s code needed to be
 learnt, and many bugs needed to be found and fixed.  We did waste
 plenty of time on this idea, before writing a new game from scratch
 that has fewer bugs in it and is more well suited to voice control.
-
-
-\section*{What we stole}
-
-The code for the speech recognizer setup/permissions/asset copying is
-taken almost directly from the pocketSphinx demo application here:
-\url{https://github.com/cmusphinx/pocketsphinx-android-demo}
-
-The phoneme definitions in our nktd.dic file are selectively taken
-from the cmudict-en-us.dict file in that same demo.
-
-The acoustic model we use is provided by CMUSphinx at
-\href{https://sourceforge.net/projects/cmusphinx/files/Acoustic\%20and\%20Language\%20Models/US\%20English/}{sorceforge.net}
-
 
 \end{document}
 
