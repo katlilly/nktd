@@ -83,10 +83,15 @@ neccessary.
 \section*{User Documentation}
 
 \subsection*{Teragram}
-The game starts up at `level 1', and you can move to the easiest level 
-by tapping the 'too hard' button or go up levels by tapping the `too easy' 
-button. Automatic levelling up happens when you get ten questions right 
-in a row, or levelling down when you get two wrong in a row.
+The game starts up at `level 1', and you can move to the easiest level
+by tapping the `too hard' button or go up levels by tapping the `too
+easy' button. Automatic levelling up happens when you get ten
+questions right in a row, or levelling down when you get two wrong in
+a row. The user is not aware of the actual level, it's just that
+questions get easier or harder.
+
+The game launches in addition mode, and the user can chose to move to
+subtraction problems or multiplication problems.
 
 
 \subsection*{For the unarmed}
@@ -119,7 +124,7 @@ You can control the game with the following voice commands:
 
 \subsubsection*{Number Input}
 \begin{itemize}
-  \item {\em\bf numbers 0 – 9 inclusive} – Appends the spoken number
+  \item {\em\bf numbers 0 to 9 inclusive} – Appends the spoken number
     to the end of your answer, ie. Speaking `one', `two' will give you
     12. Note that 0 is to be spoken `zero'
   \item {\em\bf `enter'} - Submits the current answer and exits Number
@@ -175,12 +180,12 @@ pushed that won't build.
 All of us were unfamiliar with the Android Studio IDE and all of us
 have struggled with it. Some of us were having trouble getting it to
 acknowledge that the Android SDK was in fact installed on our
-computers, while for some of us, code that built fine on somebody’s
+computers, while for some of us, code that built fine on somebody's
 computer would not on anothers. It seems to be a problem that occurs
-whenever the project’s file structure was changed. Sometimes
+whenever the project's file structure was changed. Sometimes
 restarting Android Studio fixes the problem, sometimes explicitly
 forcing Android Studio to sync the project with Gradle fixes the
-problem and sometimes it won’t. In the end we had two out of four
+problem and sometimes it won't. In the end we had two out of four
 computers building the same code, enabling us to get something done.
 
 \subsection*{Adapting other people's projects is hard}
