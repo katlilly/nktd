@@ -25,10 +25,12 @@ public class Recognizer extends Service implements RecognitionListener {
         public Recognizer getService() {
             return Recognizer.this;
         }
+        public boolean isSetUp() {return setupComplete;}
     }
 
     private SpeechRecognizer interpreter;
     private RecognizerBinder binder = new RecognizerBinder();
+    private WeakReference<Service> reference = new WeakReference<>((Service)this);
 
     public static final String MENU_SEARCH = "menu";
     public static final String TERAGRAM_SEARCH = "teragram";
@@ -42,18 +44,23 @@ public class Recognizer extends Service implements RecognitionListener {
 
     public Recognizer(){}
 
-    /* Asynchronously copy files to phone's memory if necessary. */
+    /* Copy files to phone's memory if necessary. */
     @Override
     public void onCreate() {
-        new SetupTask(this).execute();
+        try {
+            Assets assets = new Assets(reference.get());
+            File assetDir = assets.syncAssets();
+            setupRecognizer(assetDir);
+            Log.d("Status", "setup complete");
+        } catch (IOException e) {
+            Log.d("ex msg: ", e.getMessage());
+        }
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-        String searchName = intent.getAction();
-        while (!setupComplete) {
-        }
-        interpreter.startListening(searchName);
+        while(!setupComplete){}
+        interpreter.startListening(MENU_SEARCH);
         return Service.START_STICKY;
     }
 
@@ -161,25 +168,4 @@ public class Recognizer extends Service implements RecognitionListener {
         interpreter.startListening(newSearch);
     }
 
-    /* Setup class taken directly from pocketSphinx's demo app */
-    private static class SetupTask extends AsyncTask<Void, Void, Exception> {
-        WeakReference<Recognizer> serviceReference;
-
-        SetupTask(Recognizer service) {
-            this.serviceReference = new WeakReference<>(service);
-        }
-
-        @Override
-        protected Exception doInBackground(Void... params) {
-            try {
-                Assets assets = new Assets(serviceReference.get());
-                File assetDir = assets.syncAssets();
-                serviceReference.get().setupRecognizer(assetDir);
-            } catch (IOException e) {
-                Log.d("ex msg: ", e.getMessage());
-                return e;
-            }
-            return null;
-        }
-    }
 }

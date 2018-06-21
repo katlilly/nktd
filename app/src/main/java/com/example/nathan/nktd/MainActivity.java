@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity{
             return;
         }
         intent = new Intent(this, Recognizer.class);
-        intent.setAction(Recognizer.MENU_SEARCH);
         startService(intent);
         //context = getApplicationContext();
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
