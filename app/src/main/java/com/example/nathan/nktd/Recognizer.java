@@ -2,7 +2,6 @@ package com.example.nathan.nktd;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
@@ -145,6 +144,18 @@ public class Recognizer extends Service implements RecognitionListener {
         return interpreter.getSearchName();
     }
 
+    private String lastSearch = "";
+    public void stopRecognition() {
+        Log.d("stopstart", "stopping");
+        lastSearch = interpreter.getSearchName();
+        this.interpreter.stop();
+    }
+
+    public void startRecognition() {
+        Log.d("stopstart", "starting");
+        this.interpreter.startListening(lastSearch);
+    }
+
     /* Set model, dictionary and grammars for interpreter. */
     private void setupRecognizer(File assetsDir) throws IOException {
 
@@ -164,7 +175,7 @@ public class Recognizer extends Service implements RecognitionListener {
         this.setupComplete = true;
     }
 
-    private void swapSearch(String newSearch) {
+    public void swapSearch(String newSearch) {
         interpreter.startListening(newSearch);
     }
 

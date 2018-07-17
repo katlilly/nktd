@@ -4,23 +4,15 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Color;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.media.MediaPlayer;
-import android.os.Bundle;
-import android.provider.MediaStore;
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -38,6 +30,7 @@ public class TeragramActivity extends AppCompatActivity {
 
     /* Recognizer-related. */
     private SpeechResultListener listener;
+
     private boolean recognizerBound = false;
     private Recognizer recognizerService;
 
@@ -135,6 +128,7 @@ public class TeragramActivity extends AppCompatActivity {
             Log.d("answer", answer.getText().toString());
             if (submittedAnswer == correctAnswer) {
                 response.setText("correct!");
+                recognizerService.stopRecognition();
                 correctSound.start();
                 correctCount++;
                 wrongCount = 0;
@@ -143,9 +137,11 @@ public class TeragramActivity extends AppCompatActivity {
                     correctCount = 0;
                 }
                 clearAnswer();
+                recognizerService.startRecognition();
                 nextQuestion();
             } else {
                 response.setText("try again");
+                recognizerService.stopRecognition();
                 tryagainSound.start();
                 wrongCount++;
                 correctCount = 0;
@@ -153,6 +149,7 @@ public class TeragramActivity extends AppCompatActivity {
                     level--;
                     wrongCount = 0;
                 }
+                recognizerService.startRecognition();
                 clearAnswer();
             }
         } catch (NumberFormatException e) {
@@ -281,9 +278,12 @@ public class TeragramActivity extends AppCompatActivity {
 
     /* Recognizer-related interactions should go here. */
     public ServiceConnection serviceConnection = new ServiceConnection() {
+
+        Recognizer.RecognizerBinder binder;
+
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Recognizer.RecognizerBinder binder = (Recognizer.RecognizerBinder) service;
+            binder = (Recognizer.RecognizerBinder) service;
             recognizerService = binder.getService();
             recognizerBound = true;
             /* Create listener and link it to recognizer. */
