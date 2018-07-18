@@ -15,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nathan.nktd.interfaces.SpeechResultListener;
@@ -42,6 +43,7 @@ public class TeragramActivity extends AppCompatActivity {
     EditText answer;
     TextView response;
     TextView whatIHeard;
+    ImageView statusIcon;
     int level = 1;
     int maxLevel = 20;
     int correctCount = 0;
@@ -177,6 +179,7 @@ public class TeragramActivity extends AppCompatActivity {
         answer = (EditText) findViewById(R.id.answer);
         response = (TextView) findViewById(R.id.response);
         whatIHeard = findViewById(R.id.speechResult);
+        statusIcon = (ImageView)findViewById(R.id.recognizerStatus);
         //answer.setText(numyesSounds);
         // set the first question
         question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
@@ -299,6 +302,7 @@ public class TeragramActivity extends AppCompatActivity {
                     updateResultBox(result);
                     if (recognizerService.getSearchName()
                             .equals(recognizerService.TERAGRAM_SEARCH)) {
+                        statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening));
                         switch (result) {
                             case "easier":
                                 tooHard();
@@ -326,7 +330,9 @@ public class TeragramActivity extends AppCompatActivity {
                         }
                         // Will be in 'number' search here.
                     } else {
+                        statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
                         String currentText = getAnswerBoxValue();
+
                         if (currentText.equals("0")) {
                             currentText = "";
                         }
