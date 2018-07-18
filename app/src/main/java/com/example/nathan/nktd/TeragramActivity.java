@@ -276,6 +276,11 @@ public class TeragramActivity extends AppCompatActivity {
          }
     }
 
+    public void goBack() {
+         Log.d("status", "goBack");
+         finish();
+    }
+
     /* Recognizer-related interactions should go here. */
     public ServiceConnection serviceConnection = new ServiceConnection() {
 
@@ -303,8 +308,6 @@ public class TeragramActivity extends AppCompatActivity {
                                 break;
                             case "new question":
                                 newQuestion();
-                                break;
-                            case "exit":
                                 break;
                             case "addition":
                                 addition();
@@ -338,6 +341,10 @@ public class TeragramActivity extends AppCompatActivity {
                                             .toString();
                                     setAnswerBoxValue(currentText);
                                 }
+                                break;
+                            case "exit":
+                                Log.d("status", "exitHeard");
+                                goBack();
                                 break;
                             default:
                                 currentText = currentText + stringToDigit(result);

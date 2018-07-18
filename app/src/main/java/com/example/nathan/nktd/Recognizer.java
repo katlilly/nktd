@@ -89,7 +89,7 @@ public class Recognizer extends Service implements RecognitionListener {
             String searchName = interpreter.getSearchName();
             interpreter.stop();
             result = hypothesis.getHypstr();
-            Log.d("status", result);
+            Log.d("status", "Heard " + result);
             /* Handle switching between searches here. */
             switch (searchName) {
                 case MENU_SEARCH:
