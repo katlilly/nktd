@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity{
     private String result = ""; // what the interpreter hears
 
     private SpeechResultListener listener;
+    SharedPreferences storedListener;
 
     private boolean recognizerBound = false;
     private Recognizer recognizerService;
@@ -56,14 +58,42 @@ public class MainActivity extends AppCompatActivity{
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        Log.d("status", "onresume");
-//        if (!recognizerBound) {
-//            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-//        }
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("status", "onresume");
+        listener = new SpeechResultListener() {
+            @Override
+            public void onSpeechResult() {
+                String result = recognizerService.getResult();
+                //updateResultBox(result);
+
+                /* Game opening happens here. */
+                switch (result) {
+                    case "game two":
+                        openG2(null);
+                }
+            }
+
+            @Override
+            public void onStartRecognition() {
+                statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening));
+            }
+
+            @Override
+            public void onStopRecognition() {
+                statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
+            }
+
+            @Override
+            public void onNumberRecognition() {
+                statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
+            }
+        };
+        if (recognizerBound) {
+            recognizerService.setListener(listener);
+        }
+    }
 
     @Override
     protected void onPause() {
@@ -117,12 +147,6 @@ public class MainActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    /* Update text box next to "What I heard" */
-    /*public void updateResultBox(String string) {
-        TextView resultText = findViewById(R.id.resultText);
-        resultText.setText(string);
-    }*/
-
     /* Recognizer-related interactions should go here. */
     public ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
@@ -132,35 +156,7 @@ public class MainActivity extends AppCompatActivity{
             recognizerBound = true;
             Log.d("status", "bound");
             /* Create listener and link it to recognizer. */
-            recognizerService.setListener(new SpeechResultListener() {
-                @Override
-                public void onSpeechResult() {
-                    String result = recognizerService.getResult();
-                    //updateResultBox(result);
-
-                    /* Game opening happens here. */
-                    switch (result) {
-                        case "game two":
-                            openG2(null);
-                    }
-                }
-
-                @Override
-                public void onStartRecognition() {
-                    statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening));
-                }
-
-                @Override
-                public void onStopRecognition() {
-                    statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
-                }
-
-                @Override
-                public void onNumberRecognition() {
-                    statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
-                }
-            });
-        }
+            recognizerService.setListener(listener);        }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
