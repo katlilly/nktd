@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nathan.nktd.interfaces.SpeechResultListener;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity{
 
     private boolean recognizerBound = false;
     private Recognizer recognizerService;
+    private ImageView statusIcon;
 
     //private Context context;
     private Intent intent;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity{
         Log.d("status", "oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        statusIcon = (ImageView)findViewById(R.id.recognizerStatus);
 
         /* Permissions taken directly from pocketSphinx's demo app*/
         int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
@@ -140,6 +143,21 @@ public class MainActivity extends AppCompatActivity{
                         case "game two":
                             openG2(null);
                     }
+                }
+
+                @Override
+                public void onStartRecognition() {
+                    statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening));
+                }
+
+                @Override
+                public void onStopRecognition() {
+                    statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
+                }
+
+                @Override
+                public void onNumberRecognition() {
+                    statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
                 }
             });
         }

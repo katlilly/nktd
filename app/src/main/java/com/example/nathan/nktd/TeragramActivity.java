@@ -302,7 +302,6 @@ public class TeragramActivity extends AppCompatActivity {
                     updateResultBox(result);
                     if (recognizerService.getSearchName()
                             .equals(recognizerService.TERAGRAM_SEARCH)) {
-                        statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening));
                         switch (result) {
                             case "easier":
                                 tooHard();
@@ -330,7 +329,6 @@ public class TeragramActivity extends AppCompatActivity {
                         }
                         // Will be in 'number' search here.
                     } else {
-                        statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
                         String currentText = getAnswerBoxValue();
 
                         if (currentText.equals("0")) {
@@ -358,6 +356,21 @@ public class TeragramActivity extends AppCompatActivity {
                                 break;
                         }
                     }
+                }
+
+                @Override
+                public void onStartRecognition() {
+                    statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening));
+                }
+
+                @Override
+                public void onStopRecognition() {
+                    statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
+                }
+
+                @Override
+                public void onNumberRecognition() {
+                    statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
                 }
             });
         }

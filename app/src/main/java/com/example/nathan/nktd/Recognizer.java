@@ -103,6 +103,7 @@ public class Recognizer extends Service implements RecognitionListener {
                 case TERAGRAM_SEARCH:
                     if (result.equals("number")) {
                         swapSearch(NUMBER_SEARCH);
+                        listener.onNumberRecognition();
                     } else if (result.equals("exit")) {
                         swapSearch(MENU_SEARCH);
                     } else {
@@ -149,11 +150,13 @@ public class Recognizer extends Service implements RecognitionListener {
         Log.d("stopstart", "stopping");
         lastSearch = interpreter.getSearchName();
         this.interpreter.stop();
+        listener.onStopRecognition();
     }
 
     public void startRecognition() {
         Log.d("stopstart", "starting");
         this.interpreter.startListening(lastSearch);
+        listener.onStartRecognition();
     }
 
     /* Set model, dictionary and grammars for interpreter. */
