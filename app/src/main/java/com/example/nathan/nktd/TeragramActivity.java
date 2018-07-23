@@ -44,7 +44,7 @@ public class TeragramActivity extends AppCompatActivity {
     TextView response;
     TextView whatIHeard;
     ImageView statusIcon;
-    int level = 1;
+    int level = 2;
     int maxLevel = 30;
     int correctCount = 0;
     int wrongCount = 0;
@@ -68,6 +68,15 @@ public class TeragramActivity extends AppCompatActivity {
         }
     }
 
+    public void timesTables() {
+         operand1 = level;
+         operand2 = rand.nextInt(13);
+         operation = "*";
+         response.setText("Lets practice " + level + " times tables");
+         question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
+
+    }
+
     public void clearAnswer() {
         answer = (EditText) findViewById(R.id.answer);
         answer.setText("");
@@ -76,9 +85,13 @@ public class TeragramActivity extends AppCompatActivity {
     // use this method when user asks for a different question
     public void newQuestion() {
         question = (TextView) findViewById(R.id.question);
-        setOperands();
-        question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
-        response.setText("can you answer this one?");
+        if (operation == "*") {
+            timesTables();
+        } else {
+            setOperands();
+            question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
+            response.setText("can you answer this one?");
+        }
     }
 
     // use this method after a correct question
@@ -92,13 +105,21 @@ public class TeragramActivity extends AppCompatActivity {
     public void tooEasy() {
         level++;
         if (level > maxLevel) level = maxLevel;
-        newQuestion();
+        if (operation == "*") {
+            timesTables();
+        } else {
+            newQuestion();
+        }
     }
 
     public void tooHard() {
         level--;
         if (level < 0) level = 0;
-        newQuestion();
+        if (operation == "*") {
+            timesTables();
+        } else {
+            newQuestion();
+        }
     }
 
     public void addition() {
@@ -112,8 +133,9 @@ public class TeragramActivity extends AppCompatActivity {
     }
 
     public void multiplication() {
-        operation = "*";
-        newQuestion();
+        timesTables();
+        //operation = "*";
+        //newQuestion();
     }
 
     public void confirm() {
@@ -131,13 +153,17 @@ public class TeragramActivity extends AppCompatActivity {
                 correctSound.start();
                 correctCount++;
                 wrongCount = 0;
-                if (correctCount == 5) {
+                if (correctCount == 10) {
                     level++;
                     correctCount = 0;
                 }
                 clearAnswer();
                 recognizerService.startRecognition();
-                nextQuestion();
+                if (operation == "*") {
+                    timesTables();
+                } else {
+                    nextQuestion();
+                }
             } else {
                 response.setText("try again");
                 recognizerService.stopRecognition();
