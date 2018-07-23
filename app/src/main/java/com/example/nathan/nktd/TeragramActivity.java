@@ -45,7 +45,7 @@ public class TeragramActivity extends AppCompatActivity {
     TextView whatIHeard;
     ImageView statusIcon;
     int level = 1;
-    int maxLevel = 20;
+    int maxLevel = 30;
     int correctCount = 0;
     int wrongCount = 0;
 
@@ -54,13 +54,13 @@ public class TeragramActivity extends AppCompatActivity {
 
     // get random numbers for initial question
     Random rand = new Random();
-    int operand1 = rand.nextInt(5 + level * 20);
-    int operand2 = rand.nextInt(5 + level * 20);
+    int operand1 = rand.nextInt(5 + level * 10);
+    int operand2 = rand.nextInt(5 + level * 10);
 
 
      public void setOperands() {
-        operand1 = rand.nextInt(5 + level * 20);
-        operand2 = rand.nextInt(5 + level * 20);
+        operand1 = rand.nextInt(5 + level * 10);
+        operand2 = rand.nextInt(5 + level * 10);
         if (operand2 > operand1) {
             int temp = operand1;
             operand1 = operand2;
@@ -93,9 +93,6 @@ public class TeragramActivity extends AppCompatActivity {
         level++;
         if (level > maxLevel) level = maxLevel;
         newQuestion();
-        //operand1 = rand.nextInt(5 + level * 50);
-        //operand2 = rand.nextInt(5 + level * 50);
-        //question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
     }
 
     public void tooHard() {
@@ -134,7 +131,7 @@ public class TeragramActivity extends AppCompatActivity {
                 correctSound.start();
                 correctCount++;
                 wrongCount = 0;
-                if (correctCount == 10) {
+                if (correctCount == 5) {
                     level++;
                     correctCount = 0;
                 }
@@ -147,9 +144,10 @@ public class TeragramActivity extends AppCompatActivity {
                 tryagainSound.start();
                 wrongCount++;
                 correctCount = 0;
-                if (wrongCount == 2) {
+                if (wrongCount == 3) {
                     level--;
                     wrongCount = 0;
+                    newQuestion();
                 }
                 recognizerService.startRecognition();
                 clearAnswer();
