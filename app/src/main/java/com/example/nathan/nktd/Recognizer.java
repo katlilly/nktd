@@ -41,6 +41,8 @@ public class Recognizer extends Service implements RecognitionListener {
 
     private String result = "";
 
+    private boolean listening = false;
+
     public Recognizer(){}
 
     /* Copy files to phone's memory if necessary. */
@@ -60,6 +62,7 @@ public class Recognizer extends Service implements RecognitionListener {
     public int onStartCommand(Intent intent, int flags, int startId){
         while(!setupComplete){}
         interpreter.startListening(MENU_SEARCH);
+        listening = true;
         return Service.START_STICKY;
     }
 
@@ -145,18 +148,22 @@ public class Recognizer extends Service implements RecognitionListener {
         return interpreter.getSearchName();
     }
 
-    private String lastSearch = "";
     public void stopRecognition() {
         Log.d("stopstart", "stopping");
-        lastSearch = interpreter.getSearchName();
         this.interpreter.stop();
+        listening = false;
         listener.onStopRecognition();
     }
 
-    public void startRecognition() {
+    public void startRecognition(String searchName) {
         Log.d("stopstart", "starting");
-        this.interpreter.startListening(lastSearch);
+        this.interpreter.startListening(searchName);
+        listening = true;
         listener.onStartRecognition();
+    }
+
+    public boolean isListening() {
+        return listening;
     }
 
     /* Set model, dictionary and grammars for interpreter. */

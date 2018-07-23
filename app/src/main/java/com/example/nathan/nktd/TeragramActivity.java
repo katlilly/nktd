@@ -15,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,7 +44,7 @@ public class TeragramActivity extends AppCompatActivity {
     EditText answer;
     TextView response;
     TextView whatIHeard;
-    ImageView statusIcon;
+    ImageButton recognizerButton;
     int level = 2;
     int maxLevel = 30;
     int correctCount = 0;
@@ -158,7 +159,7 @@ public class TeragramActivity extends AppCompatActivity {
                     correctCount = 0;
                 }
                 clearAnswer();
-                recognizerService.startRecognition();
+                recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
                 if (operation == "*") {
                     timesTables();
                 } else {
@@ -175,7 +176,7 @@ public class TeragramActivity extends AppCompatActivity {
                     wrongCount = 0;
                     newQuestion();
                 }
-                recognizerService.startRecognition();
+                recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
                 clearAnswer();
             }
         } catch (NumberFormatException e) {
@@ -203,7 +204,7 @@ public class TeragramActivity extends AppCompatActivity {
         answer = (EditText) findViewById(R.id.answer);
         response = (TextView) findViewById(R.id.response);
         whatIHeard = findViewById(R.id.speechResult);
-        statusIcon = (ImageView)findViewById(R.id.recognizerStatus);
+        recognizerButton = findViewById(R.id.recognizerStatus);
         //answer.setText(numyesSounds);
         // set the first question
         question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
@@ -303,6 +304,14 @@ public class TeragramActivity extends AppCompatActivity {
          }
     }
 
+    public void onOff(View view) {
+         if(recognizerService.isListening()) {
+             recognizerService.stopRecognition();
+         } else {
+             recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
+         }
+    }
+
     public void goBack() {
          Log.d("status", "goBack");
          finish();
@@ -384,17 +393,17 @@ public class TeragramActivity extends AppCompatActivity {
 
                 @Override
                 public void onStartRecognition() {
-                    statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening));
+                    recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
                 }
 
                 @Override
                 public void onStopRecognition() {
-                    statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
+                    recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
                 }
 
                 @Override
                 public void onNumberRecognition() {
-                    statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
+                    recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
                 }
             });
         }

@@ -5,7 +5,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -15,8 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ImageButton;
 
 import com.example.nathan.nktd.interfaces.SpeechResultListener;
 
@@ -27,14 +25,11 @@ public class MainActivity extends AppCompatActivity{
 
     private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
 
-    private String result = ""; // what the interpreter hears
-
     private SpeechResultListener listener;
-    SharedPreferences storedListener;
 
     private boolean recognizerBound = false;
     private Recognizer recognizerService;
-    private ImageView statusIcon;
+    private ImageButton recognizerButton;
 
     //private Context context;
     private Intent intent;
@@ -44,7 +39,7 @@ public class MainActivity extends AppCompatActivity{
         Log.d("status", "oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        statusIcon = (ImageView)findViewById(R.id.recognizerStatus);
+        recognizerButton = findViewById(R.id.recognizerStatus);
 
         /* Permissions taken directly from pocketSphinx's demo app*/
         int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
@@ -77,17 +72,17 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onStartRecognition() {
-                statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening));
+                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
             }
 
             @Override
             public void onStopRecognition() {
-                statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
+                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
             }
 
             @Override
             public void onNumberRecognition() {
-                statusIcon.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
+                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
             }
         };
         if (recognizerBound) {
@@ -145,6 +140,14 @@ public class MainActivity extends AppCompatActivity{
     public void openG4(View view){
         Intent intent = new Intent(this, Game4Activity.class);
         startActivity(intent);
+    }
+
+    public void onOff(View view) {
+        if(recognizerService.isListening()) {
+            recognizerService.stopRecognition();
+        } else {
+            recognizerService.startRecognition(recognizerService.MENU_SEARCH);
+        }
     }
 
     /* Recognizer-related interactions should go here. */
