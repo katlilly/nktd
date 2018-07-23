@@ -159,7 +159,7 @@ public class TeragramActivity extends AppCompatActivity {
                     correctCount = 0;
                 }
                 clearAnswer();
-                recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
+                //recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
                 if (operation == "*") {
                     timesTables();
                 } else {
@@ -176,7 +176,7 @@ public class TeragramActivity extends AppCompatActivity {
                     wrongCount = 0;
                     newQuestion();
                 }
-                recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
+                //recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
                 clearAnswer();
             }
         } catch (NumberFormatException e) {
@@ -192,7 +192,19 @@ public class TeragramActivity extends AppCompatActivity {
         setContentView(R.layout.activity_teragram);
 
         correctSound = MediaPlayer.create(this, R.raw.correct);
+        correctSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
+            }
+        });
         tryagainSound = MediaPlayer.create(this, R.raw.tryagain);
+        tryagainSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
+            }
+        });
 
         /* Bind recognizer service */
         context = getApplicationContext();
