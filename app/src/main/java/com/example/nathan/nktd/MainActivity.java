@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.nathan.nktd.interfaces.SpeechResultListener;
+import com.example.nathan.nktd.nktd2048.MainActivity2048;
 
 import static android.widget.Toast.makeText;
 
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void openG3(View view){
-        Intent intent = new Intent(this, Game3Activity.class);
+        Intent intent = new Intent(this, MainActivity2048.class);
         startActivity(intent);
     }
 
