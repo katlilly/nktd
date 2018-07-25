@@ -1,10 +1,20 @@
 package com.example.nathan.nktd.nktd2048;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
+
+import com.example.nathan.nktd.R;
+import com.example.nathan.nktd.Recognizer;
+import com.example.nathan.nktd.interfaces.SpeechResultListener;
 
 public class MainActivity2048 extends AppCompatActivity {
 
@@ -18,6 +28,10 @@ public class MainActivity2048 extends AppCompatActivity {
     private static final String GAME_STATE = "game state";
     private static final String UNDO_GAME_STATE = "undo game state";
     private MainView view;
+
+    //Recognizer-related variables
+    private boolean recognizerBound;
+    private Recognizer recognizerService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +47,12 @@ public class MainActivity2048 extends AppCompatActivity {
             }
         }
         setContentView(view);
+
+        /* Bind recognizer service */
+        Context context = getApplicationContext();
+        Intent intent = new Intent(this, Recognizer.class);
+        context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+
     }
 
     @Override
@@ -134,4 +154,55 @@ public class MainActivity2048 extends AppCompatActivity {
         view.game.gameState = settings.getInt(GAME_STATE, view.game.gameState);
         view.game.lastGameState = settings.getInt(UNDO_GAME_STATE, view.game.lastGameState);
     }
+
+    /* Recognizer-related interactions should go here. */
+    public ServiceConnection serviceConnection = new ServiceConnection() {
+
+        Recognizer.RecognizerBinder binder;
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            binder = (Recognizer.RecognizerBinder) service;
+            recognizerService = binder.getService();
+            recognizerBound = true;
+            /* Create listener and link it to recognizer. */
+            recognizerService.setListener(new SpeechResultListener() {
+                @Override
+                public void onSpeechResult() {
+                    String result = recognizerService.getResult();
+                    switch (result) {
+                        case "up":
+                            view.game.move(0);
+                            break;
+                        case "down":
+                            view.game.move(2);
+                            break;
+                        case "left":
+                            view.game.move(3);
+                            break;
+                        case "right":
+                            view.game.move(1);
+                            break;
+                    }
+                }
+
+                @Override
+                public void onStartRecognition() {
+                }
+
+                @Override
+                public void onStopRecognition() {
+                }
+
+                @Override
+                public void onNumberRecognition() {
+                }
+            });
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            recognizerBound = false;
+        }
+    };
 }

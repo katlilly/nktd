@@ -37,6 +37,7 @@ public class Recognizer extends Service implements RecognitionListener {
     public static final String MENU_SEARCH = "menu";
     public static final String TERAGRAM_SEARCH = "teragram";
     public static final String NUMBER_SEARCH = "number";
+    public static final String TWENTY_FORTY_EIGHT_SEARCH = "2048";
 
     private SpeechResultListener listener;
 
@@ -111,6 +112,8 @@ public class Recognizer extends Service implements RecognitionListener {
                 case MENU_SEARCH:
                     if (result.equals("game two") || result.equals("tear a gram")) {
                         swapSearch(TERAGRAM_SEARCH);
+                    } else if(result.equals("game three") || result.equals("twenty forty eight")) {
+                        swapSearch(TWENTY_FORTY_EIGHT_SEARCH);
                     } else {
                         interpreter.startListening(searchName);
                     }
@@ -134,6 +137,8 @@ public class Recognizer extends Service implements RecognitionListener {
                         interpreter.startListening(searchName);
                     }
                     break;
+                case TWENTY_FORTY_EIGHT_SEARCH:
+                    interpreter.startListening(searchName);
             }
 
             /* Let all listeners know there's a result. */
@@ -191,9 +196,11 @@ public class Recognizer extends Service implements RecognitionListener {
         File menuGrammar = new File(assetsDir, "menu.gram");
         File teragramGrammar = new File(assetsDir, "teragram.gram");
         File numberGrammar = new File(assetsDir, "number.gram");
+        File twentyFortyEightGrammar = new File(assetsDir, "2048.gram");
         interpreter.addGrammarSearch(MENU_SEARCH, menuGrammar);
         interpreter.addGrammarSearch(TERAGRAM_SEARCH, teragramGrammar);
         interpreter.addGrammarSearch(NUMBER_SEARCH, numberGrammar);
+        interpreter.addGrammarSearch(TWENTY_FORTY_EIGHT_SEARCH, twentyFortyEightGrammar);
 
         this.setupComplete = true;
     }

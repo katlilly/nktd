@@ -1,0 +1,5 @@
+#JSGF V1.0;
+
+grammar 2048;
+
+public <command> = (up | down | left | right);
