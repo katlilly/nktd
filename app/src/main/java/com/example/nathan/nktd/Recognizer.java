@@ -11,6 +11,9 @@ import com.example.nathan.nktd.interfaces.SpeechResultListener;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import edu.cmu.pocketsphinx.Assets;
 import edu.cmu.pocketsphinx.Hypothesis;
@@ -86,17 +89,27 @@ public class Recognizer extends Service implements RecognitionListener {
     @Override
     public void onResult(Hypothesis hypothesis){}
 
+    private static List<String> finishedCommands = new ArrayList();
+    private static String[] commands = {"addition", "back", "clear", "cancel", "down",
+    "easier", "eight", "enter", "exit", "five", "four", "game one", "game two", "game three",
+            "game four", "harder",
+    "left", "multiplication", "new question", "nine", "number", "one", "right", "seven",
+    "six", "subtraction", "tear a gram", "three", "twenty forty eight", "two", "up",
+    "zero"};
+
     @Override
     public void onPartialResult(Hypothesis hypothesis) {
         if (hypothesis != null) {
             String searchName = interpreter.getSearchName();
-            interpreter.stop();
             result = hypothesis.getHypstr();
+            if (Arrays.asList(commands).contains(result)) {
+                interpreter.stop();
+            }
             Log.d("status", "Heard " + result);
             /* Handle switching between searches here. */
             switch (searchName) {
                 case MENU_SEARCH:
-                    if (result.equals("game two")) {
+                    if (result.equals("game two") || result.equals("tear a gram")) {
                         swapSearch(TERAGRAM_SEARCH);
                     } else {
                         interpreter.startListening(searchName);

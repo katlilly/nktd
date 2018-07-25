@@ -2,4 +2,7 @@
 
 grammar menu;
 
-public <command> = game (one | two | three | four);
+<teragram> = tear a gram;
+<2048> = twenty forty eight;
+
+public <command> = game (one | two | three | four) | <teragram> | <2048>;

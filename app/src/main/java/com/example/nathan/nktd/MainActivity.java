@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity{
     private SpeechResultListener listener;
 
     private boolean recognizerBound = false;
+    private boolean recognizerListening = true;
     private Recognizer recognizerService;
     private ImageButton recognizerButton;
 
@@ -62,12 +63,17 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onSpeechResult() {
                 String result = recognizerService.getResult();
-                //updateResultBox(result);
 
                 /* Game opening happens here. */
                 switch (result) {
                     case "game two":
                         openG2(null);
+                    case "tear a gram":
+                        openG2(null);
+                    case "game three":
+                        openG3(null);
+                    case "twenty forty eight":
+                        openG3(null);
                 }
             }
 
@@ -88,6 +94,12 @@ public class MainActivity extends AppCompatActivity{
         };
         if (recognizerBound) {
             recognizerService.setListener(listener);
+            recognizerListening = recognizerService.isListening();
+        }
+        if (recognizerListening) {
+            recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
+        } else {
+            recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
         }
     }
 
@@ -130,6 +142,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void openG2(View view){
         Intent intent = new Intent(this, TeragramActivity.class);
+        intent.putExtra("listening", recognizerListening);
         startActivity(intent);
     }
 
@@ -146,8 +159,10 @@ public class MainActivity extends AppCompatActivity{
     public void onOff(View view) {
         if(recognizerService.isListening()) {
             recognizerService.stopRecognition();
+            recognizerListening = false;
         } else {
             recognizerService.startRecognition(recognizerService.MENU_SEARCH);
+            recognizerListening = true;
         }
     }
 

@@ -34,6 +34,7 @@ public class TeragramActivity extends AppCompatActivity {
     private SpeechResultListener listener;
 
     private boolean recognizerBound = false;
+    private boolean recognizerListening;
     private Recognizer recognizerService;
 
     /* Response files */
@@ -282,6 +283,14 @@ public class TeragramActivity extends AppCompatActivity {
             }
         });
 
+        //Set correct recognizer status button
+        Bundle passedExtras = getIntent().getExtras();
+        recognizerListening = passedExtras.getBoolean("listening", true);
+        if (recognizerListening) {
+            recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
+        } else {
+            recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
+        }
     }
 
     public void updateResultBox(String string) {
