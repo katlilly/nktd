@@ -41,6 +41,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity android:name="org.jfedor.frozenbubble.FrozenBubble"
+            android:configChanges="orientation|keyboardHidden"
+            android:alwaysRetainTaskState="true">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 
         <service android:name=".Recognizer" />
     </application>

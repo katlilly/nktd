@@ -19,6 +19,8 @@ import android.widget.ImageButton;
 import com.example.nathan.nktd.interfaces.SpeechResultListener;
 import com.example.nathan.nktd.nktd2048.MainActivity2048;
 
+import org.jfedor.frozenbubble.FrozenBubble;
+
 import static android.widget.Toast.makeText;
 
 public class MainActivity extends AppCompatActivity{
@@ -152,7 +154,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void openG4(View view){
-        Intent intent = new Intent(this, Game4Activity.class);
+        Intent intent = new Intent(this, FrozenBubble.class);
         startActivity(intent);
     }
 
