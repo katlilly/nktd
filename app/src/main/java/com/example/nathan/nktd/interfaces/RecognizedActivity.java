@@ -23,8 +23,10 @@ public abstract class RecognizedActivity extends AppCompatActivity {
     protected ImageButton recognizerButton;
 
 
-    protected void bindRecognizer() {
+    protected void bindRecognizer(String gameName) {
+        Log.d("binding", gameName);
         Intent recognizerIntent = new Intent(this, Recognizer.class);
+        recognizerIntent.putExtra("gameName", gameName);
         bindService(recognizerIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 

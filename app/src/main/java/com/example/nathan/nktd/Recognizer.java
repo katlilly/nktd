@@ -43,6 +43,7 @@ public class Recognizer extends Service implements RecognitionListener {
     public boolean setupComplete = false;
     private boolean listening = false;
 
+    private String gameName;
     private String result = "";
     private String initSearch;
 
@@ -219,6 +220,10 @@ public class Recognizer extends Service implements RecognitionListener {
     }
 
     public void swapSearch(String newSearch) {
+        Log.d("swapping", newSearch);
+        if(listening) {
+            interpreter.stop();
+        }
         interpreter.startListening(newSearch);
     }
 

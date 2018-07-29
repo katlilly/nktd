@@ -86,7 +86,7 @@ public class MainActivity extends RecognizedActivity{
         }
 
         startService(recognizerStarterIntent);
-        bindRecognizer();
+        bindRecognizer(Recognizer.MENU_SEARCH);
     }
 
     @Override
@@ -140,6 +140,7 @@ public class MainActivity extends RecognizedActivity{
 
     public void openG3(View view){
         Intent intent = new Intent(this, MainActivity2048.class);
+        intent.putExtra("listening", recognizerListening);
         startActivity(intent);
     }
 
