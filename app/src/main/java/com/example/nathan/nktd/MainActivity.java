@@ -16,22 +16,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.example.nathan.nktd.interfaces.RecognizedActivity;
 import com.example.nathan.nktd.interfaces.SpeechResultListener;
 import com.example.nathan.nktd.nktd2048.MainActivity2048;
 
 import static android.widget.Toast.makeText;
 
-public class MainActivity extends AppCompatActivity{
-    public static final String EXTRA_MESSAGE = "com.example.nathan.nktd.MESSAGE";
+public class MainActivity extends RecognizedActivity{
 
     private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
-
-    private SpeechResultListener listener;
-
-    private boolean recognizerBound = false;
-    private boolean recognizerListening = true;
-    private Recognizer recognizerService;
-    private ImageButton recognizerButton;
 
     private Intent recognizerStarterIntent;
 
@@ -40,25 +33,13 @@ public class MainActivity extends AppCompatActivity{
         Log.d("status", "oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recognizerButton = findViewById(R.id.recognizerStatus);
 
-        /* Permissions taken directly from pocketSphinx's demo app*/
-        int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSIONS_REQUEST_RECORD_AUDIO);
-        }
+        /* Recognizer Setup */
+        recognizerButton = findViewById(R.id.recognizerStatus);
         recognizerStarterIntent = new Intent(this, Recognizer.class);
         recognizerStarterIntent.putExtra("searchName", Recognizer.MENU_SEARCH);
-        startService(recognizerStarterIntent);
-        bindService(recognizerStarterIntent, serviceConnection, Context.BIND_AUTO_CREATE);
-        Log.d("status", "onCreateDone");
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d("status", "onresume");
-        listener = new SpeechResultListener() {
+        recognizerListener = new SpeechResultListener() {
             @Override
             public void onSpeechResult() {
                 String result = recognizerService.getResult();
@@ -82,11 +63,13 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onStartRecognition() {
+                recognizerListening = true;
                 recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
             }
 
             @Override
             public void onStopRecognition() {
+                recognizerListening = false;
                 recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
             }
 
@@ -95,15 +78,22 @@ public class MainActivity extends AppCompatActivity{
                 recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
             }
         };
-        if (recognizerBound) {
-            recognizerService.setListener(listener);
-            recognizerListening = recognizerService.isListening();
+
+        /* Permissions taken almost directly from pocketSphinx's demo app*/
+        int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSIONS_REQUEST_RECORD_AUDIO);
         }
-        if (recognizerListening) {
-            recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
-        } else {
-            recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
-        }
+
+        startService(recognizerStarterIntent);
+        bindRecognizer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("status", "onresume");
+        restartRecognizer();
     }
 
     @Override
@@ -157,33 +147,4 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = new Intent(this, Game4Activity.class);
         startActivity(intent);
     }
-
-    public void onOff(View view) {
-        if(recognizerService.isListening()) {
-            recognizerService.stopRecognition();
-            recognizerListening = false;
-        } else {
-            recognizerService.startRecognition(recognizerService.MENU_SEARCH);
-            recognizerListening = true;
-        }
-    }
-
-    /* Recognizer-related interactions should go here. */
-    public ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            Recognizer.RecognizerBinder binder = (Recognizer.RecognizerBinder) service;
-            recognizerService = binder.getService();
-            recognizerBound = true;
-            Log.d("status", "bound");
-            /* Create listener and link it to recognizer. */
-            recognizerService.setListener(listener);        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            Log.d("status", "disconnected");
-            recognizerBound = false;
-        }
-    };
-
 }

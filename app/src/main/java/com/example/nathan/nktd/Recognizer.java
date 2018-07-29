@@ -27,7 +27,6 @@ public class Recognizer extends Service implements RecognitionListener {
         public Recognizer getService() {
             return Recognizer.this;
         }
-        public boolean isSetUp() {return setupComplete;}
     }
 
     private SpeechRecognizer interpreter;
@@ -45,6 +44,7 @@ public class Recognizer extends Service implements RecognitionListener {
     private boolean listening = false;
 
     private String result = "";
+    private String initSearch;
 
     public Recognizer(){}
 
@@ -62,10 +62,11 @@ public class Recognizer extends Service implements RecognitionListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-        while(!setupComplete){}
-        String initSearch = intent.getStringExtra("searchName");
+        Log.d("status", "onStartCommand");
+        initSearch = intent.getStringExtra("searchName");
         interpreter.startListening(initSearch);
         listening = true;
+        while(!setupComplete){}
         return Service.START_STICKY;
     }
 

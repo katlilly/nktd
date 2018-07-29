@@ -19,23 +19,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.nathan.nktd.interfaces.RecognizedActivity;
 import com.example.nathan.nktd.interfaces.SpeechResultListener;
 
 import java.util.Random;
 
 
-public class TeragramActivity extends AppCompatActivity {
-
-    String[] commands = new String[]{"too easy", "too hard", "new question"};
-
-    Context context;
-
-    /* Recognizer-related. */
-    private SpeechResultListener listener;
-
-    private boolean recognizerBound = false;
-    private boolean recognizerListening;
-    private Recognizer recognizerService;
+public class TeragramActivity extends RecognizedActivity {
 
     /* Response files */
     MediaPlayer correctSound;
@@ -45,7 +35,6 @@ public class TeragramActivity extends AppCompatActivity {
     EditText answer;
     TextView response;
     TextView whatIHeard;
-    ImageButton recognizerButton;
     int level = 2;
     int maxLevel = 30;
     int correctCount = 0;
@@ -192,6 +181,90 @@ public class TeragramActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teragram);
 
+        /* Recognizer Setup */
+        recognizerBound = false;
+        bindRecognizer();
+        recognizerButton = findViewById(R.id.recognizerStatus);
+        setButton(getIntent());
+
+        recognizerListener = new SpeechResultListener() {
+            @Override
+            public void onSpeechResult() {
+                String result = recognizerService.getResult();
+                updateResultBox(result);
+                if (recognizerService.getSearchName()
+                        .equals(recognizerService.TERAGRAM_SEARCH)) {
+                    switch (result) {
+                        case "easier":
+                            tooHard();
+                            break;
+                        case "harder":
+                            tooEasy();
+                            break;
+                        case "new question":
+                            newQuestion();
+                            break;
+                        case "addition":
+                            addition();
+                            break;
+                        case "subtraction":
+                            subtraction();
+                            break;
+                        case "multiplication":
+                            multiplication();
+                            break;
+                        case "enter":
+                            confirm();
+                            break;
+                        case "number":
+                            break;
+                    }
+                    // Will be in 'number' search here.
+                } else {
+                    String currentText = getAnswerBoxValue();
+
+                    if (currentText.equals("0")) {
+                        currentText = "";
+                    }
+                    switch (result) {
+                        case "clear":
+                            currentText = "";
+                            setAnswerBoxValue(currentText);
+                            break;
+                        case "back":
+                            if (currentText.length() > 0) {
+                                currentText = currentText.subSequence(0, currentText.length() - 1)
+                                        .toString();
+                                setAnswerBoxValue(currentText);
+                            }
+                            break;
+                        case "exit":
+                            finish();
+                            break;
+                        default:
+                            currentText = currentText + stringToDigit(result);
+                            setAnswerBoxValue(currentText);
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onStartRecognition() {
+                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
+            }
+
+            @Override
+            public void onStopRecognition() {
+                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
+            }
+
+            @Override
+            public void onNumberRecognition() {
+                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
+            }
+        };
+
         correctSound = MediaPlayer.create(this, R.raw.correct);
         correctSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -207,17 +280,11 @@ public class TeragramActivity extends AppCompatActivity {
             }
         });
 
-        /* Bind recognizer service */
-        context = getApplicationContext();
-        Intent intent = new Intent(this, Recognizer.class);
-        context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-
         // create references to the text elements and buttons
         question = (TextView) findViewById(R.id.question);
         answer = (EditText) findViewById(R.id.answer);
         response = (TextView) findViewById(R.id.response);
         whatIHeard = findViewById(R.id.speechResult);
-        recognizerButton = findViewById(R.id.recognizerStatus);
         //answer.setText(numyesSounds);
         // set the first question
         question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
@@ -258,7 +325,6 @@ public class TeragramActivity extends AppCompatActivity {
             }
         });
 
-
         Button plus = (Button) findViewById(R.id.plus);
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,15 +348,6 @@ public class TeragramActivity extends AppCompatActivity {
                 multiplication();
             }
         });
-
-        //Set correct recognizer status button
-        Bundle passedExtras = getIntent().getExtras();
-        recognizerListening = passedExtras.getBoolean("listening", true);
-        if (recognizerListening) {
-            recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
-        } else {
-            recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
-        }
     }
 
     public void updateResultBox(String string) {
@@ -324,115 +381,4 @@ public class TeragramActivity extends AppCompatActivity {
              default: return "0";
          }
     }
-
-    public void onOff(View view) {
-         if(recognizerService.isListening()) {
-             recognizerService.stopRecognition();
-         } else {
-             recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
-         }
-    }
-
-    public void goBack() {
-         Log.d("status", "goBack");
-         finish();
-    }
-
-    /* Recognizer-related interactions should go here. */
-    public ServiceConnection serviceConnection = new ServiceConnection() {
-
-        Recognizer.RecognizerBinder binder;
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            binder = (Recognizer.RecognizerBinder) service;
-            recognizerService = binder.getService();
-            recognizerBound = true;
-            /* Create listener and link it to recognizer. */
-            recognizerService.setListener(new SpeechResultListener() {
-                @Override
-                public void onSpeechResult() {
-                    String result = recognizerService.getResult();
-                    updateResultBox(result);
-                    if (recognizerService.getSearchName()
-                            .equals(recognizerService.TERAGRAM_SEARCH)) {
-                        switch (result) {
-                            case "easier":
-                                tooHard();
-                                break;
-                            case "harder":
-                                tooEasy();
-                                break;
-                            case "new question":
-                                newQuestion();
-                                break;
-                            case "addition":
-                                addition();
-                                break;
-                            case "subtraction":
-                                subtraction();
-                                break;
-                            case "multiplication":
-                                multiplication();
-                                break;
-                            case "enter":
-                                confirm();
-                                break;
-                            case "number":
-                                break;
-                        }
-                        // Will be in 'number' search here.
-                    } else {
-                        String currentText = getAnswerBoxValue();
-
-                        if (currentText.equals("0")) {
-                            currentText = "";
-                        }
-                        switch (result) {
-                            case "clear":
-                                currentText = "";
-                                setAnswerBoxValue(currentText);
-                                break;
-                            case "back":
-                                if (currentText.length() > 0) {
-                                    currentText = currentText.subSequence(0, currentText.length() - 1)
-                                            .toString();
-                                    setAnswerBoxValue(currentText);
-                                }
-                                break;
-                            case "exit":
-                                Log.d("status", "exitHeard");
-                                goBack();
-                                break;
-                            default:
-                                currentText = currentText + stringToDigit(result);
-                                setAnswerBoxValue(currentText);
-                                break;
-                        }
-                    }
-                }
-
-                @Override
-                public void onStartRecognition() {
-                    recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
-                }
-
-                @Override
-                public void onStopRecognition() {
-                    recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
-                }
-
-                @Override
-                public void onNumberRecognition() {
-                    recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
-                }
-            });
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            recognizerBound = false;
-        }
-    };
-
 }
