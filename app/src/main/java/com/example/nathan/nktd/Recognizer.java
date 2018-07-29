@@ -98,11 +98,24 @@ public class Recognizer extends Service implements RecognitionListener {
     "six", "subtraction", "tear a gram", "three", "twenty forty eight", "two", "up",
     "zero"};
 
+    private int repetitionCount = 0;
+    private String previousResult = "";
     @Override
     public void onPartialResult(Hypothesis hypothesis) {
+
         if (hypothesis != null) {
             String searchName = interpreter.getSearchName();
             result = hypothesis.getHypstr();
+            if(previousResult.equals(result)) {
+                repetitionCount++;
+            }
+            if(repetitionCount > 5) {
+                Log.d("status", "cancel");
+                interpreter.stop();
+                previousResult = "";
+                repetitionCount = 0;
+            }
+            previousResult = result;
             if (Arrays.asList(commands).contains(result)) {
                 interpreter.stop();
             }
