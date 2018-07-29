@@ -42,10 +42,9 @@ public class Recognizer extends Service implements RecognitionListener {
     private SpeechResultListener listener;
 
     public boolean setupComplete = false;
+    private boolean listening = false;
 
     private String result = "";
-
-    private boolean listening = false;
 
     public Recognizer(){}
 
@@ -56,7 +55,6 @@ public class Recognizer extends Service implements RecognitionListener {
             Assets assets = new Assets(reference.get());
             File assetDir = assets.syncAssets();
             setupRecognizer(assetDir);
-            Log.d("Status", "setup complete");
         } catch (IOException e) {
             Log.d("ex msg: ", e.getMessage());
         }
@@ -65,7 +63,8 @@ public class Recognizer extends Service implements RecognitionListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
         while(!setupComplete){}
-        interpreter.startListening(MENU_SEARCH);
+        String initSearch = intent.getStringExtra("searchName");
+        interpreter.startListening(initSearch);
         listening = true;
         return Service.START_STICKY;
     }

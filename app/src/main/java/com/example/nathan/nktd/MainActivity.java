@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity{
     private Recognizer recognizerService;
     private ImageButton recognizerButton;
 
-    //private Context context;
-    private Intent intent;
+    private Intent recognizerStarterIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +46,12 @@ public class MainActivity extends AppCompatActivity{
         int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSIONS_REQUEST_RECORD_AUDIO);
-            return;
         }
-        intent = new Intent(this, Recognizer.class);
-        startService(intent);
-        //context = getApplicationContext();
-        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        recognizerStarterIntent = new Intent(this, Recognizer.class);
+        recognizerStarterIntent.putExtra("searchName", Recognizer.MENU_SEARCH);
+        startService(recognizerStarterIntent);
+        bindService(recognizerStarterIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+        Log.d("status", "onCreateDone");
     }
 
     @Override
@@ -68,12 +67,16 @@ public class MainActivity extends AppCompatActivity{
                 switch (result) {
                     case "game two":
                         openG2(null);
+                        break;
                     case "tear a gram":
                         openG2(null);
+                        break;
                     case "game three":
                         openG3(null);
+                        break;
                     case "twenty forty eight":
                         openG3(null);
+                        break;
                 }
             }
 
@@ -127,9 +130,8 @@ public class MainActivity extends AppCompatActivity{
             , @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSIONS_REQUEST_RECORD_AUDIO) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startService(new Intent(this, Recognizer.class));
-            } else {
+            if (!(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                Log.d("status", "grandResults.length !> 0");
                 finish();
             }
         }
