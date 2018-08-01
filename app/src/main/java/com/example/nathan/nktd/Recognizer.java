@@ -90,7 +90,7 @@ public class Recognizer extends Service implements RecognitionListener {
     private static String[] commands = {"addition", "back", "clear", "cancel", "down",
     "easier", "eight", "enter", "exit", "five", "four", "game one", "game two", "game three",
             "game four", "harder",
-    "left", "multiplication", "new question", "nine", "number", "one", "right", "seven",
+    "left", "multiplication", "new game", "new question", "nine", "number", "one", "right", "seven",
     "six", "subtraction", "tear a gram", "three", "twenty forty eight", "two", "up",
     "zero"};
 

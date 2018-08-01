@@ -66,6 +66,15 @@ public class MainActivity2048 extends RecognizedActivity {
                     case "right":
                         view.game.move(1);
                         break;
+                    case "exit":
+                        exitGame();
+                        break;
+                    case "new game":
+                        //view.game.newGame(); ??
+                    case "back":
+                        if(view.game.canUndo) {
+                            view.game.revertUndoState();
+                        }
                 }
             }
 
