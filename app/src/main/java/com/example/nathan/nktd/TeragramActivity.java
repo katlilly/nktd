@@ -219,6 +219,9 @@ public class TeragramActivity extends RecognizedActivity {
                             break;
                         case "number":
                             break;
+                        case "exit":
+                            exitGame();
+                            break;
                     }
                     // Will be in 'number' search here.
                 } else {
@@ -238,9 +241,6 @@ public class TeragramActivity extends RecognizedActivity {
                                         .toString();
                                 setAnswerBoxValue(currentText);
                             }
-                            break;
-                        case "exit":
-                            finish();
                             break;
                         default:
                             currentText = currentText + stringToDigit(result);

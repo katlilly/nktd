@@ -43,9 +43,7 @@ public class Recognizer extends Service implements RecognitionListener {
     public boolean setupComplete = false;
     private boolean listening = false;
 
-    private String gameName;
     private String result = "";
-    private String initSearch;
 
     public Recognizer(){}
 
@@ -63,9 +61,7 @@ public class Recognizer extends Service implements RecognitionListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-        Log.d("status", "onStartCommand");
-        initSearch = intent.getStringExtra("searchName");
-        interpreter.startListening(initSearch);
+        interpreter.startListening(Recognizer.MENU_SEARCH);
         listening = true;
         while(!setupComplete){}
         return Service.START_STICKY;
@@ -91,7 +87,6 @@ public class Recognizer extends Service implements RecognitionListener {
     @Override
     public void onResult(Hypothesis hypothesis){}
 
-    private static List<String> finishedCommands = new ArrayList();
     private static String[] commands = {"addition", "back", "clear", "cancel", "down",
     "easier", "eight", "enter", "exit", "five", "four", "game one", "game two", "game three",
             "game four", "harder",
@@ -110,7 +105,7 @@ public class Recognizer extends Service implements RecognitionListener {
             if(previousResult.equals(result)) {
                 repetitionCount++;
             }
-            if(repetitionCount > 5) {
+            if(repetitionCount >= 3) {
                 Log.d("status", "cancel");
                 interpreter.stop();
                 previousResult = "";
@@ -123,37 +118,21 @@ public class Recognizer extends Service implements RecognitionListener {
             Log.d("status", "Heard " + result);
             /* Handle switching between searches here. */
             switch (searchName) {
-                case MENU_SEARCH:
-                    if (result.equals("game two") || result.equals("tear a gram")) {
-                        swapSearch(TERAGRAM_SEARCH);
-                    } else if(result.equals("game three") || result.equals("twenty forty eight")) {
-                        swapSearch(TWENTY_FORTY_EIGHT_SEARCH);
-                    } else {
-                        interpreter.startListening(searchName);
-                    }
-                    break;
-
                 case TERAGRAM_SEARCH:
                     if (result.equals("number")) {
-                        swapSearch(NUMBER_SEARCH);
+                        searchName = NUMBER_SEARCH;
                         listener.onNumberRecognition();
-                    } else if (result.equals("exit")) {
-                        swapSearch(MENU_SEARCH);
-                    } else {
-                        interpreter.startListening(searchName);
                     }
                     break;
 
                 case NUMBER_SEARCH:
                     if (result.equals("enter") || result.equals("cancel")) {
-                        swapSearch(TERAGRAM_SEARCH);
-                    } else {
-                        interpreter.startListening(searchName);
+                        searchName = TERAGRAM_SEARCH;
+                        listener.onStartRecognition();
                     }
                     break;
-                case TWENTY_FORTY_EIGHT_SEARCH:
-                    interpreter.startListening(searchName);
             }
+            interpreter.startListening(searchName);
 
             /* Let all listeners know there's a result. */
             if (listener != null) {
@@ -181,14 +160,12 @@ public class Recognizer extends Service implements RecognitionListener {
     }
 
     public void stopRecognition() {
-        Log.d("stopstart", "stopping");
         this.interpreter.stop();
         listening = false;
         listener.onStopRecognition();
     }
 
     public void startRecognition(String searchName) {
-        Log.d("stopstart", "starting");
         this.interpreter.startListening(searchName);
         listening = true;
         listener.onStartRecognition();

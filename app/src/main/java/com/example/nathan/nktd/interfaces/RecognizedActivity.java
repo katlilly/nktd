@@ -7,9 +7,11 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.example.nathan.nktd.MainActivity;
 import com.example.nathan.nktd.R;
 import com.example.nathan.nktd.Recognizer;
 
@@ -22,12 +24,16 @@ public abstract class RecognizedActivity extends AppCompatActivity {
     protected boolean recognizerListening = true;
     protected ImageButton recognizerButton;
 
-
     protected void bindRecognizer(String gameName) {
         Log.d("binding", gameName);
         Intent recognizerIntent = new Intent(this, Recognizer.class);
-        recognizerIntent.putExtra("gameName", gameName);
+//        recognizerIntent.putExtra("gameName", gameName);
         bindService(recognizerIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    protected void exitGame() {
+        recognizerService.swapSearch(Recognizer.MENU_SEARCH);
+        finish();
     }
 
     protected void setButton() {
@@ -69,6 +75,24 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         } else {
             recognizerService.startRecognition(recognizerService.MENU_SEARCH);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(this.getClass() != MainActivity.class) {
+            exitGame();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            exitGame();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+
     }
 
     public ServiceConnection serviceConnection = new ServiceConnection() {

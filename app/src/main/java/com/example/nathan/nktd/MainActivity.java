@@ -20,6 +20,9 @@ import com.example.nathan.nktd.interfaces.RecognizedActivity;
 import com.example.nathan.nktd.interfaces.SpeechResultListener;
 import com.example.nathan.nktd.nktd2048.MainActivity2048;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static android.widget.Toast.makeText;
 
 public class MainActivity extends RecognizedActivity{
@@ -37,7 +40,6 @@ public class MainActivity extends RecognizedActivity{
         /* Recognizer Setup */
         recognizerButton = findViewById(R.id.recognizerStatus);
         recognizerStarterIntent = new Intent(this, Recognizer.class);
-        recognizerStarterIntent.putExtra("searchName", Recognizer.MENU_SEARCH);
 
         recognizerListener = new SpeechResultListener() {
             @Override
@@ -92,26 +94,7 @@ public class MainActivity extends RecognizedActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("status", "onresume");
         restartRecognizer();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d("status", "onpause");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d("status", "onstop");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("status", "ondestroy");
     }
 
     /* Permissions request taken directly from pocketSphinx's demo app */
@@ -127,21 +110,31 @@ public class MainActivity extends RecognizedActivity{
         }
     }
 
+    /* Searches to be switched to for each game */
+    private static Map<Class, String> defaultSearches = new HashMap<>();
+    static {
+        defaultSearches.put(TeragramActivity.class, Recognizer.TERAGRAM_SEARCH);
+        defaultSearches.put(MainActivity2048.class, Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
+    }
+
+    private void startGame(Class game) {
+        recognizerService.swapSearch(defaultSearches.get(game));
+        Intent intent = new Intent(this, game);
+        intent.putExtra("listening", recognizerListening);
+        startActivity(intent);
+    }
+
     public void openTetris(View view){
         Intent intent = new Intent(this, TetrisActivity.class);
         startActivity(intent);
     }
 
     public void openG2(View view){
-        Intent intent = new Intent(this, TeragramActivity.class);
-        intent.putExtra("listening", recognizerListening);
-        startActivity(intent);
+        startGame(TeragramActivity.class);
     }
 
     public void openG3(View view){
-        Intent intent = new Intent(this, MainActivity2048.class);
-        intent.putExtra("listening", recognizerListening);
-        startActivity(intent);
+        startGame(MainActivity2048.class);
     }
 
     public void openG4(View view){
