@@ -22,7 +22,7 @@ android:
    - addon-google_apis-google-$ANDROID_API_LEVEL
 
 sudo: required
-dist: trusty
+dist: bionic
 
 before_install:
 - chmod +x ./gradlew
