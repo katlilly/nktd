@@ -28,7 +28,7 @@ local.properties
 /.nb-gradle/
 \.gradle/
 local.properties
-
+build.gradle
 
 build/
 /tetris/.nb-gradle/
