@@ -60,10 +60,10 @@ public class TeragramActivity extends RecognizedActivity {
     }
 
     public void timesTables() {
-         operand1 = level;
+         operand1 = level+2;
          operand2 = rand.nextInt(13);
          operation = "*";
-         response.setText("Lets practice " + level + " times tables");
+         response.setText("Lets practice " + operand1 + " times tables");
          question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
 
     }
