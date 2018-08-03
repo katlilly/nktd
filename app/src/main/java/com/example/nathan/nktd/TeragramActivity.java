@@ -1,5 +1,6 @@
 package com.example.nathan.nktd;
 
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -220,7 +221,7 @@ public class TeragramActivity extends RecognizedActivity {
                         case "number":
                             break;
                         case "exit":
-                            exitGame();
+                            showExitDialog();
                             break;
                     }
                     // Will be in 'number' search here.
@@ -263,6 +264,16 @@ public class TeragramActivity extends RecognizedActivity {
             @Override
             public void onNumberRecognition() {
                 recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
+            }
+
+            @Override
+            public void onConfirmExit() {
+                exitGame(null);
+            }
+
+            @Override
+            public void onDenyExit() {
+                dismissExitDialog(null);
             }
         };
 

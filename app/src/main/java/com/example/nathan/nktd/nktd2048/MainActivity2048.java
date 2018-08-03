@@ -67,7 +67,7 @@ public class MainActivity2048 extends RecognizedActivity {
                         view.game.move(1);
                         break;
                     case "exit":
-                        exitGame();
+                        showExitDialog();
                         break;
                     case "new game":
                         //view.game.newGame(); ??
@@ -88,6 +88,16 @@ public class MainActivity2048 extends RecognizedActivity {
 
             @Override
             public void onNumberRecognition() {
+            }
+
+            @Override
+            public void onConfirmExit() {
+                exitGame(null);
+            }
+
+            @Override
+            public void onDenyExit() {
+                dismissExitDialog(null);
             }
         };
     }

@@ -8,4 +8,6 @@ public interface SpeechResultListener {
     public void onStartRecognition();
     public void onStopRecognition();
     public void onNumberRecognition();
+    public void onConfirmExit();
+    public void onDenyExit();
 }

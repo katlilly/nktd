@@ -79,6 +79,16 @@ public class MainActivity extends RecognizedActivity{
             public void onNumberRecognition() {
                 recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
             }
+
+            @Override
+            public void onConfirmExit() {
+
+            }
+
+            @Override
+            public void onDenyExit() {
+
+            }
         };
 
         /* Permissions taken almost directly from pocketSphinx's demo app*/

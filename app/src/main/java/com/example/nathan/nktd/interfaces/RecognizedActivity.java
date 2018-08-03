@@ -1,5 +1,6 @@
 package com.example.nathan.nktd.interfaces;
 
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.nathan.nktd.MainActivity;
@@ -24,6 +26,8 @@ public abstract class RecognizedActivity extends AppCompatActivity {
     protected boolean recognizerListening = true;
     protected ImageButton recognizerButton;
 
+    Dialog exitDialog;
+
     protected void bindRecognizer(String gameName) {
         Log.d("binding", gameName);
         Intent recognizerIntent = new Intent(this, Recognizer.class);
@@ -31,9 +35,23 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         bindService(recognizerIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
-    protected void exitGame() {
+    String savedSearch;
+    public void showExitDialog() {
+        savedSearch = recognizerService.getSearchName();
+        recognizerService.swapSearch(Recognizer.YESNO_SEARCH);
+        exitDialog = new Dialog(this);
+        exitDialog.setContentView(R.layout.exit_dialog);
+        exitDialog.show();
+    }
+
+    public void exitGame(View view) {
         recognizerService.swapSearch(Recognizer.MENU_SEARCH);
         finish();
+    }
+
+    public void dismissExitDialog(View view) {
+        recognizerService.swapSearch(savedSearch);
+        exitDialog.dismiss();
     }
 
     protected void setButton() {
@@ -80,14 +98,14 @@ public abstract class RecognizedActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if(this.getClass() != MainActivity.class) {
-            exitGame();
+            exitGame(null);
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home) {
-            exitGame();
+            exitGame(null);
             return true;
         } else {
             return super.onOptionsItemSelected(item);

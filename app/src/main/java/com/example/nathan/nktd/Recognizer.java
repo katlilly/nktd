@@ -37,6 +37,7 @@ public class Recognizer extends Service implements RecognitionListener {
     public static final String TERAGRAM_SEARCH = "teragram";
     public static final String NUMBER_SEARCH = "number";
     public static final String TWENTY_FORTY_EIGHT_SEARCH = "2048";
+    public static final String YESNO_SEARCH = "yesno";
 
     private SpeechResultListener listener;
 
@@ -131,6 +132,14 @@ public class Recognizer extends Service implements RecognitionListener {
                         listener.onStartRecognition();
                     }
                     break;
+
+                case YESNO_SEARCH:
+                    if (result.equals("yes")) {
+                        listener.onConfirmExit();
+                    }
+                    if (result.equals("no")) {
+                        listener.onDenyExit();
+                    }
             }
             interpreter.startListening(searchName);
 
@@ -188,10 +197,12 @@ public class Recognizer extends Service implements RecognitionListener {
         File teragramGrammar = new File(assetsDir, "teragram.gram");
         File numberGrammar = new File(assetsDir, "number.gram");
         File twentyFortyEightGrammar = new File(assetsDir, "2048.gram");
+        File yesNoGrammar = new File(assetsDir, "yesno.gram");
         interpreter.addGrammarSearch(MENU_SEARCH, menuGrammar);
         interpreter.addGrammarSearch(TERAGRAM_SEARCH, teragramGrammar);
         interpreter.addGrammarSearch(NUMBER_SEARCH, numberGrammar);
         interpreter.addGrammarSearch(TWENTY_FORTY_EIGHT_SEARCH, twentyFortyEightGrammar);
+        interpreter.addGrammarSearch(YESNO_SEARCH, yesNoGrammar);
 
         this.setupComplete = true;
     }
