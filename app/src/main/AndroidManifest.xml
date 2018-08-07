@@ -41,6 +41,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity android:name=".PowersofTwo">
+            android:parentActivityName=".PowersofTwo">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".TeragramActivity" />
+        </activity>
 
         <service android:name=".Recognizer" />
     </application>

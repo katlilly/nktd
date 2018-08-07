@@ -44,6 +44,8 @@ public class TeragramActivity extends RecognizedActivity {
     // first question will be addition
     String operation = "+";
 
+    Context context = this;
+
     // get random numbers for initial question
     Random rand = new Random();
     int operand1 = rand.nextInt(5 + level * 10);
@@ -392,14 +394,14 @@ public class TeragramActivity extends RecognizedActivity {
             }
         });
 
-        Button powers = (Button) findViewById(R.id.powers);
+        final Button powers = (Button) findViewById(R.id.powers);
         powers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                powersTwo();
-                //launchPowersTwo();
-                //Intent intent = new Intent(this, PowersofTwo.class);
-                //startActivity(intent);
+                //powersTwo();
+                //launchPowersTwo(powers);
+                Intent intent = new Intent(context, PowersofTwo.class);
+                startActivity(intent);
             }
         });
 
