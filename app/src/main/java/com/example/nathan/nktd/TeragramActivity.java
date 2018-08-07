@@ -48,7 +48,7 @@ public class TeragramActivity extends RecognizedActivity {
     Random rand = new Random();
     int operand1 = rand.nextInt(5 + level * 10);
     int operand2 = rand.nextInt(5 + level * 10);
-
+    int exponent = rand.nextInt(level + 3);
 
      public void setOperands() {
         operand1 = rand.nextInt(5 + level * 10);
@@ -60,14 +60,6 @@ public class TeragramActivity extends RecognizedActivity {
         }
     }
 
-    public void timesTables() {
-         operand1 = level+2;
-         operand2 = rand.nextInt(13);
-         operation = "*";
-         response.setText("Lets practice " + operand1 + " times tables");
-         question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
-
-    }
 
     public void clearAnswer() {
         answer = (EditText) findViewById(R.id.answer);
@@ -77,8 +69,15 @@ public class TeragramActivity extends RecognizedActivity {
     // use this method when user asks for a different question
     public void newQuestion() {
         question = (TextView) findViewById(R.id.question);
-        if (operation == "*") {
-            timesTables();
+        if (operation == "^") {
+            exponent = rand.nextInt(level + 2);
+            response.setText("Lets practice powers of two");
+            question.setText("2^" + exponent + " =");
+        } else if (operation == "*") {
+            operand1 = level+2;
+            operand2 = rand.nextInt(13);
+            response.setText("Lets practice " + operand1 + " times tables");
+            question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
         } else {
             setOperands();
             question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
@@ -88,9 +87,14 @@ public class TeragramActivity extends RecognizedActivity {
 
     // use this method after a correct question
     public void nextQuestion() {
-        question = (TextView) findViewById(R.id.question);
-        setOperands();
-        question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
+         if (operation == "^") {
+             exponent = rand.nextInt(level + 3);
+             powersTwo();
+         } else {
+             question = (TextView) findViewById(R.id.question);
+             setOperands();
+             question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
+         }
         // don't remove "correct" message unless new question is explicitly asked for
     }
 
@@ -124,10 +128,35 @@ public class TeragramActivity extends RecognizedActivity {
         newQuestion();
     }
 
-    public void multiplication() {
-        timesTables();
+    public void powersTwo() {
+         operation = "^";
+         newQuestion();
+    }
+
+    public void timesTables() {
+         operation = "*";
+         newQuestion();
+        //operand1 = level+2;
+        //operand2 = rand.nextInt(13);
+        //operation = "*";
+        //response.setText("Lets practice " + operand1 + " times tables");
+        //question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
+        //newQuestion();
+    }
+
+    //public void multiplication() {
+         //operation = "*";
+        //timesTables();
         //operation = "*";
         //newQuestion();
+    //}
+
+
+
+    public void launchPowersTwo(View view){
+        //startGame(PowersofTwo.class);
+        Intent intent = new Intent(this, PowersofTwo.class);
+        startActivity(intent);
     }
 
     public void confirm() {
@@ -135,6 +164,7 @@ public class TeragramActivity extends RecognizedActivity {
         if (operation == "+") correctAnswer = operand1 + operand2;
         else if (operation == "-") correctAnswer = operand1 - operand2;
         else if (operation == "*") correctAnswer = operand1 * operand2;
+        else if (operation == "^") correctAnswer = (int) Math.pow(2, exponent);
         Log.d("answer", "confirming");
         try {
             int submittedAnswer = Integer.parseInt(answer.getText().toString());
@@ -212,8 +242,9 @@ public class TeragramActivity extends RecognizedActivity {
                         case "subtraction":
                             subtraction();
                             break;
+                            /*** we need to add a "times tables case here ***/
                         case "multiplication":
-                            multiplication();
+                            timesTables();
                             break;
                         case "enter":
                             confirm();
@@ -357,9 +388,21 @@ public class TeragramActivity extends RecognizedActivity {
         times.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                multiplication();
+                timesTables();
             }
         });
+
+        Button powers = (Button) findViewById(R.id.powers);
+        powers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                powersTwo();
+                //launchPowersTwo();
+                //Intent intent = new Intent(this, PowersofTwo.class);
+                //startActivity(intent);
+            }
+        });
+
     }
 
     public void updateResultBox(String string) {
