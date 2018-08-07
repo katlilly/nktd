@@ -244,7 +244,7 @@ public class TeragramActivity extends RecognizedActivity {
                         case "subtraction":
                             subtraction();
                             break;
-                            /*** we need to add a "times tables case here ***/
+                            /*** we need to add a "times tables" case here ***/
                         case "multiplication":
                             timesTables();
                             break;

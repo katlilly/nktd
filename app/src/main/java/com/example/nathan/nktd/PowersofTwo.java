@@ -1,5 +1,6 @@
 package com.example.nathan.nktd;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -33,7 +34,6 @@ public class PowersofTwo extends RecognizedActivity {
     // get random numbers for initial question
     Random rand = new Random();
     int exponent = rand.nextInt(level + 1);
-
 
 
     public void clearAnswer() {
@@ -269,32 +269,10 @@ public class PowersofTwo extends RecognizedActivity {
             }
         });
 
-        Button plus = (Button) findViewById(R.id.plus);
-        plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // go back to teragram main page
-                //addition();
-            }
-        });
 
-        Button minus = (Button) findViewById(R.id.minus);
-        minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // go back to teragram main page
-                //subtraction();
-            }
-        });
 
-        Button times = (Button) findViewById(R.id.times);
-        times.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // go back to teragram main page
-                //multiplication();
-            }
-        });
+
+
 
 
 
