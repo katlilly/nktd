@@ -423,7 +423,8 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void run()
     {
-      while (mRun) {
+      while (mRun) {        
+        mFrozenGame.timer(mTrackballDX,mTouchDX);
         long now = System.currentTimeMillis();
         long delay = FRAME_DELAY + mLastTime - now;
         if (delay > 0) {
