@@ -20,8 +20,12 @@ import com.example.nathan.nktd.interfaces.RecognizedActivity;
 import com.example.nathan.nktd.interfaces.SpeechResultListener;
 import com.example.nathan.nktd.nktd2048.MainActivity2048;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
+=======
+import org.jfedor.frozenbubble.FrozenBubble;
+>>>>>>> frozenbubble
 
 import static android.widget.Toast.makeText;
 
@@ -148,7 +152,7 @@ public class MainActivity extends RecognizedActivity{
     }
 
     public void openG4(View view){
-        Intent intent = new Intent(this, Game4Activity.class);
+        Intent intent = new Intent(this, FrozenBubble.class);
         startActivity(intent);
     }
 }
