@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/numberCommandsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Number Commands:"
+        android:textSize="40px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CommandsRowA" />
+
+    <TextView
+        android:id="@+id/voiceCommandsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Main Commands:"
+        android:textSize="40px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/CommandsRowA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Exit:\n\nEasier:\n\nHarder\n\nTimes Tables\n\nAddition:\n\nSubtraction:\n\nNumber:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/voiceCommandsLabel" />
+
+    <TextView
+        android:id="@+id/commandsRowA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="0 - 9:\n\nClear:\n\nBack:\n\nOkay:\n\nCancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberCommandsLabel" />
+
+    <TextView
+        android:id="@+id/mainDescriptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="Brings up the exit dialog.\n\nEasier question.\n\nHarder question.\n\nMultiplication question.\n\nAddition question.\n\nSubtraction question.\n\nEnters number entry mode."
+        app:layout_constraintStart_toEndOf="@+id/CommandsRowA"
+        app:layout_constraintTop_toBottomOf="@+id/voiceCommandsLabel" />
+
+    <TextView
+        android:id="@+id/numberDescriptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="Appends a digit to your current answer.\nNote 0 is to be spoken 'Zero'.\nRemoves all digits from \nyour current answer.\nRemoves the last digit from\nyour current answer.\nSubmits your current answer.\n\nCancels number entry and returns\nto main voice commands."
+        app:layout_constraintStart_toEndOf="@+id/CommandsRowA"
+        app:layout_constraintTop_toBottomOf="@+id/numberCommandsLabel" />
+</android.support.constraint.ConstraintLayout>
