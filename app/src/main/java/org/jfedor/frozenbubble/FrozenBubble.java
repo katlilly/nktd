@@ -468,7 +468,7 @@ public class FrozenBubble extends RecognizedActivity
         // If user doesnt have Frozen Bubble Editor take him to market.
         try {
           Toast.makeText(getApplicationContext(), 
-                         R.string.install_editor, 1000).show();
+                         R.string.install_editor, Toast.LENGTH_SHORT).show();
           i = new Intent(Intent.ACTION_VIEW,
                          Uri.parse(
                              "market://search?q=frozen bubble level editor"));
@@ -476,7 +476,7 @@ public class FrozenBubble extends RecognizedActivity
         } catch (Exception exc) {
           // Damn you don't have market?
           Toast.makeText(getApplicationContext(), 
-                         R.string.market_missing, 1000).show();
+                         R.string.market_missing, Toast.LENGTH_SHORT).show();
         }
       }
     }

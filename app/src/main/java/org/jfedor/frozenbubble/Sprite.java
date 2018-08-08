@@ -141,7 +141,7 @@ public abstract class Sprite
   public static void drawImageClipped(BmpWrap image, int x, int y, Rect clipr,
                                       Canvas c, double scale, int dx, int dy)
   {
-    c.save(Canvas.CLIP_SAVE_FLAG);
+    c.save(Canvas.ALL_SAVE_FLAG);
     c.clipRect((float)(clipr.left * scale + dx),
                (float)(clipr.top * scale + dy),
                (float)(clipr.right * scale + dx),
