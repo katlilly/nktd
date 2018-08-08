@@ -395,6 +395,7 @@ public class FrozenBubble extends RecognizedActivity
   protected void onDestroy() {
     //Log.i("frozen-bubble", "FrozenBubble.onDestroy()");
     super.onDestroy();
+    mGameThread.mRun = false;
     if (mGameView != null) {
       mGameView.cleanUp();
     }

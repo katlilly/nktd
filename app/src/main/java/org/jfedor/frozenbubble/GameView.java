@@ -116,7 +116,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private int mCanvasWidth = 1;
     private long mLastTime;
     private int mMode;
-    private boolean mRun = false;
+    public boolean mRun = false;
 
     private boolean mLeft = false;
     private boolean mRight = false;
