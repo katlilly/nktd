@@ -4,5 +4,6 @@ grammar menu;
 
 <teragram> = tear a gram;
 <2048> = twenty forty eight;
+<frozenBubble> = frozen bubble;
 
-public <command> = game (one | two | three | four) | <teragram> | <2048>;
+public <command> = game (one | two | three | four) | <teragram> | <2048> | <frozenBubble>;

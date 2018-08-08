@@ -74,8 +74,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.text.method.Touch;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -83,11 +86,14 @@ import android.widget.Toast;
 import android.util.Log;
 
 import com.example.nathan.nktd.R;
+import com.example.nathan.nktd.Recognizer;
+import com.example.nathan.nktd.interfaces.RecognizedActivity;
+import com.example.nathan.nktd.interfaces.SpeechResultListener;
 
 import org.jfedor.frozenbubble.GameView;
 import org.jfedor.frozenbubble.GameView.GameThread;
 
-public class FrozenBubble extends Activity
+public class FrozenBubble extends RecognizedActivity
 {
   public final static int SOUND_WON = 0;
   public final static int SOUND_LOST = 1;
@@ -294,6 +300,62 @@ public class FrozenBubble extends Activity
     }
     mGameView.requestFocus();
     setFullscreen();
+    bindRecognizer();
+    recognizerListener = new SpeechResultListener() {
+      @Override
+      public void onSpeechResult() {
+        String result = recognizerService.getResult();
+        switch(result) {
+          case "fire":
+            fire();
+            break;
+          case "now":
+            fire();
+            break;
+          case "exit":
+            showExitDialog();
+            break;
+        }
+      }
+
+      @Override
+      public void onStartRecognition() {
+
+      }
+
+      @Override
+      public void onStopRecognition() {
+
+      }
+
+      @Override
+      public void onNumberRecognition() {
+
+      }
+
+      @Override
+      public void onConfirmExit() {
+        exitGame(null);
+      }
+
+      @Override
+      public void onDenyExit() {
+        dismissExitDialog(null);
+      }
+    };
+  }
+
+  /* Taken from: https://stackoverflow.com/questions/23902892/
+  how-to-programmatically-trigger-the-touch-event-in-android */
+  private void fire() {
+    long downTime = SystemClock.uptimeMillis();
+    long eventTime = SystemClock.uptimeMillis() + 100;
+    float x = 0.0f;
+    float y = 0.0f;
+    int metaState = 0;
+    MotionEvent motionEvent = MotionEvent.obtain(downTime, eventTime, MotionEvent.ACTION_DOWN
+            , x, y, metaState);
+    mGameView.dispatchTouchEvent(motionEvent);
   }
 
   /**

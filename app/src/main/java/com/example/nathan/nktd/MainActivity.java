@@ -1,33 +1,22 @@
 package com.example.nathan.nktd;
 
 import android.Manifest;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 
 import com.example.nathan.nktd.interfaces.RecognizedActivity;
 import com.example.nathan.nktd.interfaces.SpeechResultListener;
 import com.example.nathan.nktd.nktd2048.MainActivity2048;
 
-<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
-=======
 import org.jfedor.frozenbubble.FrozenBubble;
->>>>>>> frozenbubble
-
-import static android.widget.Toast.makeText;
 
 public class MainActivity extends RecognizedActivity{
 
@@ -63,6 +52,12 @@ public class MainActivity extends RecognizedActivity{
                         break;
                     case "twenty forty eight":
                         openG3(null);
+                        break;
+                    case "game four":
+                        openG4(null);
+                        break;
+                    case "frozen bubble":
+                        openG4(null);
                         break;
                 }
             }
@@ -102,7 +97,7 @@ public class MainActivity extends RecognizedActivity{
         }
 
         startService(recognizerStarterIntent);
-        bindRecognizer(Recognizer.MENU_SEARCH);
+        bindRecognizer();
     }
 
     @Override
@@ -129,6 +124,7 @@ public class MainActivity extends RecognizedActivity{
     static {
         defaultSearches.put(TeragramActivity.class, Recognizer.TERAGRAM_SEARCH);
         defaultSearches.put(MainActivity2048.class, Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
+        defaultSearches.put(FrozenBubble.class, Recognizer.FROZENBUBBLE_SEARCH);
     }
 
     private void startGame(Class game) {
@@ -152,7 +148,6 @@ public class MainActivity extends RecognizedActivity{
     }
 
     public void openG4(View view){
-        Intent intent = new Intent(this, FrozenBubble.class);
-        startActivity(intent);
+        startGame(FrozenBubble.class);
     }
 }

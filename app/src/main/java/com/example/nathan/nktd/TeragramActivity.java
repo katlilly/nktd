@@ -216,7 +216,7 @@ public class TeragramActivity extends RecognizedActivity {
 
         /* Recognizer Setup */
         recognizerBound = false;
-        bindRecognizer(Recognizer.TERAGRAM_SEARCH);
+        bindRecognizer();
         recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
         recognizerButton = findViewById(R.id.recognizerStatus);
         setButton(getIntent());

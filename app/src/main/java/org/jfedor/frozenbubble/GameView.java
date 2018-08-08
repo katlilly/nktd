@@ -538,7 +538,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
       }
     }
 
-    boolean doKeyDown(int keyCode, KeyEvent msg)
+    public boolean doKeyDown(int keyCode, KeyEvent msg)
     {
       synchronized (mSurfaceHolder) {
         if (mMode != STATE_RUNNING) {

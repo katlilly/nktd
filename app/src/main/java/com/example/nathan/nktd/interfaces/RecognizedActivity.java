@@ -28,10 +28,9 @@ public abstract class RecognizedActivity extends AppCompatActivity {
 
     Dialog exitDialog;
 
-    protected void bindRecognizer(String gameName) {
-        Log.d("binding", gameName);
+    protected void bindRecognizer() {
+        Log.d("binding", "");
         Intent recognizerIntent = new Intent(this, Recognizer.class);
-//        recognizerIntent.putExtra("gameName", gameName);
         bindService(recognizerIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 

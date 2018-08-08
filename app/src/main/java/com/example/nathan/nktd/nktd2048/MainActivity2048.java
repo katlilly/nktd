@@ -46,7 +46,7 @@ public class MainActivity2048 extends RecognizedActivity {
         }
         setContentView(view);
 
-        bindRecognizer(Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
+        bindRecognizer();
         recognizerService.swapSearch(Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
 
         recognizerListener = new SpeechResultListener() {
