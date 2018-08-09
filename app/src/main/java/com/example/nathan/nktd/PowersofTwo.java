@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.nathan.nktd.interfaces.RecognizedActivity;
@@ -25,16 +26,17 @@ public class PowersofTwo extends RecognizedActivity {
     EditText answer;
     TextView response;
     TextView whatIHeard;
-    int level = 2;
-    int maxLevel = 30;
+    int levelp2 = 4;
+    int maxLevel = 20;
     int correctCount = 0;
     int wrongCount = 0;
+    int correctAnswer;
 
 
     // get random numbers for initial question
     Random rand = new Random();
-    int exponent = rand.nextInt(level + 1);
-
+    int exponent = rand.nextInt(levelp2 + 1);
+    //correctAnswer = (int) Math.pow(2, exponent);
 
     public void clearAnswer() {
         answer = (EditText) findViewById(R.id.answer);
@@ -42,7 +44,9 @@ public class PowersofTwo extends RecognizedActivity {
     }
 
     // use this method when user asks for a different question
-    public void newQuestion() {
+    public void newp2Question() {
+        int exponent = rand.nextInt(levelp2 + 1);
+        correctAnswer = (int) Math.pow(2, exponent);
         question = (TextView) findViewById(R.id.question);
         question.setText("2^" + exponent + " =");
         response.setText("can you answer this one?");
@@ -50,69 +54,96 @@ public class PowersofTwo extends RecognizedActivity {
     }
 
     // use this method after a correct question
-    public void nextQuestion() {
+    public void nextp2Question() {
+        int exponent = rand.nextInt(levelp2 + 1);
+        correctAnswer = (int) Math.pow(2, exponent);
         question = (TextView) findViewById(R.id.question);
         question.setText("2^" + exponent + " =");
         // don't remove "correct" message unless new question is explicitly asked for
     }
 
     public void tooEasy() {
-        level++;
-        if (level > maxLevel) {
-            level = maxLevel;
+        levelp2++;
+        if (levelp2 > maxLevel) {
+            levelp2 = maxLevel;
         } else {
-            newQuestion();
+            newp2Question();
         }
     }
 
     public void tooHard() {
-        level--;
-        if (level < 0) level = 0;
-        newQuestion();
+        levelp2--;
+        if (levelp2 < 4) {
+            levelp2 = 4;
+        } else {
+            newp2Question();
+        }
     }
 
 
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
 
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radio_a:
+                if (checked)
+                    //
+                    break;
+            case R.id.radio_b:
+                if (checked)
+                    //
+                    break;
+            case R.id.radio_c:
+                if (checked)
+                    // option c
+                    break;
+        }
+    }
 
 
     public void confirm() {
-        int correctAnswer = 0;
         correctAnswer = (int) Math.pow(2, exponent);
         Log.d("answer", "confirming");
+        int submittedAnswer = Integer.parseInt(answer.getText().toString());
+        Log.d("answer", answer.getText().toString());
         try {
-            int submittedAnswer = Integer.parseInt(answer.getText().toString());
-            Log.d("answer", answer.getText().toString());
+
             if (submittedAnswer == correctAnswer) {
-                response.setText("correct!");
+                //response.setText("correct!");
+                response.setText("correct " + correctAnswer);
                 recognizerService.stopRecognition();
                 correctSound.start();
                 correctCount++;
                 wrongCount = 0;
                 if (correctCount == 10) {
-                    level++;
+                    levelp2++;
                     correctCount = 0;
                 }
                 clearAnswer();
                 //recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
 
-                nextQuestion();
+                nextp2Question();
 
             } else {
-                response.setText("try again");
+                //response.setText("try again");
+                response.setText("wrong " + exponent + " "+ correctAnswer);
                 recognizerService.stopRecognition();
                 tryagainSound.start();
                 wrongCount++;
                 correctCount = 0;
                 if (wrongCount == 3) {
-                    level--;
+                    levelp2--;
                     wrongCount = 0;
-                    newQuestion();
+                    newp2Question();
                 }
                 //recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
                 clearAnswer();
             }
         } catch (NumberFormatException e) {
-            response.setText("try again");
+            // comment out below line before beta release
+            response.setText("number format exception");
             // shouldn't need to do anything here
             // do nothing in the case that there is no answer to submit
         }
@@ -121,7 +152,7 @@ public class PowersofTwo extends RecognizedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teragram);
+        setContentView(R.layout.activity_powersoftwo);
 
         /* Recognizer Setup */
         recognizerBound = false;
@@ -145,7 +176,7 @@ public class PowersofTwo extends RecognizedActivity {
                             tooEasy();
                             break;
                         case "new question":
-                            newQuestion();
+                            newp2Question();
                             break;
                         case "enter":
                             confirm();
@@ -249,7 +280,7 @@ public class PowersofTwo extends RecognizedActivity {
         newQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                newQuestion();
+                newp2Question();
             }
         });
 
@@ -270,10 +301,29 @@ public class PowersofTwo extends RecognizedActivity {
         });
 
 
+        RadioButton option_a = (RadioButton) findViewById(R.id.radio_a);
+        option_a.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRadioButtonClicked(view);
+            }
+        });
 
+        RadioButton option_b = (RadioButton) findViewById(R.id.radio_b);
+        option_b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRadioButtonClicked(view);
+            }
+        });
 
-
-
+        RadioButton option_c = (RadioButton) findViewById(R.id.radio_c);
+        option_c.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRadioButtonClicked(view);
+            }
+        });
 
 
     }
