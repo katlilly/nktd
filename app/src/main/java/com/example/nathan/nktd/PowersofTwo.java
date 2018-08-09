@@ -30,12 +30,13 @@ public class PowersofTwo extends RecognizedActivity {
     int maxLevel = 20;
     int correctCount = 0;
     int wrongCount = 0;
+    int correctAnswer;
 
 
     // get random numbers for initial question
     Random rand = new Random();
     int exponent = rand.nextInt(levelp2 + 1);
-
+    //correctAnswer = (int) Math.pow(2, exponent);
 
     public void clearAnswer() {
         answer = (EditText) findViewById(R.id.answer);
@@ -45,6 +46,7 @@ public class PowersofTwo extends RecognizedActivity {
     // use this method when user asks for a different question
     public void newp2Question() {
         int exponent = rand.nextInt(levelp2 + 1);
+        correctAnswer = (int) Math.pow(2, exponent);
         question = (TextView) findViewById(R.id.question);
         question.setText("2^" + exponent + " =");
         response.setText("can you answer this one?");
@@ -54,6 +56,7 @@ public class PowersofTwo extends RecognizedActivity {
     // use this method after a correct question
     public void nextp2Question() {
         int exponent = rand.nextInt(levelp2 + 1);
+        correctAnswer = (int) Math.pow(2, exponent);
         question = (TextView) findViewById(R.id.question);
         question.setText("2^" + exponent + " =");
         // don't remove "correct" message unless new question is explicitly asked for
@@ -101,14 +104,15 @@ public class PowersofTwo extends RecognizedActivity {
 
 
     public void confirm() {
-        int correctAnswer = 0;
-        correctAnswer = (int) Math.pow(2, exponent);
+        int correctAnswer = (int) Math.pow(2, exponent);
         Log.d("answer", "confirming");
+        int submittedAnswer = Integer.parseInt(answer.getText().toString());
+        Log.d("answer", answer.getText().toString());
         try {
-            int submittedAnswer = Integer.parseInt(answer.getText().toString());
-            Log.d("answer", answer.getText().toString());
+
             if (submittedAnswer == correctAnswer) {
-                response.setText("correct!");
+                //response.setText("correct!");
+                response.setText("correct " + correctAnswer);
                 recognizerService.stopRecognition();
                 correctSound.start();
                 correctCount++;
@@ -123,7 +127,8 @@ public class PowersofTwo extends RecognizedActivity {
                 nextp2Question();
 
             } else {
-                response.setText("try again");
+                //response.setText("try again");
+                response.setText("wrong " + correctAnswer);
                 recognizerService.stopRecognition();
                 tryagainSound.start();
                 wrongCount++;
@@ -137,7 +142,8 @@ public class PowersofTwo extends RecognizedActivity {
                 clearAnswer();
             }
         } catch (NumberFormatException e) {
-            response.setText("try again");
+            // comment out below line before beta release
+            response.setText("number format exception");
             // shouldn't need to do anything here
             // do nothing in the case that there is no answer to submit
         }
