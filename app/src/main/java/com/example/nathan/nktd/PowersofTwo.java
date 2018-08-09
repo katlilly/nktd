@@ -134,19 +134,45 @@ public class PowersofTwo extends RecognizedActivity {
         switch(view.getId()) {
             case R.id.radio_1:
                 if (checked)
-                    //
+                    if (correctMC == 1) {
+                        option_1.setText("correct!");
+                        option_1.setChecked(false);
+                    } else {
+                        option_1.setText("nope!");
+                        option_1.setChecked(false);
+                    }
                     break;
             case R.id.radio_2:
                 if (checked)
+                    if (correctMC == 2) {
+                        option_2.setText("correct!");
+                        option_2.setChecked(false);
+                    } else {
+                        option_2.setText("nope!");
+                        option_2.setChecked(false);
+                    }
                     //
                     break;
             case R.id.radio_3:
                 if (checked)
+                    if (correctMC == 3) {
+                        option_3.setText("correct!");
+                        option_3.setChecked(false);
+                    } else {
+                        option_3.setText("nope!");
+                        option_3.setChecked(false);
+                    }
                     // option c
                     break;
             case R.id.radio_4:
                 if (checked)
-                    // option c
+                    if (correctMC == 4) {
+                        option_4.setText("correct!");
+                        option_4.setChecked(false);
+                    } else {
+                        option_4.setText("nope!");
+                        option_4.setChecked(false);
+                    }
                     break;
         }
     }
@@ -312,7 +338,8 @@ public class PowersofTwo extends RecognizedActivity {
         whatIHeard = findViewById(R.id.speechResult);
         //answer.setText(numyesSounds);
         // set the first question
-        question.setText("2^" + exponent + " =");
+        nextp2Question();
+        //question.setText("2^" + exponent + " =");
 
         answer.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -382,6 +409,8 @@ public class PowersofTwo extends RecognizedActivity {
                 onRadioButtonClicked(view);
             }
         });
+
+        newp2Question();
 
 
     }
