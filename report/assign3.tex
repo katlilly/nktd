@@ -24,8 +24,10 @@
 \begin{document}
 
 \maketitle
+\tableofcontents
+\newpage
 
-\section*{Beta Release}
+\section{Beta Release}
 
 We have now reached the point where our android application consists
 of 3 (relatively) functioning games where they are able to be opened
@@ -38,7 +40,7 @@ The application uses pocketSphinx to interpret speech commands
 available here:\linebreak
 \href{https://github.com/cmusphinx/pocketsphinx}{https://github.com/cmusphinx/pocketsphinx}
 
-\subsection*{Since the Alpha}
+\subsection{Since the Alpha}
 
 \begin{itemize}
 	\item Have fixed the initial crash of the app.
@@ -60,9 +62,9 @@ available here:\linebreak
 
 \pagebreak
 
-\section*{Intended improvements/Known Issues}
+\section{Intended improvements/Known Issues}
 
-\subsubsection*{Frozen Bubble Launcher Speed}
+\subsubsection{Frozen Bubble Launcher Speed}
 Frozen Bubble is an open source game that is controlled strictly by touch. 
 In order for a user to be hands-free, we have had to manipulate the code 
 to have the launcher work with respect to time. This currently is working
@@ -71,26 +73,26 @@ that the launcher moves with respect to int values, however, for it to be
 functional we need decimals values. When trying to manipulate this it 
 throws a chain of bugs where the values are used elsewhere in the game. 
 
-\subsubsection*{More robust number entry}
+\subsubsection{More robust number entry}
 The current way of inputing numbers using speech is finicky and prone to
 errors. We are unsure whether or not there is some easier way to do this,
 but we would like to try different methods.
 
-\subsubsection*{Speech Recognition off-switch across all games}
+\subsubsection{Speech Recognition off-switch across all games}
 We have successfully implemented the on/off switch in the main menu and 
 Teragram but still have to implement it into 2048 and FrozenBubble.
 
-\subsubsection*{Visual feedback across all games}
+\subsubsection{Visual feedback across all games}
 We have successfully implemented visual feedback in Teragram but still 
 have to implement it into the main menu, 2048 and FrozenBubble.
 
-\subsubsection*{Help Screen}
+\subsubsection{Help Screen}
 Without this documentation, a user would have no way of knowing exactly 
 what to say to the game to get it to do anything. Some kind of pop-up 
 display you could call at any moment displaying the voice commands is
 neccessary. 
 
-\section*{Testing}
+\section{Testing}
 Testing an application that is run by voice commands was not something
 we felt could be done through automated methods without devoting a 
 large amount of time that could instead be spent implementing features.
@@ -99,9 +101,9 @@ by installing the apk on our own phones. For the Teragram game, we had
 extensive user testing performed by two children.
 \pagebreak
 
-\section*{User Documentation}
+\section{User Documentation}
 
-\subsection*{Teragram}
+\subsection{Teragram}
 The game starts up at `level 1', and you can move to the easiest level
 by tapping the `too hard' button or go up levels by tapping the `too
 easy' button. Automatic leveling up happens when you get ten
@@ -112,7 +114,7 @@ questions get easier or harder.
 The game launches in addition mode, and the user can chose to move to
 subtraction problems, or practice times tables or powers of two.
 
-\subsection*{2048}
+\subsection{2048}
 2048 is a popular number name released on March 20, 2014. This game is
 very simple; you can choose to slide the tiles up, down, left or right by
 swipping the screen or saying `left', `right' `up' or `down'. Every
@@ -121,18 +123,18 @@ way. This is a really neat game, and there are many open source
 implementations out there, but what makes it especially suitable for
 our app is the simplicity of its controls.
 
-\subsection*{Frozen Bubble}
+\subsection{Frozen Bubble}
 With colourful 3D rendered penguin animations and fun bubble sprites. 
 This game is designed for the user to clear the screen by shooting the 
 current bubble in the launcher at its respective coloured bubbles on 
 the level. Saying `fire' or swipping up when they are wanting to shoot
 the bubble.  
 
-\subsection*{For the unarmed}
+\subsection{Voice Controls}
 
 You can control the game with the following voice commands:
 
-\subsubsection*{Main menu}
+\subsubsection{Main menu}
 
 \begin{itemize}
   \item {\em\bf`game one'} - unsupported
@@ -141,7 +143,7 @@ You can control the game with the following voice commands:
   \item {\em\bf`Frozen Bubble' / 'game four'} - this will take you to the game Frozen Bubble.
 \end{itemize}
 
-\subsubsection*{Teragram}
+\subsubsection{Teragram}
 
 \begin{itemize}
   \item {\em\bf`harder'} - Provides a harder question. 
@@ -155,7 +157,7 @@ You can control the game with the following voice commands:
  
 \end{itemize}
 
-\subsubsection*{2048}
+\subsubsection{2048}
 
 \begin{itemize}
 	\item {\em\bf`left'} - All blocks will move to the left if possible. 
@@ -166,7 +168,7 @@ You can control the game with the following voice commands:
 	
 \end{itemize}
 
-\subsubsection*{Frozen Bubble}
+\subsubsection{Frozen Bubble}
 
 \begin{itemize}
 	\item {\em\bf`fire' or `now'} - Will fire the bubble
@@ -176,7 +178,7 @@ You can control the game with the following voice commands:
 
 \pagebreak
 
-\subsubsection*{Number Input}
+\subsubsection{Number Input}
 \begin{itemize}
   \item {\em\bf numbers 0 to 9 inclusive} – Appends the spoken number
     to the end of your answer, ie. Speaking `one', `two' will give you
@@ -192,7 +194,7 @@ When entering numbers, please wait until the number you have just spoken appears
 in the box before trying to input the next one.
 Good Luck!
 
-\section*{What we stole}
+\section{What we stole}
 
 The code for the speech recognizer setup/permissions/asset copying is
 taken almost directly from the pocketSphinx demo application here:
