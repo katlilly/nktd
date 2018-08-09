@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.nathan.nktd.interfaces.RecognizedActivity;
@@ -72,7 +73,26 @@ public class PowersofTwo extends RecognizedActivity {
     }
 
 
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
 
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radio_a:
+                if (checked)
+                    // Pirates are the best
+                    break;
+            case R.id.radio_b:
+                if (checked)
+                    // Ninjas rule
+                    break;
+            case R.id.radio_c:
+                if (checked)
+                    // option c
+                    break;
+        }
+    }
 
 
     public void confirm() {
@@ -121,7 +141,7 @@ public class PowersofTwo extends RecognizedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teragram);
+        setContentView(R.layout.activity_powersoftwo);
 
         /* Recognizer Setup */
         recognizerBound = false;
@@ -270,10 +290,29 @@ public class PowersofTwo extends RecognizedActivity {
         });
 
 
+        RadioButton option_a = (RadioButton) findViewById(R.id.radio_a);
+        tooEasy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRadioButtonClicked(view);
+            }
+        });
 
+        RadioButton option_b = (RadioButton) findViewById(R.id.radio_b);
+        tooEasy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRadioButtonClicked(view);
+            }
+        });
 
-
-
+        RadioButton option_c = (RadioButton) findViewById(R.id.radio_c);
+        tooEasy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRadioButtonClicked(view);
+            }
+        });
 
 
     }
