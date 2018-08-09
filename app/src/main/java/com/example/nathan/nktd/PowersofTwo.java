@@ -26,11 +26,16 @@ public class PowersofTwo extends RecognizedActivity {
     EditText answer;
     TextView response;
     TextView whatIHeard;
+    RadioButton option_1;
+    RadioButton option_2;
+    RadioButton option_3;
+    RadioButton option_4;
     int levelp2 = 4;
     int maxLevel = 20;
     int correctCount = 0;
     int wrongCount = 0;
     int correctAnswer;
+    int correctMC; // position of correct multi choice answer
 
 
     // get random numbers for initial question
@@ -43,6 +48,51 @@ public class PowersofTwo extends RecognizedActivity {
         answer.setText("");
     }
 
+    public void setMultiChoice() {
+        // chose where to put correct answer
+        int pos;
+        if (exponent == 0) pos = 1;
+        else if (exponent == 1) pos = rand.nextInt(2) + 1;
+        else if (exponent == 2) pos = rand.nextInt(3) + 1;
+        else pos = rand.nextInt(4) + 1;
+//        while (pos > (exponent - 1)) {
+//            pos = rand.nextInt(4) + 1;
+//        }
+        correctMC = pos;
+        option_1 = (RadioButton) findViewById(R.id.radio_1);
+        option_2 = (RadioButton) findViewById(R.id.radio_2);
+        option_3 = (RadioButton) findViewById(R.id.radio_3);
+        option_4 = (RadioButton) findViewById(R.id.radio_4);
+        switch (pos) {
+            case 1:
+                option_1.setText("1: " + (int) Math.pow(2, exponent));
+                option_2.setText("2: " + (int) Math.pow(2, exponent+1));
+                option_3.setText("3: " + (int) Math.pow(2, exponent+2));
+                option_4.setText("4: " + (int) Math.pow(2, exponent+3));
+                break;
+            case 2:
+                option_1.setText("1: " + (int) Math.pow(2, exponent-1));
+                option_2.setText("2: " + (int) Math.pow(2, exponent));
+                option_3.setText("3: " + (int) Math.pow(2, exponent+1));
+                option_4.setText("4: " + (int) Math.pow(2, exponent+2));
+                break;
+            case 3:
+                option_1.setText("1: " + (int) Math.pow(2, exponent-2));
+                option_2.setText("2: " + (int) Math.pow(2, exponent-1));
+                option_3.setText("3: " + (int) Math.pow(2, exponent));
+                option_4.setText("4: " + (int) Math.pow(2, exponent+1));
+                break;
+            case 4:
+                option_1.setText("1: " + (int) Math.pow(2, exponent-3));
+                option_2.setText("2: " + (int) Math.pow(2, exponent-2));
+                option_3.setText("3: " + (int) Math.pow(2, exponent-1));
+                option_4.setText("4: " + (int) Math.pow(2, exponent));
+                break;
+        }
+
+
+    }
+
     // use this method when user asks for a different question
     public void newp2Question() {
         exponent = rand.nextInt(levelp2 + 1);
@@ -50,6 +100,7 @@ public class PowersofTwo extends RecognizedActivity {
         question = (TextView) findViewById(R.id.question);
         question.setText("2^" + exponent + " =");
         response.setText("can you answer this one?");
+        setMultiChoice();
 
     }
 
@@ -64,20 +115,14 @@ public class PowersofTwo extends RecognizedActivity {
 
     public void tooEasy() {
         levelp2++;
-        if (levelp2 > maxLevel) {
-            levelp2 = maxLevel;
-        } else {
-            newp2Question();
-        }
+        if (levelp2 > maxLevel) levelp2 = maxLevel;
+        newp2Question();
     }
 
     public void tooHard() {
         levelp2--;
-        if (levelp2 < 4) {
-            levelp2 = 4;
-        } else {
-            newp2Question();
-        }
+        if (levelp2 < 4) levelp2 = 4;
+        newp2Question();
     }
 
 
@@ -306,7 +351,7 @@ public class PowersofTwo extends RecognizedActivity {
         });
 
 
-        RadioButton option_1 = (RadioButton) findViewById(R.id.radio_1);
+        option_1 = (RadioButton) findViewById(R.id.radio_1);
         option_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
