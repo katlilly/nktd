@@ -22,7 +22,7 @@ public abstract class RecognizedActivity extends AppCompatActivity {
     protected SpeechResultListener recognizerListener;
 
     protected static boolean recognizerBound;
-    protected static Recognizer recognizerService;
+    public static Recognizer recognizerService;
     protected boolean recognizerListening = true;
     protected ImageButton recognizerButton;
 

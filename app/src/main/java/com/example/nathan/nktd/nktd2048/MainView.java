@@ -1,7 +1,9 @@
 package com.example.nathan.nktd.nktd2048;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -71,6 +73,8 @@ public class MainView extends View {
     private int titleWidthHighScore;
     private int titleWidthScore;
 
+    InputListener listener;
+
     public MainView(Context context) {
         super(context);
 
@@ -88,7 +92,8 @@ public class MainView extends View {
         } catch (Exception e) {
             Log.e(TAG, "Error getting assets?", e);
         }
-        setOnTouchListener(new InputListener(this));
+        listener = new InputListener(this);
+        setOnTouchListener(listener);
         game.newGame();
     }
 

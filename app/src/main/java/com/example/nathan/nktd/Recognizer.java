@@ -11,9 +11,7 @@ import com.example.nathan.nktd.interfaces.SpeechResultListener;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import edu.cmu.pocketsphinx.Assets;
 import edu.cmu.pocketsphinx.Hypothesis;
@@ -136,10 +134,10 @@ public class Recognizer extends Service implements RecognitionListener {
 
                 case YESNO_SEARCH:
                     if (result.equals("yes")) {
-                        listener.onConfirmExit();
+                        listener.onConfirm();
                     }
                     if (result.equals("no")) {
-                        listener.onDenyExit();
+                        listener.onDeny();
                     }
             }
             interpreter.startListening(searchName);

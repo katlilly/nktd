@@ -2,9 +2,11 @@ package com.example.nathan.nktd.nktd2048;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import com.example.nathan.nktd.R;
+import com.example.nathan.nktd.Recognizer;
 
 class InputListener implements View.OnTouchListener {
 
@@ -25,9 +27,29 @@ class InputListener implements View.OnTouchListener {
     private int veryLastDirection = 1;
     private boolean hasMoved = false;
 
+    private Recognizer recognizer;
+
     public InputListener(MainView view) {
         super();
         this.mView = view;
+    }
+
+    public void voiceNewGame() {
+        if (!mView.game.gameLost()) {
+            new AlertDialog.Builder(mView.getContext())
+                    .setPositiveButton(R.string.reset, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                            mView.game.newGame();
+                        }
+                })
+                .setNegativeButton(R.string.continue_game, null)
+                .setTitle(R.string.reset_dialog_title)
+                .setMessage(R.string.reset_dialog_message)
+                .show();
+        } else {
+            mView.game.newGame();
+        }
     }
 
     public boolean onTouch(View view, MotionEvent event) {

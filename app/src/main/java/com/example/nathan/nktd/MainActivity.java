@@ -80,12 +80,12 @@ public class MainActivity extends RecognizedActivity{
             }
 
             @Override
-            public void onConfirmExit() {
+            public void onConfirm() {
 
             }
 
             @Override
-            public void onDenyExit() {
+            public void onDeny() {
 
             }
         };

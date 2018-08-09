@@ -1,7 +1,9 @@
 package com.example.nathan.nktd.nktd2048;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
@@ -35,7 +37,6 @@ public class MainActivity2048 extends RecognizedActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         view = new MainView(this);
-
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         view.hasSaveState = settings.getBoolean("save_state", false);
 
@@ -70,11 +71,12 @@ public class MainActivity2048 extends RecognizedActivity {
                         showExitDialog();
                         break;
                     case "new game":
-                        //view.game.newGame(); ??
+                        voiceNewGame();
                     case "back":
                         if(view.game.canUndo) {
                             view.game.revertUndoState();
                         }
+                        break;
                 }
             }
 
@@ -91,12 +93,12 @@ public class MainActivity2048 extends RecognizedActivity {
             }
 
             @Override
-            public void onConfirmExit() {
+            public void onConfirm() {
                 exitGame(null);
             }
 
             @Override
-            public void onDenyExit() {
+            public void onDeny() {
                 dismissExitDialog(null);
             }
         };
@@ -200,5 +202,55 @@ public class MainActivity2048 extends RecognizedActivity {
         view.game.canUndo = settings.getBoolean(CAN_UNDO, view.game.canUndo);
         view.game.gameState = settings.getInt(GAME_STATE, view.game.gameState);
         view.game.lastGameState = settings.getInt(UNDO_GAME_STATE, view.game.lastGameState);
+    }
+
+    public void voiceNewGame() {
+        if (!view.game.gameLost()) {
+            final AlertDialog dialog = new AlertDialog.Builder(view.getContext())
+                    .setPositiveButton(R.string.reset, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            view.game.newGame();
+                        }
+                    })
+                    .setNegativeButton(R.string.continue_game, null)
+                    .setTitle(R.string.reset_dialog_title)
+                    .setMessage(R.string.reset_dialog_message)
+                    .show();
+            recognizerService.swapSearch(Recognizer.YESNO_SEARCH);
+            final SpeechResultListener oldListener = recognizerListener;
+            recognizerService.setListener(new SpeechResultListener() {
+                @Override
+                public void onSpeechResult() {
+                }
+
+                @Override
+                public void onStartRecognition() {
+                }
+
+                @Override
+                public void onStopRecognition() {
+                }
+
+                @Override
+                public void onNumberRecognition() {
+                }
+
+                @Override
+                public void onConfirm() {
+                    dialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
+                    recognizerService.setListener(oldListener);
+                    recognizerService.swapSearch(Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
+                }
+                @Override
+                public void onDeny() {
+                    dialog.getButton(DialogInterface.BUTTON_NEGATIVE).performClick();
+                    recognizerService.setListener(oldListener);
+                    recognizerService.swapSearch(Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
+                }
+            });
+        } else {
+            view.game.newGame();
+        }
     }
 }

@@ -199,12 +199,12 @@ public class PowersofTwo extends RecognizedActivity {
             }
 
             @Override
-            public void onConfirmExit() {
+            public void onConfirm() {
                 exitGame(null);
             }
 
             @Override
-            public void onDenyExit() {
+            public void onDeny() {
                 dismissExitDialog(null);
             }
         };
