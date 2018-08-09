@@ -207,13 +207,13 @@ public class MainActivity2048 extends RecognizedActivity {
     public void voiceNewGame() {
         if (!view.game.gameLost()) {
             final AlertDialog dialog = new AlertDialog.Builder(view.getContext())
-                    .setPositiveButton(R.string.reset, new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             view.game.newGame();
                         }
                     })
-                    .setNegativeButton(R.string.continue_game, null)
+                    .setNegativeButton("No", null)
                     .setTitle(R.string.reset_dialog_title)
                     .setMessage(R.string.reset_dialog_message)
                     .show();
