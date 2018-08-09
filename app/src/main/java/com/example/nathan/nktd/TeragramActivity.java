@@ -248,7 +248,7 @@ public class TeragramActivity extends RecognizedActivity {
                         case "multiplication":
                             timesTables();
                             break;
-                        case "enter":
+                        case "okay":
                             confirm();
                             break;
                         case "number":
