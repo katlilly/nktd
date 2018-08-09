@@ -104,7 +104,7 @@ public class PowersofTwo extends RecognizedActivity {
 
 
     public void confirm() {
-        int correctAnswer = (int) Math.pow(2, exponent);
+        correctAnswer = (int) Math.pow(2, exponent);
         Log.d("answer", "confirming");
         int submittedAnswer = Integer.parseInt(answer.getText().toString());
         Log.d("answer", answer.getText().toString());
@@ -128,7 +128,7 @@ public class PowersofTwo extends RecognizedActivity {
 
             } else {
                 //response.setText("try again");
-                response.setText("wrong " + correctAnswer);
+                response.setText("wrong " + exponent + " "+ correctAnswer);
                 recognizerService.stopRecognition();
                 tryagainSound.start();
                 wrongCount++;
