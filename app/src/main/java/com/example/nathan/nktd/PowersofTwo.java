@@ -35,7 +35,7 @@ public class PowersofTwo extends RecognizedActivity {
 
     // get random numbers for initial question
     Random rand = new Random();
-    int exponent = rand.nextInt(levelp2 + 1);
+    public int exponent = rand.nextInt(levelp2 + 1);
     //correctAnswer = (int) Math.pow(2, exponent);
 
     public void clearAnswer() {
@@ -45,7 +45,7 @@ public class PowersofTwo extends RecognizedActivity {
 
     // use this method when user asks for a different question
     public void newp2Question() {
-        int exponent = rand.nextInt(levelp2 + 1);
+        exponent = rand.nextInt(levelp2 + 1);
         correctAnswer = (int) Math.pow(2, exponent);
         question = (TextView) findViewById(R.id.question);
         question.setText("2^" + exponent + " =");
@@ -55,7 +55,7 @@ public class PowersofTwo extends RecognizedActivity {
 
     // use this method after a correct question
     public void nextp2Question() {
-        int exponent = rand.nextInt(levelp2 + 1);
+        exponent = rand.nextInt(levelp2 + 1);
         correctAnswer = (int) Math.pow(2, exponent);
         question = (TextView) findViewById(R.id.question);
         question.setText("2^" + exponent + " =");
@@ -87,15 +87,19 @@ public class PowersofTwo extends RecognizedActivity {
 
         // Check which radio button was clicked
         switch(view.getId()) {
-            case R.id.radio_a:
+            case R.id.radio_1:
                 if (checked)
                     //
                     break;
-            case R.id.radio_b:
+            case R.id.radio_2:
                 if (checked)
                     //
                     break;
-            case R.id.radio_c:
+            case R.id.radio_3:
+                if (checked)
+                    // option c
+                    break;
+            case R.id.radio_4:
                 if (checked)
                     // option c
                     break;
@@ -104,6 +108,7 @@ public class PowersofTwo extends RecognizedActivity {
 
 
     public void confirm() {
+
         correctAnswer = (int) Math.pow(2, exponent);
         Log.d("answer", "confirming");
         int submittedAnswer = Integer.parseInt(answer.getText().toString());
@@ -301,24 +306,32 @@ public class PowersofTwo extends RecognizedActivity {
         });
 
 
-        RadioButton option_a = (RadioButton) findViewById(R.id.radio_a);
-        option_a.setOnClickListener(new View.OnClickListener() {
+        RadioButton option_1 = (RadioButton) findViewById(R.id.radio_1);
+        option_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onRadioButtonClicked(view);
             }
         });
 
-        RadioButton option_b = (RadioButton) findViewById(R.id.radio_b);
-        option_b.setOnClickListener(new View.OnClickListener() {
+        RadioButton option_2 = (RadioButton) findViewById(R.id.radio_2);
+        option_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onRadioButtonClicked(view);
             }
         });
 
-        RadioButton option_c = (RadioButton) findViewById(R.id.radio_c);
-        option_c.setOnClickListener(new View.OnClickListener() {
+        RadioButton option_3 = (RadioButton) findViewById(R.id.radio_3);
+        option_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRadioButtonClicked(view);
+            }
+        });
+
+        RadioButton option_4 = (RadioButton) findViewById(R.id.radio_4);
+        option_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onRadioButtonClicked(view);
