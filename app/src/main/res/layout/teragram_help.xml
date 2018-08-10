@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Exit:\n\nEasier:\n\nHarder\n\nTimes Tables\n\nAddition:\n\nSubtraction:\n\nNumber:"
+        android:text="Exit:\n\nEasier:\n\nHarder:\n\nTimes Tables:\n\nAddition:\n\nSubtraction:\n\nPowers of Two:\n\nNumber:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/voiceCommandsLabel" />
 
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:text="Brings up the exit dialog.\n\nEasier question.\n\nHarder question.\n\nMultiplication question.\n\nAddition question.\n\nSubtraction question.\n\nEnters number entry mode."
+        android:text="Brings up the exit dialog.\n\nEasier question.\n\nHarder question.\n\nMultiplication question.\n\nAddition question.\n\nSubtraction question.\n\nOpens Powers of Two quiz.\n\nEnters number entry mode."
         app:layout_constraintStart_toEndOf="@+id/CommandsRowA"
         app:layout_constraintTop_toBottomOf="@+id/voiceCommandsLabel" />
 
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:text="Appends a digit to your current answer.\nNote 0 is to be spoken 'Zero'.\nRemoves all digits from \nyour current answer.\nRemoves the last digit from\nyour current answer.\nSubmits your current answer.\n\nCancels number entry and returns\nto main voice commands."
+        android:text="Appends a digit.\n0 is to be spoken 'Zero'.\nRemoves all digits. \n\nRemoves the last digit.\n\nSubmits.\n\nCancels number entry.\n"
         app:layout_constraintStart_toEndOf="@+id/CommandsRowA"
         app:layout_constraintTop_toBottomOf="@+id/numberCommandsLabel" />
 </android.support.constraint.ConstraintLayout>

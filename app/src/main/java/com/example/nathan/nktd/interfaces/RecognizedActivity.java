@@ -90,7 +90,7 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         if(recognizerService.isListening()) {
             recognizerService.stopRecognition();
         } else {
-            recognizerService.startRecognition(recognizerService.MENU_SEARCH);
+            recognizerService.startRecognition();
         }
     }
 

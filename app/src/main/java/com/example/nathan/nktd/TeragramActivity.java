@@ -1,5 +1,6 @@
 package com.example.nathan.nktd;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -156,9 +157,48 @@ public class TeragramActivity extends RecognizedActivity {
 
 
     public void launchPowersTwo(View view){
-        //startGame(PowersofTwo.class);
+         recognizerService.swapSearch(Recognizer.POWERS_OF_TWO_SEARCH);
         Intent intent = new Intent(this, PowersofTwo.class);
+        intent.putExtra("listening", recognizerListening);
         startActivity(intent);
+    }
+
+    public void showHelpDialog() {
+         final Dialog helpDialog = new Dialog(this);
+         helpDialog.setContentView(R.layout.teragram_help);
+         recognizerService.swapSearch(Recognizer.HELP_SEARCH);
+         recognizerService.setListener(new SpeechResultListener() {
+             @Override
+             public void onSpeechResult() {
+                 String result = recognizerService.getResult();
+                 if (result.equals("exit")) {
+                     recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
+                     recognizerService.setListener(recognizerListener);
+                     helpDialog.dismiss();
+                 }
+             }
+
+             @Override
+             public void onStartRecognition() {
+             }
+
+             @Override
+             public void onStopRecognition() {
+             }
+
+             @Override
+             public void onNumberRecognition() {
+             }
+
+             @Override
+             public void onConfirm() {
+             }
+
+             @Override
+             public void onDeny() {
+             }
+         });
+         helpDialog.show();
     }
 
     public void confirm() {
@@ -256,8 +296,10 @@ public class TeragramActivity extends RecognizedActivity {
                             showExitDialog();
                             break;
                         case "powers of two":
-                            Intent intent = new Intent(context, PowersofTwo.class);
-                            startActivity(intent);
+                            launchPowersTwo(null);
+                            break;
+                        case "help":
+                            showHelpDialog();
                             break;
                     }
                     // Will be in 'number' search here.
@@ -290,11 +332,13 @@ public class TeragramActivity extends RecognizedActivity {
             @Override
             public void onStartRecognition() {
                 recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
+                recognizerListening = true;
             }
 
             @Override
             public void onStopRecognition() {
                 recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
+                recognizerListening = false;
             }
 
             @Override
@@ -317,14 +361,14 @@ public class TeragramActivity extends RecognizedActivity {
         correctSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
+                recognizerService.startRecognition();
             }
         });
         tryagainSound = MediaPlayer.create(this, R.raw.tryagain);
         tryagainSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
+                recognizerService.startRecognition();
             }
         });
 
@@ -401,13 +445,16 @@ public class TeragramActivity extends RecognizedActivity {
         powers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //powersTwo();
-                //launchPowersTwo(powers);
-                Intent intent = new Intent(context, PowersofTwo.class);
-                startActivity(intent);
+                launchPowersTwo(powers);
             }
         });
 
+    }
+
+    @Override
+    public void onResume() {
+         super.onResume();
+         restartRecognizer();
     }
 
     public void updateResultBox(String string) {

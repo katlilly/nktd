@@ -198,8 +198,6 @@ public class PowersofTwo extends RecognizedActivity {
                     correctCount = 0;
                 }
                 clearAnswer();
-                //recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
-
                 nextp2Question();
 
             } else {
@@ -214,7 +212,6 @@ public class PowersofTwo extends RecognizedActivity {
                     wrongCount = 0;
                     newp2Question();
                 }
-                //recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
                 clearAnswer();
             }
         } catch (NumberFormatException e) {
@@ -233,7 +230,6 @@ public class PowersofTwo extends RecognizedActivity {
         /* Recognizer Setup */
         recognizerBound = false;
         bindRecognizer();
-        recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
         recognizerButton = findViewById(R.id.recognizerStatus);
         setButton(getIntent());
 
@@ -242,51 +238,40 @@ public class PowersofTwo extends RecognizedActivity {
             public void onSpeechResult() {
                 String result = recognizerService.getResult();
                 updateResultBox(result);
-                if (recognizerService.getSearchName()
-                        .equals(recognizerService.TERAGRAM_SEARCH)) {
-                    switch (result) {
-                        case "easier":
-                            tooHard();
-                            break;
-                        case "harder":
-                            tooEasy();
-                            break;
-                        case "new question":
-                            newp2Question();
-                            break;
-                        case "enter":
-                            confirm();
-                            break;
-                        case "number":
-                            break;
-                        case "exit":
-                            showExitDialog();
-                            break;
-                    }
-                    // Will be in 'number' search here.
-                } else {
-                    String currentText = getAnswerBoxValue();
 
-                    if (currentText.equals("0")) {
-                        currentText = "";
-                    }
-                    switch (result) {
-                        case "clear":
-                            currentText = "";
-                            setAnswerBoxValue(currentText);
-                            break;
-                        case "back":
-                            if (currentText.length() > 0) {
-                                currentText = currentText.subSequence(0, currentText.length() - 1)
-                                        .toString();
-                                setAnswerBoxValue(currentText);
-                            }
-                            break;
-                        default:
-                            currentText = currentText + stringToDigit(result);
-                            setAnswerBoxValue(currentText);
-                            break;
-                    }
+                switch (result) {
+                    case "easier":
+                        tooHard();
+                        break;
+                    case "harder":
+                        tooEasy();
+                        break;
+                    case "new question":
+                        newp2Question();
+                        break;
+                    case "okay":
+                        if(option_1.isChecked() || option_2.isChecked() || option_3.isChecked()
+                                || option_4.isChecked()) {
+                            confirm();
+                        }
+                        break;
+                    case "one":
+                        option_1.performClick();
+                        break;
+                    case "two":
+                        option_2.performClick();
+                        break;
+                    case "three":
+                        option_3.performClick();
+                        break;
+                    case "four":
+                        option_4.performClick();
+                        break;
+                    case "exit":
+                        showExitDialog();
+                        break;
+
+
                 }
             }
 
@@ -307,7 +292,8 @@ public class PowersofTwo extends RecognizedActivity {
 
             @Override
             public void onConfirm() {
-                exitGame(null);
+                recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
+                finish();
             }
 
             @Override
@@ -320,14 +306,14 @@ public class PowersofTwo extends RecognizedActivity {
         correctSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
+                recognizerService.startRecognition();
             }
         });
         tryagainSound = MediaPlayer.create(this, R.raw.tryagain);
         tryagainSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                recognizerService.startRecognition(recognizerService.TERAGRAM_SEARCH);
+                recognizerService.startRecognition();
             }
         });
 

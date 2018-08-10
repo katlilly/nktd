@@ -9,8 +9,10 @@ cmusphinx-en-us-ptm-5.2/sendump
 cmusphinx-en-us-ptm-5.2/transition_matrices
 cmusphinx-en-us-ptm-5.2/variances
 frozenbubble.gram
+help.gram
 menu.gram
 nktd.dic
 number.gram
+powersoftwo.gram
 teragram.gram
 yesno.gram

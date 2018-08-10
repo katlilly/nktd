@@ -37,6 +37,8 @@ public class Recognizer extends Service implements RecognitionListener {
     public static final String TWENTY_FORTY_EIGHT_SEARCH = "2048";
     public static final String YESNO_SEARCH = "yesno";
     public static final String FROZENBUBBLE_SEARCH = "frozenbubble";
+    public static final String POWERS_OF_TWO_SEARCH = "powersoftwo";
+    public static final String HELP_SEARCH = "help";
 
     private SpeechResultListener listener;
 
@@ -44,6 +46,7 @@ public class Recognizer extends Service implements RecognitionListener {
     private boolean listening = false;
 
     private String result = "";
+    private String currentSearch;
 
     public Recognizer(){}
 
@@ -62,6 +65,7 @@ public class Recognizer extends Service implements RecognitionListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
         interpreter.startListening(Recognizer.MENU_SEARCH);
+        currentSearch = MENU_SEARCH;
         listening = true;
         while(!setupComplete){}
         return Service.START_STICKY;
@@ -89,7 +93,7 @@ public class Recognizer extends Service implements RecognitionListener {
 
     private static String[] commands = {"addition", "back", "clear", "cancel", "down",
     "easier", "eight", "enter", "exit", "five", "four", "game one", "game two", "game three",
-            "game four", "harder", "left", "multiplication", "new game", "new question", "nine",
+            "game four", "harder", "help", "left", "multiplication", "new game", "new question", "nine",
             "number", "okay", "one", "powers of two", "right", "seven", "six", "subtraction",
             "tear a gram", "three", "times tables", "twenty forty eight", "two", "up", "zero"};
 
@@ -99,7 +103,6 @@ public class Recognizer extends Service implements RecognitionListener {
     public void onPartialResult(Hypothesis hypothesis) {
 
         if (hypothesis != null) {
-            String searchName = interpreter.getSearchName();
             result = hypothesis.getHypstr();
             if(previousResult.equals(result)) {
                 repetitionCount++;
@@ -116,17 +119,17 @@ public class Recognizer extends Service implements RecognitionListener {
             }
             Log.d("status", "Heard " + result);
             /* Handle switching between searches here. */
-            switch (searchName) {
+            switch (currentSearch) {
                 case TERAGRAM_SEARCH:
                     if (result.equals("number")) {
-                        searchName = NUMBER_SEARCH;
+                        currentSearch = NUMBER_SEARCH;
                         listener.onNumberRecognition();
                     }
                     break;
 
                 case NUMBER_SEARCH:
                     if (result.equals("okay") || result.equals("cancel")) {
-                        searchName = TERAGRAM_SEARCH;
+                        currentSearch = TERAGRAM_SEARCH;
                         listener.onStartRecognition();
                     }
                     break;
@@ -139,7 +142,7 @@ public class Recognizer extends Service implements RecognitionListener {
                         listener.onDeny();
                     }
             }
-            interpreter.startListening(searchName);
+            interpreter.startListening(currentSearch);
 
             /* Let all listeners know there's a result. */
             if (listener != null) {
@@ -172,8 +175,8 @@ public class Recognizer extends Service implements RecognitionListener {
         listener.onStopRecognition();
     }
 
-    public void startRecognition(String searchName) {
-        this.interpreter.startListening(searchName);
+    public void startRecognition() {
+        this.interpreter.startListening(currentSearch);
         listening = true;
         listener.onStartRecognition();
     }
@@ -197,21 +200,26 @@ public class Recognizer extends Service implements RecognitionListener {
         File twentyFortyEightGrammar = new File(assetsDir, "2048.gram");
         File yesNoGrammar = new File(assetsDir, "yesno.gram");
         File frozenbubbleGrammar = new File(assetsDir, "frozenbubble.gram");
+        File powersOfTwoGrammar = new File(assetsDir, "powersoftwo.gram");
+        File helpGrammar = new File(assetsDir, "help.gram");
         interpreter.addGrammarSearch(MENU_SEARCH, menuGrammar);
         interpreter.addGrammarSearch(TERAGRAM_SEARCH, teragramGrammar);
         interpreter.addGrammarSearch(NUMBER_SEARCH, numberGrammar);
         interpreter.addGrammarSearch(TWENTY_FORTY_EIGHT_SEARCH, twentyFortyEightGrammar);
         interpreter.addGrammarSearch(YESNO_SEARCH, yesNoGrammar);
         interpreter.addGrammarSearch(FROZENBUBBLE_SEARCH, frozenbubbleGrammar);
+        interpreter.addGrammarSearch(POWERS_OF_TWO_SEARCH, powersOfTwoGrammar);
+        interpreter.addGrammarSearch(HELP_SEARCH, helpGrammar);
         this.setupComplete = true;
     }
 
     public void swapSearch(String newSearch) {
         Log.d("swapping", newSearch);
+        currentSearch = newSearch;
         if(listening) {
             interpreter.stop();
+            interpreter.startListening(currentSearch);
         }
-        interpreter.startListening(newSearch);
     }
 
 }
