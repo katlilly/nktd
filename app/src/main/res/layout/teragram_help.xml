@@ -67,4 +67,13 @@
         android:text="Appends a digit.\n0 is to be spoken 'Zero'.\nRemoves all digits. \n\nRemoves the last digit.\n\nSubmits.\n\nCancels number entry.\n"
         app:layout_constraintStart_toEndOf="@+id/CommandsRowA"
         app:layout_constraintTop_toBottomOf="@+id/numberCommandsLabel" />
+
+    <TextView
+        android:id="@+id/exitInstructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Say exit to close this dialog."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberDescriptions" />
 </android.support.constraint.ConstraintLayout>

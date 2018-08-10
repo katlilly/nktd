@@ -1,6 +1,7 @@
 package com.example.nathan.nktd.nktd2048;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -77,6 +78,9 @@ public class MainActivity2048 extends RecognizedActivity {
                             view.game.revertUndoState();
                         }
                         break;
+                    case "help":
+                        showHelp();
+                        break;
                 }
             }
 
@@ -102,6 +106,44 @@ public class MainActivity2048 extends RecognizedActivity {
                 dismissExitDialog(null);
             }
         };
+    }
+
+    private void showHelp() {
+        final Dialog helpDialog = new Dialog(this);
+        helpDialog.setContentView(R.layout.twenty48_help);
+        recognizerService.swapSearch(Recognizer.HELP_SEARCH);
+        recognizerService.setListener(new SpeechResultListener() {
+            @Override
+            public void onSpeechResult() {
+                String result = recognizerService.getResult();
+                if (result.equals("exit")) {
+                    recognizerService.swapSearch(Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
+                    recognizerService.setListener(recognizerListener);
+                    helpDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onStartRecognition() {
+            }
+
+            @Override
+            public void onStopRecognition() {
+            }
+
+            @Override
+            public void onNumberRecognition() {
+            }
+
+            @Override
+            public void onConfirm() {
+            }
+
+            @Override
+            public void onDeny() {
+            }
+        });
+        helpDialog.show();
     }
 
     @Override
