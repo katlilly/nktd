@@ -23,7 +23,6 @@ public class PowersofTwo extends RecognizedActivity {
     MediaPlayer tryagainSound;
 
     TextView question;
-    EditText answer;
     TextView response;
     TextView whatIHeard;
     RadioButton option_1;
@@ -42,11 +41,6 @@ public class PowersofTwo extends RecognizedActivity {
     Random rand = new Random();
     public int exponent = rand.nextInt(levelp2 + 1);
     //correctAnswer = (int) Math.pow(2, exponent);
-
-    public void clearAnswer() {
-        answer = (EditText) findViewById(R.id.answer);
-        answer.setText("");
-    }
 
     public void setMultiChoice() {
         // chose where to put correct answer
@@ -177,51 +171,6 @@ public class PowersofTwo extends RecognizedActivity {
         }
     }
 
-
-    public void confirm() {
-
-        correctAnswer = (int) Math.pow(2, exponent);
-        Log.d("answer", "confirming");
-        int submittedAnswer = Integer.parseInt(answer.getText().toString());
-        Log.d("answer", answer.getText().toString());
-        try {
-
-            if (submittedAnswer == correctAnswer) {
-                //response.setText("correct!");
-                response.setText("correct " + correctAnswer);
-                recognizerService.stopRecognition();
-                correctSound.start();
-                correctCount++;
-                wrongCount = 0;
-                if (correctCount == 10) {
-                    levelp2++;
-                    correctCount = 0;
-                }
-                clearAnswer();
-                nextp2Question();
-
-            } else {
-                //response.setText("try again");
-                response.setText("wrong " + exponent + " "+ correctAnswer);
-                recognizerService.stopRecognition();
-                tryagainSound.start();
-                wrongCount++;
-                correctCount = 0;
-                if (wrongCount == 3) {
-                    levelp2--;
-                    wrongCount = 0;
-                    newp2Question();
-                }
-                clearAnswer();
-            }
-        } catch (NumberFormatException e) {
-            // comment out below line before beta release
-            response.setText("number format exception");
-            // shouldn't need to do anything here
-            // do nothing in the case that there is no answer to submit
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -248,12 +197,6 @@ public class PowersofTwo extends RecognizedActivity {
                         break;
                     case "new question":
                         newp2Question();
-                        break;
-                    case "okay":
-                        if(option_1.isChecked() || option_2.isChecked() || option_3.isChecked()
-                                || option_4.isChecked()) {
-                            confirm();
-                        }
                         break;
                     case "one":
                         option_1.performClick();
@@ -319,25 +262,12 @@ public class PowersofTwo extends RecognizedActivity {
 
         // create references to the text elements and buttons
         question = (TextView) findViewById(R.id.question);
-        answer = (EditText) findViewById(R.id.answer);
         response = (TextView) findViewById(R.id.response);
         whatIHeard = findViewById(R.id.speechResult);
         //answer.setText(numyesSounds);
         // set the first question
         nextp2Question();
         //question.setText("2^" + exponent + " =");
-
-        answer.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    confirm();
-                    return true;
-                }
-                return false;
-            }
-        }); // end answer listener
 
         Button newQuestion = (Button) findViewById(R.id.newQuestion);
         newQuestion.setOnClickListener(new View.OnClickListener() {
@@ -397,8 +327,6 @@ public class PowersofTwo extends RecognizedActivity {
         });
 
         newp2Question();
-
-
     }
 
     public void updateResultBox(String string) {
@@ -409,29 +337,6 @@ public class PowersofTwo extends RecognizedActivity {
         }
     }
 
-    public String getAnswerBoxValue() {
-        return answer.getText().toString();
-    }
-
-    public void setAnswerBoxValue(String value) {
-        answer.setText(value);
-    }
-
-    private String stringToDigit(String number) {
-        switch (number) {
-            case "zero": return "0";
-            case "one": return "1";
-            case "two": return "2";
-            case "three": return "3";
-            case "four": return "4";
-            case "five": return "5";
-            case "six": return "6";
-            case "seven": return "7";
-            case "eight": return "8";
-            case "nine": return "9";
-            default: return "0";
-        }
-    }
 }
 
 
