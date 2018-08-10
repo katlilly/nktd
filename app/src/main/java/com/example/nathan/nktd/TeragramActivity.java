@@ -244,8 +244,7 @@ public class TeragramActivity extends RecognizedActivity {
                         case "subtraction":
                             subtraction();
                             break;
-                            /*** we need to add a "times tables" case here ***/
-                        case "multiplication":
+                        case "times tables":
                             timesTables();
                             break;
                         case "okay":
@@ -255,6 +254,10 @@ public class TeragramActivity extends RecognizedActivity {
                             break;
                         case "exit":
                             showExitDialog();
+                            break;
+                        case "powers of two":
+                            Intent intent = new Intent(context, PowersofTwo.class);
+                            startActivity(intent);
                             break;
                     }
                     // Will be in 'number' search here.
