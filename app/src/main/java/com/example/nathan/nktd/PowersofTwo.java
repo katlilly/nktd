@@ -4,6 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.SuperscriptSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -92,7 +97,16 @@ public class PowersofTwo extends RecognizedActivity {
         exponent = rand.nextInt(levelp2 + 1);
         correctAnswer = (int) Math.pow(2, exponent);
         question = (TextView) findViewById(R.id.question);
-        question.setText("2^" + exponent + " =");
+        SpannableStringBuilder q = new SpannableStringBuilder("2" + exponent);
+        if (exponent < 10) {
+            q.setSpan(new SuperscriptSpan(), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            q.setSpan(new RelativeSizeSpan(0.75f), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else {
+            q.setSpan(new SuperscriptSpan(), 1, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            q.setSpan(new RelativeSizeSpan(0.75f), 1, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        question.setText(q);
         response.setText("can you answer this one?");
         setMultiChoice();
 
