@@ -44,27 +44,34 @@ available here:\linebreak
 
 \begin{itemize}
 	\item Have fixed the initial crash of the app.
-	\item Teragram is now able to be closed via speech command with the main menu 
-	loaded.
+	\item Teragram is now able to be closed via speech command
+          with the main menu loaded.
 	\item 2048 has been implemented with working speech commands. 
-	\item Frozen Bubble has been implemented with working speech commands, however 
-	some debugging still needs to happen with respect to the speed of the launcher 
-	(see known issues for more).
-	\item Have implemented the speech recognition on/off switch. It's currently 
-	working with Teragram and the main menu.
-	\item Have implemented visual feedback for the speech recognition, currently
-	working within Teragram.
-	\item In Teragram, have replaced random multiplication questions with times table
-	practice that will adjust with the `too hard'/`too easy' buttons. 
-      \item In Teragram, have implemented a button that when pressed
-        will open up a powers of two quiz.
+	\item Frozen Bubble has been implemented with working speech
+          commands, however some debugging still needs to happen with
+          respect to the speed of the launcher (see known issues for
+          more).
+      \item Have implemented the speech recognition on/off
+        switch. It's currently working with Teragram and the main
+        menu.
+      \item Have implemented visual feedback for the speech
+        recognition, currently working within Teragram.
+      \item In Teragram, we have replaced random multiplication questions
+        with times table practice. The user can change which times
+        tables they are working on with the `too hard'/`too easy'
+        buttons.
+      \item In Teragram, we have added a powers of two multiple choice
+        quiz. We chose to do this one as multiple choice rather than
+        directly entering an answer so as to give the child practice
+        at recognising powers of two, because all the options in the
+        quiz are whole powers of two.
 \end{itemize}
 
 \pagebreak
 
 \section{Intended improvements/Known Issues}
 
-\subsubsection{Frozen Bubble Launcher Speed}
+\subsubsection*{Frozen Bubble Launcher Speed}
 Frozen Bubble is an open source game that is controlled strictly by touch. 
 In order for a user to be hands-free, we have had to manipulate the code 
 to have the launcher work with respect to time. This currently is working
@@ -73,20 +80,20 @@ that the launcher moves with respect to int values, however, for it to be
 functional we need decimals values. When trying to manipulate this it 
 throws a chain of bugs where the values are used elsewhere in the game. 
 
-\subsubsection{More robust number entry}
+\subsubsection*{More robust number entry}
 The current way of inputing numbers using speech is finicky and prone to
 errors. We are unsure whether or not there is some easier way to do this,
 but we would like to try different methods.
 
-\subsubsection{Speech Recognition off-switch across all games}
+\subsubsection*{Speech Recognition off-switch across all games}
 We have successfully implemented the on/off switch in the main menu and 
 Teragram but still have to implement it into 2048 and FrozenBubble.
 
-\subsubsection{Visual feedback across all games}
+\subsubsection*{Visual feedback across all games}
 We have successfully implemented visual feedback in Teragram but still 
 have to implement it into the main menu, 2048 and FrozenBubble.
 
-\subsubsection{Help Screen}
+\subsubsection*{Help Screen}
 Without this documentation, a user would have no way of knowing exactly 
 what to say to the game to get it to do anything. Some kind of pop-up 
 display you could call at any moment displaying the voice commands is
