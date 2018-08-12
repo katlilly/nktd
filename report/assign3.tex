@@ -100,12 +100,31 @@ display you could call at any moment displaying the voice commands is
 neccessary. 
 
 \section{Testing}
+
+\subsubsection*{Voice control}
+
 Testing an application that is run by voice commands was not something
-we felt could be done through automated methods without devoting a 
-large amount of time that could instead be spent implementing features.
-Instead, frequent testing was done manually either through emulators or 
-by installing the apk on our own phones. For the Teragram game, we had 
-extensive user testing performed by two children.
+we felt could be done through automated methods without devoting a
+large amount of time that could instead be spent implementing
+features.  Instead, frequent testing was done manually either through
+emulators or by installing the apk on our own phones. We note that the
+microphone on a typical phone is significantly better than the
+microphone on a typical laptop or desktop computer, and so the app is
+significantly easier to play on a phone than on an emulator.
+
+
+\subsubsection*{Teragram}
+
+For the Teragram game, we had extensive user testing performed by two
+children, seven and four years old. In the months since the alpha
+release, they have still been playing it frequently, so it has passed
+the fun test and is suitable for children of those ages. However, they
+do prefer to play it without using the voice control. This is partly
+because they are do not often find themselves in a quiet enough place
+for voice control to work, but also because the voice controls are a
+bit slower and less reliable than entering answers via the touch
+screen.
+
 \pagebreak
 
 \section{User Documentation}
@@ -113,22 +132,24 @@ extensive user testing performed by two children.
 \subsection{Teragram}
 The game starts up at `level 1', and you can move to the easiest level
 by tapping the `too hard' button or go up levels by tapping the `too
-easy' button. Automatic leveling up happens when you get ten
-questions right in a row, or levelling down when you get two wrong in
-a row. The user is not aware of the actual level, it's just that
-questions get easier or harder.
+easy' button. Automatic leveling up happens when you get ten questions
+right in a row, or levelling down when you get two wrong in a row. The
+user is not aware of the actual level, it's just that questions get
+easier or harder, because the bound on the random number generator
+used in setting new questions is related to the level.
 
 The game launches in addition mode, and the user can chose to move to
 subtraction problems, or practice times tables or powers of two.
 
 \subsection{2048}
 2048 is a popular number name released on March 20, 2014. This game is
-very simple; you can choose to slide the tiles up, down, left or right by
-swipping the screen or saying `left', `right' `up' or `down'. Every
+very simple; you can choose to slide the tiles up, down, left or right
+by swipping the screen or saying `left', `right' `up' or `down'. Every
 slide, all the digital squares will move to the direction of sliding
 way. This is a really neat game, and there are many open source
 implementations out there, but what makes it especially suitable for
-our app is the simplicity of its controls.
+our app is the simplicity of its controls - it's an interesting and
+challenging game controlled only with four commands.
 
 \subsection{Frozen Bubble}
 With colourful 3D rendered penguin animations and fun bubble sprites. 
