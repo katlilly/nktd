@@ -97,7 +97,7 @@ public class PowersofTwo extends RecognizedActivity {
         exponent = rand.nextInt(levelp2 + 1);
         correctAnswer = (int) Math.pow(2, exponent);
         question = (TextView) findViewById(R.id.question);
-        SpannableStringBuilder q = new SpannableStringBuilder("2" + exponent);
+        SpannableStringBuilder q = new SpannableStringBuilder("2" + exponent + " =");
         if (exponent < 10) {
             q.setSpan(new SuperscriptSpan(), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             q.setSpan(new RelativeSizeSpan(0.75f), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

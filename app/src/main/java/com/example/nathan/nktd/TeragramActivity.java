@@ -12,6 +12,10 @@ import android.os.Bundle;
 import android.media.MediaPlayer;
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.SuperscriptSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -442,6 +446,10 @@ public class TeragramActivity extends RecognizedActivity {
         });
 
         final Button powers = (Button) findViewById(R.id.powers);
+        SpannableStringBuilder p = new SpannableStringBuilder("2n");
+        p.setSpan(new SuperscriptSpan(), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        p.setSpan(new RelativeSizeSpan(0.75f), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        powers.setText(p);
         powers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
