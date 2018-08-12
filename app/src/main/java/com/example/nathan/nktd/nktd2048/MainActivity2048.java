@@ -34,19 +34,23 @@ public class MainActivity2048 extends RecognizedActivity {
     private MainView view;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        view = new MainView(this);
+
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        view.hasSaveState = settings.getBoolean("save_state", false);
+        //view.hasSaveState = settings.getBoolean("save_state", false);
 
         if (savedInstanceState != null) {
             if (savedInstanceState.getBoolean("hasState")) {
                 load();
             }
         }
-        setContentView(view);
+        //setContentView(view);
+        setContentView(R.layout.activity_2048);
+        recognizerButton = findViewById(R.id.recognizerStatus);
+        view = findViewById(R.id.view2048);
 
         bindRecognizer();
         recognizerService.swapSearch(Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
@@ -86,14 +90,19 @@ public class MainActivity2048 extends RecognizedActivity {
 
             @Override
             public void onStartRecognition() {
+                recognizerListening = true;
+                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
             }
 
             @Override
             public void onStopRecognition() {
+                recognizerListening = false;
+                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
             }
 
             @Override
             public void onNumberRecognition() {
+                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
             }
 
             @Override

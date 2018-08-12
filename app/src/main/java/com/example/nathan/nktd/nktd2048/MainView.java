@@ -11,6 +11,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import com.example.nathan.nktd.R;
@@ -75,8 +76,8 @@ public class MainView extends View {
 
     InputListener listener;
 
-    public MainView(Context context) {
-        super(context);
+    public MainView(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
         //Loading resources
         game = new MainGame(context, this);
