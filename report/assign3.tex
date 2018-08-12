@@ -29,15 +29,13 @@
 
 \section{Beta Release}
 
-We have now reached the point where our android application consists
-of 3 (relatively) functioning games where they are able to be opened
-via speech commands from the main menu and controlled either by speech
+Our app now contains three functioning games which can be opened via
+speech commands from the main menu and controlled either by speech
 commands or through touch. Two of the games (2048 and Frozen Bubble)
-are open source games we have manipulated to work with voice commands 
-and Teragram is an original game.
+are open source games we have manipulated to work with voice commands
+and Teragram is an original game, a maths practice game for children.
 
-The application uses pocketSphinx to interpret speech commands
-available here:\linebreak
+The application uses pocketSphinx to interpret speech commands:\linebreak
 \href{https://github.com/cmusphinx/pocketsphinx}{https://github.com/cmusphinx/pocketsphinx}
 
 \subsection{Since the Alpha}
@@ -77,7 +75,23 @@ We have made the following improvements and enhancements since our alpha release
 
 \pagebreak
 
-\section{Intended improvements/Known Issues}
+\section{Known Issues and Intended improvements}
+
+\subsubsection*{Speech Recognition off-switch across all games}
+We have successfully implemented the on/off switch in the main menu and 
+Teragram but still have to implement it into 2048 and FrozenBubble.
+
+\subsubsection*{Visual feedback across all games}
+In Teragram, we have successfully implemented visual feedback which
+informs the user of how voice inputs are being interpreted, but are
+yet to implement it into the main menu, 2048 and FrozenBubble.
+
+
+\subsubsection*{More robust number entry}
+The current way of inputing numbers using speech is finicky and prone to
+errors. We are unsure whether or not there is some easier way to do this,
+but we would like to try different methods.
+
 
 \subsubsection*{Frozen Bubble Launcher Speed}
 Frozen Bubble is an open source game that is controlled strictly by touch. 
@@ -88,24 +102,21 @@ that the launcher moves with respect to int values, however, for it to be
 functional we need decimals values. When trying to manipulate this it 
 throws a chain of bugs where the values are used elsewhere in the game. 
 
-\subsubsection*{More robust number entry}
-The current way of inputing numbers using speech is finicky and prone to
-errors. We are unsure whether or not there is some easier way to do this,
-but we would like to try different methods.
+\subsubsection*{Teragram bugs}
 
-\subsubsection*{Speech Recognition off-switch across all games}
-We have successfully implemented the on/off switch in the main menu and 
-Teragram but still have to implement it into 2048 and FrozenBubble.
-
-\subsubsection*{Visual feedback across all games}
-We have successfully implemented visual feedback in Teragram but still 
-have to implement it into the main menu, 2048 and FrozenBubble.
+{\em there are currently two known bugs in teragram, I expect to
+  resolve them before submitting assignment 3, but if not, will need
+  to describe them here}
 
 \subsubsection*{Help Screen}
-Without this documentation, a user would have no way of knowing exactly 
-what to say to the game to get it to do anything. Some kind of pop-up 
-display you could call at any moment displaying the voice commands is
-neccessary. 
+
+{\em remove this section? this may be implemented by the time we hand
+  it in? if so add this stuff to 'since the alpha' section}
+
+Without this documentation, a user would have no way of knowing
+exactly what to say to the game to get it to do anything. Some kind of
+pop-up display you could call at any moment displaying the voice
+commands is neccessary.
 
 \section{Testing}
 
@@ -114,7 +125,7 @@ neccessary.
 Testing an application that is run by voice commands was not something
 we felt could be done through automated methods without devoting a
 large amount of time that could instead be spent implementing
-features.  Instead, frequent testing was done manually either through
+features. Instead, frequent testing was done manually either through
 emulators or by installing the apk on our own phones. We note that the
 microphone on a typical phone is significantly better than the
 microphone on a typical laptop or desktop computer, and so the app is
@@ -126,30 +137,32 @@ significantly easier to play on a phone than on an emulator.
 For the Teragram game, we had extensive user testing performed by two
 children, seven and four years old. In the months since the alpha
 release, they have still been playing it frequently, so it has passed
-the fun test and is suitable for children of those ages. However, they
-do prefer to play it without using the voice control. This is partly
-because they are do not often find themselves in a quiet enough place
-for voice control to work, but also because the voice controls are a
-bit slower and less reliable than entering answers via the touch
-screen.
+the fun test and is clearly uitable for children of those
+ages. However, they do prefer to play it without using the voice
+control. This is partly because they are do not often find themselves
+in a quiet enough place for voice control to work, but also because
+the voice controls are a bit slower and less reliable than entering
+answers via the touch screen.
 
 \pagebreak
 
 \section{User Documentation}
 
 \subsection{Teragram}
-The game starts up at `level 1', and you can move to the easiest level
-by tapping the `too hard' button or go up levels by tapping the `too
-easy' button. Automatic leveling up happens when you get ten questions
-right in a row, or levelling down when you get two wrong in a row. The
-user is not aware of the actual level, it's just that questions get
-easier or harder, because the bound on the random number generator
-used in setting new questions is related to the level.
+
+The game starts up at `level 1', and the user can move to the easiest
+level by tapping the `too hard' button or go up levels by tapping the
+`too easy' button. Automatic leveling up happens when ten questions in
+a row are answered correctly, or levelling down when you get two wrong
+in a row. The user is not aware of the actual level, it's just that
+questions get easier or harder - the bound on the random number
+generator used in setting new questions is related to the level.
 
 The game launches in addition mode, and the user can chose to move to
 subtraction problems, or practice times tables or powers of two.
 
 \subsection{2048}
+
 2048 is a popular number name released on March 20, 2014. This game is
 very simple; you can choose to slide the tiles up, down, left or right
 by swipping the screen or saying `left', `right' `up' or `down'. Every
@@ -157,7 +170,10 @@ slide, all the digital squares will move to the direction of sliding
 way. This is a really neat game, and there are many open source
 implementations out there, but what makes it especially suitable for
 our app is the simplicity of its controls - it's an interesting and
-challenging game controlled only with four commands.
+challenging game controlled with only four commands. Also there is no
+time pressure in this game, so if it takes half a second for the
+speech recogniser to work, this does not adversely affect the game
+play.
 
 \subsection{Frozen Bubble}
 With colourful 3D rendered penguin animations and fun bubble sprites. 
@@ -172,6 +188,8 @@ You can control the game with the following voice commands:
 
 \subsubsection{Main menu}
 
+{\em is this still correct? do we have help menu coming from main page now?}
+
 \begin{itemize}
   \item {\em\bf`game one'} - unsupported
   \item {\em\bf`Teragram' / 'game two'}  - this will take you to the game Teragram.
@@ -181,6 +199,7 @@ You can control the game with the following voice commands:
 
 \subsubsection{Teragram}
 
+{\em this needs updating}
 \begin{itemize}
   \item {\em\bf`harder'} - Provides a harder question. 
   \item {\em\bf`easier'} - Provides an easier question.
@@ -230,7 +249,7 @@ When entering numbers, please wait until the number you have just spoken appears
 in the box before trying to input the next one.
 Good Luck!
 
-\section{What we stole}
+\section{Open Source components}
 
 The code for the speech recognizer setup/permissions/asset copying is
 taken almost directly from the pocketSphinx demo application here:
