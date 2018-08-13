@@ -11,7 +11,7 @@ You can find our full documentation in report/assign3.pdf
 ### Main menu:  
 ‘Teragram' or 'game two’ - Wlll start the game Teragram.  
 'Twenty Fourty Eight' or ‘game three’ - Will start the game 2048  
-Frozen Bubble' or ‘game four’ - Will start the game Frozen Bubble  
+'Frozen Bubble' or ‘game four’ - Will start the game Frozen Bubble  
 
 ### Teragram:
 ‘easier’ - Provides an easier question.  
