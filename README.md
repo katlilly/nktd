@@ -1,5 +1,5 @@
-## To Andrew: 
-You can find our full documentation in report/cosc345-assign2-nktd.pdf
+## To David: 
+You can find our full documentation in report/assign3.pdf
 
 # nktd
 345 group project - Nathan, Kat, Tobyn, Daniel  
@@ -9,9 +9,8 @@ You can find our full documentation in report/cosc345-assign2-nktd.pdf
 ## Voice Commands:
 
 ### Main menu:  
-‘game one’ - unsupported  
-‘game two’ - This will take you to the game Teragram.  
-‘game three’ - unsupported  
+‘Teragram' or 'game two’ - Wlll start the game Teragram.  
+Twenty Fourty Eight' or ‘game three’ - Will start the game 2048  
 ‘game four’ - unsupported  
 
 ### Teragram:
