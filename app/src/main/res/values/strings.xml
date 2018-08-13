@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">NKTD</string>
-    <string name="button_topleft">Tetris</string>
+    <string name="button_topleft">Help</string>
     <string name="button_topright">Teragram</string>
     <string name="button_bottomleft">2048</string>
-    <string name="button_bottomright">Game 4</string>
-    <string name="n2">2<small><sup>n</sup></small></string>
+    <string name="button_bottomright">Frozen Bubble</string>
+    <!--<string name="n2">2&lt;sup&gt;&lt;small&gt;n&lt;/small&gt;&lt;/sup&gt;</string>-->
+    <string name="n2">2n</string>
 
     <!-- 2048 strings below -->
     <string name="high_score">HIGH SCORE</string>

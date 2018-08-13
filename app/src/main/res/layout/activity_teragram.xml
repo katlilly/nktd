@@ -109,7 +109,7 @@
         android:layout_width="42dp"
         android:layout_height="42dp"
         android:background="#900000"
-        android:text=""
+        android:text="@string/n2"
         android:textSize="22dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
