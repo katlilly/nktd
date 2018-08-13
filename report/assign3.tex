@@ -44,7 +44,8 @@ We have made the following improvements and enhancements since our
 alpha release:
 
 \begin{itemize}
-	\item The app no longer crashes on initial startup.
+\item The app no longer crashes on initial startup.
+  \item We have added a help screen with a list of available voice commands, which can be opened from Teragram or 2048 by saying `help'.
 	\item Teragram is now able to be closed via speech command, at
           which point the main menu is reloaded.
 	\item An open source implementation of the game 2048 has been
@@ -115,13 +116,9 @@ shown.
 
 \subsubsection*{Help Screen}
 
-{\em remove this section? this may be implemented by the time we hand
-  it in? if so add this stuff to 'since the alpha' section}
+We intend to add a help menu on the main page, similar to the help
+menus within Teragram and 2048.
 
-Without this documentation, a user would have no way of knowing
-exactly what to say to the game to get it to do anything. Some kind of
-pop-up display you could call at any moment displaying the voice
-commands is neccessary.
 
 \section{Testing}
 
@@ -195,7 +192,7 @@ You can control the game with the following voice commands:
 {\em is this still correct? do we have help menu coming from main page now?}
 
 \begin{itemize}
-  \item {\em\bf`game one'} - unsupported
+  %\item {\em\bf`game one'} - unsupported
   \item {\em\bf`Teragram' / 'game two'}  - this will take you to the game Teragram.
   \item {\em\bf`Twenty Fourty Eight' / 'game three'} - this will take you to the game 2048.
   \item {\em\bf`Frozen Bubble' / 'game four'} - this will take you to the game Frozen Bubble.
@@ -205,12 +202,14 @@ You can control the game with the following voice commands:
 
 {\em this needs updating}
 \begin{itemize}
+  \item {\em\bf`help'} - Brings up help menu with available voice commands. 
   \item {\em\bf`harder'} - Provides a harder question. 
   \item {\em\bf`easier'} - Provides an easier question.
   \item {\em\bf`new question'} - Provides a new question of the same type
   \item {\em\bf`addition'} -Provides an addition question
   \item {\em\bf`subtraction'} - Provides a subtraction question
-  \item {\em\bf`multiplication'} - Provides a multiplication question 
+  \item {\em\bf`times tables'} - Starts times tables practice mode
+  \item {\em\bf`powers of two'} - Starts powers of two quiz
   \item {\em\bf`number'} - Starts Number Input mode, see below
   \item {\em\bf`exit'} - Prompts a message confirming if they want to exit
  
@@ -219,8 +218,10 @@ You can control the game with the following voice commands:
 \subsubsection{2048}
 
 \begin{itemize}
+  	\item {\em\bf`help'} - Brings up help menu with available voice commands. 
+
 	\item {\em\bf`left'} - All blocks will move to the left if possible. 
-	\item {\em\bf`right'} - All blocks will move to the left if possible
+	\item {\em\bf`right'} - All blocks will move to the right if possible
 	\item {\em\bf`up'} - All blocks will move to up if possible. 
 	\item {\em\bf`down'} - All blocks will move to down if possible
 	\item {\em\bf`exit'} - Prompts a message confirming if they want to exit
