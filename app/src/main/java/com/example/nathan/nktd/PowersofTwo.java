@@ -386,6 +386,11 @@ public class PowersofTwo extends RecognizedActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
+        finish();
+    }
 }
 
 
