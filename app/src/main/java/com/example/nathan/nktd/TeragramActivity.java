@@ -1,17 +1,10 @@
 package com.example.nathan.nktd;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.media.MediaPlayer;
-//import android.support.design.widget.FloatingActionButton;
-//import android.support.design.widget.Snackbar;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.RelativeSizeSpan;
@@ -21,8 +14,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nathan.nktd.interfaces.RecognizedActivity;
@@ -51,7 +42,9 @@ public class TeragramActivity extends RecognizedActivity {
 
     Context context = this;
 
-    // get random numbers for initial question
+    /*
+     * get random numbers for first question on startup
+     * */
     Random rand = new Random();
     int operand1 = rand.nextInt(5 + level * 10);
     int operand2 = rand.nextInt(5 + level * 10);
@@ -73,14 +66,11 @@ public class TeragramActivity extends RecognizedActivity {
         answer.setText("");
     }
 
+
     // use this method when user asks for a different question
     public void newQuestion() {
         question = (TextView) findViewById(R.id.question);
-        if (operation == "^") {
-            exponent = rand.nextInt(level + 2);
-            response.setText("Lets practice powers of two");
-            question.setText("2^" + exponent + " =");
-        } else if (operation == "*") {
+         if (operation == "*") {
             operand1 = level+2;
             operand2 = rand.nextInt(13);
             response.setText("Lets practice " + operand1 + " times tables");
@@ -94,17 +84,13 @@ public class TeragramActivity extends RecognizedActivity {
 
     // use this method after a correct question
     public void nextQuestion() {
-         if (operation == "^") {
-             exponent = rand.nextInt(level + 3);
-             powersTwo();
-         } else {
-             question = (TextView) findViewById(R.id.question);
-             setOperands();
-             question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
-         }
-        // don't remove "correct" message unless new question is explicitly asked for
+        question = (TextView) findViewById(R.id.question);
+        setOperands();
+        question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
     }
 
+
+    // increase difficulty level
     public void tooEasy() {
         level++;
         if (level > maxLevel) level = maxLevel;
@@ -115,6 +101,7 @@ public class TeragramActivity extends RecognizedActivity {
         }
     }
 
+    // decrease difficulty level
     public void tooHard() {
         level--;
         if (level < 0) level = 0;
@@ -135,31 +122,16 @@ public class TeragramActivity extends RecognizedActivity {
         newQuestion();
     }
 
-    public void powersTwo() {
-         operation = "^";
-         newQuestion();
-    }
 
     public void timesTables() {
          operation = "*";
          newQuestion();
-        //operand1 = level+2;
-        //operand2 = rand.nextInt(13);
-        //operation = "*";
-        //response.setText("Lets practice " + operand1 + " times tables");
-        //question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
-        //newQuestion();
     }
 
-    //public void multiplication() {
-         //operation = "*";
-        //timesTables();
-        //operation = "*";
-        //newQuestion();
-    //}
 
-
-
+    /*
+    * start up powers of two multi-choice quiz in a new page
+    * */
     public void launchPowersTwo(View view){
          recognizerService.swapSearch(Recognizer.POWERS_OF_TWO_SEARCH);
         Intent intent = new Intent(this, PowersofTwo.class);
@@ -205,6 +177,10 @@ public class TeragramActivity extends RecognizedActivity {
          helpDialog.show();
     }
 
+
+    /*
+    * check for correct answer, and do automatic levelling up/down
+    * */
     public void confirm() {
         int correctAnswer = 0;
         if (operation == "+") correctAnswer = operand1 + operand2;
@@ -248,8 +224,6 @@ public class TeragramActivity extends RecognizedActivity {
             }
         } catch (NumberFormatException e) {
             response.setText("try again");
-            // shouldn't need to do anything here
-            // do nothing in the case that there is no answer to submit
         }
     }
 
@@ -361,6 +335,11 @@ public class TeragramActivity extends RecognizedActivity {
             }
         };
 
+
+        /*
+         * set up media players for the sounds to play in response.
+         * set the voice command recogniser to restart after response sounds have finished playing.
+         * */
         correctSound = MediaPlayer.create(this, R.raw.correct);
         correctSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -380,10 +359,10 @@ public class TeragramActivity extends RecognizedActivity {
         question = (TextView) findViewById(R.id.question);
         answer = (EditText) findViewById(R.id.answer);
         response = (TextView) findViewById(R.id.response);
-        whatIHeard = findViewById(R.id.speechResult);
-        //answer.setText(numyesSounds);
+
         // set the first question
         question.setText("" + operand1 + " " + operation + " " + operand2 + " =");
+
 
         answer.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -397,6 +376,9 @@ public class TeragramActivity extends RecognizedActivity {
             }
         }); // end answer listener
 
+        /*
+        * set up onClickListeners for each of the buttons
+        * */
         Button newQuestion = (Button) findViewById(R.id.newQuestion);
         newQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -445,6 +427,7 @@ public class TeragramActivity extends RecognizedActivity {
             }
         });
 
+        /* use spannable class to format 2^n correctly */
         final Button powers = (Button) findViewById(R.id.powers);
         SpannableStringBuilder p = new SpannableStringBuilder("2n");
         p.setSpan(new SuperscriptSpan(), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -465,6 +448,10 @@ public class TeragramActivity extends RecognizedActivity {
          restartRecognizer();
     }
 
+
+    /*
+     * method for providing feedback to the user on what voice commands are being interpreted
+     * */
     public void updateResultBox(String string) {
         if (null == whatIHeard) {
             Log.d("status", "whatIHeard null");

@@ -131,7 +131,7 @@ public class PowersofTwo extends RecognizedActivity {
         }
 
         question.setText(q);
-        response.setText("can you answer this one?");
+        response.setText("let's practice powers of two");
         setMultiChoice();
 
     }
