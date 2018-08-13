@@ -1,5 +1,5 @@
 ## To David: 
-You can find our full documentation in report/assign3.pdf
+You can find our full documentation in report/assign3-nktd.pdf
 
 # nktd
 345 group project - Nathan, Kat, Tobyn, Daniel  
