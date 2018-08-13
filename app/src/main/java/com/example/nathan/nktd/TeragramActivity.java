@@ -359,6 +359,7 @@ public class TeragramActivity extends RecognizedActivity {
         question = (TextView) findViewById(R.id.question);
         answer = (EditText) findViewById(R.id.answer);
         response = (TextView) findViewById(R.id.response);
+        whatIHeard = (TextView) findViewById(R.id.speechResult);
 
         // set the first question
         question.setText("" + operand1 + " " + operation + " " + operand2 + " =");

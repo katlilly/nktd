@@ -39,6 +39,7 @@ You can find our full documentation in report/assign3.pdf
 - ‘up’ - All blocks will move to up if possible.
 - ‘down’ - All blocks will move to down if possible.
 - ‘exit’ - Prompts a message confirming if they want to exit.
+- ‘back’ - Undoes the previous move, and sets the score to what it was before that move.
 
 ### Frozen Bubble:
 - ‘fire’ or ‘now’ - Will fire the bubble.
