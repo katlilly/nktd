@@ -21,7 +21,7 @@ You can find our full documentation in report/assign3.pdf
 - ‘subtraction’ - Provides a subtraction question
 - ‘times tables’ - Launches times tables practice
 - ‘powers of two’ - Launches the powers of two quiz
-- when in 2^n quiz, say `one', `two', `three' or `four' to select from multiple choice answers.
+- when in powers of 2 quiz, say 1, 2, 3 or 4 to select from multiple choice answers.
 - ‘number’ - Starts Number Input mode – see below  
 - ‘exit’ - unsupported  
 
