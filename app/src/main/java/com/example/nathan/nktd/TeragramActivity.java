@@ -429,10 +429,10 @@ public class TeragramActivity extends RecognizedActivity {
 
         /* use spannable class to format 2^n correctly */
         final Button powers = (Button) findViewById(R.id.powers);
-        SpannableStringBuilder p = new SpannableStringBuilder("2n");
-        p.setSpan(new SuperscriptSpan(), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        p.setSpan(new RelativeSizeSpan(0.75f), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        powers.setText(p);
+        //SpannableStringBuilder p = new SpannableStringBuilder("2n");
+        //p.setSpan(new SuperscriptSpan(), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //p.setSpan(new RelativeSizeSpan(0.75f), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //powers.setText(p);
         powers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
