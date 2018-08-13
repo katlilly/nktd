@@ -106,7 +106,7 @@ throws a chain of bugs where the values are used elsewhere in the game.
 
 
 \subsubsection*{Frozen Bubble first level bubbles}
-On some of our devices, the initial load of Frozen Bubble has two rows of 
+On two of our devices, the initial load of Frozen Bubble has two rows of 
 bubbles that are generated directly in-front of the launcher therefore making
 the game impossible to play as they are blocking all angles of the launcher. 
 Still have debugging to do but currently at a state where all the files have 
@@ -155,9 +155,9 @@ less reliable than entering answers via the touch screen.
 
 The game starts up at level one, and the user can move to the easiest
 level by tapping the `too hard' button or go up levels by tapping the
-`too easy' button. Automatic leveling up happens when ten questions in
-a row are answered correctly, or levelling down when you get two wrong
-in a row. The user is not aware of the actual level, it's just that
+`too easy' button. When ten questions in a row are answered correctly,
+the game will automatically level up, otherwise if two questions are incorrect in a 
+row, it'll automatically level down.  The user is not aware of the actual level, it's just that
 questions get easier or harder - the bound on the random number
 generator used in setting new questions is related to the level.
 
@@ -180,7 +180,7 @@ play.
 
 \subsection{Frozen Bubble}
 The aim of this game is to clear the screen by shooting the current
-bubble in the launcher at its respective coloured bubbles on the
+bubble from the launcher to its respective coloured bubbles on the
 level. Saying `fire'/'now' or swiping up will shoot the bubble.
 
 \subsection{Voice Controls}
@@ -188,8 +188,6 @@ level. Saying `fire'/'now' or swiping up will shoot the bubble.
 You can control the game with the following voice commands:
 
 \subsubsection{Main menu}
-
-{\em is this still correct? do we have help menu coming from main page now?}
 
 \begin{itemize}
   %\item {\em\bf`game one'} - unsupported
@@ -200,7 +198,6 @@ You can control the game with the following voice commands:
 
 \subsubsection{Teragram}
 
-{\em this needs updating}
 \begin{itemize}
   \item {\em\bf`help'} - Brings up help menu with available voice commands. 
   \item {\em\bf`harder'} - Provides a harder question. 
@@ -219,7 +216,6 @@ You can control the game with the following voice commands:
 
 \begin{itemize}
   	\item {\em\bf`help'} - Brings up help menu with available voice commands. 
-
 	\item {\em\bf`left'} - All blocks will move to the left if possible. 
 	\item {\em\bf`right'} - All blocks will move to the right if possible
 	\item {\em\bf`up'} - All blocks will move to up if possible. 
