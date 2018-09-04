@@ -45,6 +45,9 @@ public abstract class RecognizedActivity extends AppCompatActivity {
 
     public void exitGame(View view) {
         recognizerService.swapSearch(Recognizer.MENU_SEARCH);
+        if (recognizerBound) {
+            this.unbindService(serviceConnection);
+        }
         finish();
     }
 

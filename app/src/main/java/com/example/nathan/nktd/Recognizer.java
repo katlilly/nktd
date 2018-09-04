@@ -78,6 +78,7 @@ public class Recognizer extends Service implements RecognitionListener {
 
     @Override
     public boolean onUnbind(Intent intent) {
+        Log.d("bind", "unbinding");
         return true;
     }
 
