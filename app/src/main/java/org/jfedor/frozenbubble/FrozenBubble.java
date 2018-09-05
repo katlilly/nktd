@@ -342,8 +342,19 @@ public class FrozenBubble extends RecognizedActivity
       public void onDeny() {
         dismissExitDialog(null);
       }
+
+      @Override
+      public void onSoundHeard() {
+        Log.d("onSoundHeard", "onSoundHeard");
+        pauseRotation();
+      }
     };
-    fire();
+
+    fire(); //hack-y workaround to get rotation started.
+  }
+
+  private void pauseRotation() {
+    mGameThread.rotateAllowed = false;
   }
 
   /* Taken from: https://stackoverflow.com/questions/23902892/
@@ -357,6 +368,7 @@ public class FrozenBubble extends RecognizedActivity
     MotionEvent motionEvent = MotionEvent.obtain(downTime, eventTime, MotionEvent.ACTION_DOWN
             , x, y, metaState);
     mGameView.dispatchTouchEvent(motionEvent);
+    mGameThread.rotateAllowed = true;
   }
 
   /**

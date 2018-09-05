@@ -115,6 +115,11 @@ public class MainActivity2048 extends RecognizedActivity {
             public void onDeny() {
                 dismissExitDialog(null);
             }
+
+            @Override
+            public void onSoundHeard() {
+
+            }
         };
     }
 
@@ -151,6 +156,11 @@ public class MainActivity2048 extends RecognizedActivity {
 
             @Override
             public void onDeny() {
+            }
+
+            @Override
+            public void onSoundHeard() {
+
             }
         });
         helpDialog.show();
@@ -299,6 +309,11 @@ public class MainActivity2048 extends RecognizedActivity {
                     dialog.getButton(DialogInterface.BUTTON_NEGATIVE).performClick();
                     recognizerService.setListener(oldListener);
                     recognizerService.swapSearch(Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
+                }
+
+                @Override
+                public void onSoundHeard() {
+
                 }
             });
         } else {

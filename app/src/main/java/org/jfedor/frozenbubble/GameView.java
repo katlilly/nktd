@@ -97,7 +97,8 @@ import android.util.Log;
 import com.example.nathan.nktd.R;
 
 class GameView extends SurfaceView implements SurfaceHolder.Callback {
-  class GameThread extends Thread {
+
+    class GameThread extends Thread {
     private static final int FRAME_DELAY = 40;
 
     public static final int STATE_RUNNING = 1;
@@ -178,7 +179,9 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     Vector mImageList;
 
-    public int getCurrentLevelIndex()
+      public boolean rotateAllowed = true;
+
+      public int getCurrentLevelIndex()
     {
       synchronized (mSurfaceHolder) {
         return mLevelManager.getLevelIndex();
@@ -420,23 +423,25 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
       }
     }
 
+
     @Override
     public void run()
     {
         boolean rotatingClockwise = true;
-        mFrozenGame.launchBubblePosition = 0;
         while (mRun) {
-          if (rotatingClockwise) {
-              mFrozenGame.launchBubblePosition++;
-              if (mFrozenGame.launchBubblePosition >= 39) {
-                  rotatingClockwise = false;
-              }
-          } else {
-              mFrozenGame.launchBubblePosition--;
-              if (mFrozenGame.launchBubblePosition <= 0) {
-                  rotatingClockwise = true;
-              }
-          }
+            if (rotateAllowed) {
+                if (rotatingClockwise) {
+                    mFrozenGame.launchBubblePosition += 0.5;
+                    if (mFrozenGame.launchBubblePosition >= 39) {
+                        rotatingClockwise = false;
+                    }
+                } else {
+                    mFrozenGame.launchBubblePosition -= 0.5;
+                    if (mFrozenGame.launchBubblePosition <= 1) {
+                        rotatingClockwise = true;
+                    }
+                }
+            } else Log.d("rotation", "pausing");
 
         //mFrozenGame.timer(mTrackballDX,mTouchDX);
         long now = System.currentTimeMillis();

@@ -84,6 +84,8 @@ public class Recognizer extends Service implements RecognitionListener {
 
     @Override
     public void onBeginningOfSpeech() {
+        Log.d("speech", "heard");
+        listener.onSoundHeard();
     }
 
     @Override

@@ -10,4 +10,5 @@ public interface SpeechResultListener {
     public void onNumberRecognition();
     public void onConfirm();
     public void onDeny();
+    public void onSoundHeard();
 }

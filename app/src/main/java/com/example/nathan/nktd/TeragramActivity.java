@@ -173,6 +173,11 @@ public class TeragramActivity extends RecognizedActivity {
              @Override
              public void onDeny() {
              }
+
+             @Override
+             public void onSoundHeard() {
+
+             }
          });
          helpDialog.show();
     }
@@ -332,6 +337,11 @@ public class TeragramActivity extends RecognizedActivity {
             @Override
             public void onDeny() {
                 dismissExitDialog(null);
+            }
+
+            @Override
+            public void onSoundHeard() {
+
             }
         };
 

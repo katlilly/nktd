@@ -282,6 +282,11 @@ public class PowersofTwo extends RecognizedActivity {
             public void onDeny() {
                 dismissExitDialog(null);
             }
+
+            @Override
+            public void onSoundHeard() {
+
+            }
         };
 
 

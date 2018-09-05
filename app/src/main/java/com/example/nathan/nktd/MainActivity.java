@@ -88,6 +88,11 @@ public class MainActivity extends RecognizedActivity{
             public void onDeny() {
 
             }
+
+            @Override
+            public void onSoundHeard() {
+
+            }
         };
 
         /* Permissions taken almost directly from pocketSphinx's demo app*/
