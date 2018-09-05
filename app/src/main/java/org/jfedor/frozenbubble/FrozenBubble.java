@@ -316,6 +316,7 @@ public class FrozenBubble extends RecognizedActivity
             showExitDialog();
             break;
         }
+        mGameThread.rotateAllowed = true;
       }
 
       @Override
@@ -368,7 +369,6 @@ public class FrozenBubble extends RecognizedActivity
     MotionEvent motionEvent = MotionEvent.obtain(downTime, eventTime, MotionEvent.ACTION_DOWN
             , x, y, metaState);
     mGameView.dispatchTouchEvent(motionEvent);
-    mGameThread.rotateAllowed = true;
   }
 
   /**
