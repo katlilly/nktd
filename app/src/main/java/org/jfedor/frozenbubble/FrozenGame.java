@@ -535,6 +535,16 @@ public class FrozenGame extends GameScreen {
     }
   }
 
+//  public double rotateClockwise() {
+//    launchBubblePosition++;
+//    return launchBubblePosition;
+//  }
+//
+//  public double rotateAntiClockwise() {
+//    launchBubblePosition--;
+//    return launchBubblePosition;
+//  }
+
   public void timer(double trackball_dx, double touch_dx) {
     long delayLength;
     double dx = 0;

@@ -343,6 +343,7 @@ public class FrozenBubble extends RecognizedActivity
         dismissExitDialog(null);
       }
     };
+    fire();
   }
 
   /* Taken from: https://stackoverflow.com/questions/23902892/

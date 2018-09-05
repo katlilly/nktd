@@ -423,8 +423,22 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void run()
     {
-      while (mRun) {        
-        mFrozenGame.timer(mTrackballDX,mTouchDX);
+        boolean rotatingClockwise = true;
+        mFrozenGame.launchBubblePosition = 0;
+        while (mRun) {
+          if (rotatingClockwise) {
+              mFrozenGame.launchBubblePosition++;
+              if (mFrozenGame.launchBubblePosition >= 39) {
+                  rotatingClockwise = false;
+              }
+          } else {
+              mFrozenGame.launchBubblePosition--;
+              if (mFrozenGame.launchBubblePosition <= 0) {
+                  rotatingClockwise = true;
+              }
+          }
+
+        //mFrozenGame.timer(mTrackballDX,mTouchDX);
         long now = System.currentTimeMillis();
         long delay = FRAME_DELAY + mLastTime - now;
         if (delay > 0) {

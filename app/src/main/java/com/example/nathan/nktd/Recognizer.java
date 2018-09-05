@@ -93,9 +93,9 @@ public class Recognizer extends Service implements RecognitionListener {
     public void onResult(Hypothesis hypothesis){}
 
     private static String[] commands = {"addition", "back", "clear", "cancel", "down",
-    "easier", "eight", "enter", "exit", "five", "four", "game one", "game two", "game three",
+    "easier", "eight", "enter", "exit", "fire", "five", "four", "game one", "game two", "game three",
             "game four", "harder", "help", "left", "multiplication", "new game", "new question", "nine",
-            "number", "okay", "one", "powers of two", "right", "seven", "six", "subtraction",
+            "now", "number", "okay", "one", "powers of two", "right", "seven", "six", "subtraction",
             "tear a gram", "three", "times tables", "twenty forty eight", "two", "up", "zero"};
 
     private int repetitionCount = 0;
