@@ -136,17 +136,8 @@ public class Recognizer extends Service implements RecognitionListener {
                         listener.onStartRecognition();
                     }
                     break;
-
-                case YESNO_SEARCH:
-                    if (result.equals("yes")) {
-                        listener.onConfirm();
-                    }
-                    if (result.equals("no")) {
-                        listener.onDeny();
-                    }
             }
             interpreter.startListening(currentSearch);
-
             /* Let all listeners know there's a result. */
             if (listener != null) {
                 listener.onSpeechResult();
@@ -155,7 +146,9 @@ public class Recognizer extends Service implements RecognitionListener {
     }
 
     @Override
-    public void onTimeout() {}
+    public void onTimeout() {
+        listener.onFinishedRecognition();
+    }
 
     @Override
     public void onError(Exception ex) {}

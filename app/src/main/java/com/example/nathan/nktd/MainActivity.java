@@ -34,7 +34,7 @@ public class MainActivity extends RecognizedActivity{
         recognizerButton = findViewById(R.id.recognizerStatus);
         recognizerStarterIntent = new Intent(this, Recognizer.class);
 
-        recognizerListener = new SpeechResultListener() {
+        recognizerListener = new SpeechResultListener(this) {
             @Override
             public void onSpeechResult() {
                 String result = recognizerService.getResult();
@@ -60,38 +60,6 @@ public class MainActivity extends RecognizedActivity{
                         openG4(null);
                         break;
                 }
-            }
-
-            @Override
-            public void onStartRecognition() {
-                recognizerListening = true;
-                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
-            }
-
-            @Override
-            public void onStopRecognition() {
-                recognizerListening = false;
-                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
-            }
-
-            @Override
-            public void onNumberRecognition() {
-                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
-            }
-
-            @Override
-            public void onConfirm() {
-
-            }
-
-            @Override
-            public void onDeny() {
-
-            }
-
-            @Override
-            public void onSoundHeard() {
-
             }
         };
 

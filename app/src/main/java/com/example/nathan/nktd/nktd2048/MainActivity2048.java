@@ -56,7 +56,7 @@ public class MainActivity2048 extends RecognizedActivity {
         setButton();
         recognizerService.swapSearch(Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
 
-        recognizerListener = new SpeechResultListener() {
+        recognizerListener = new SpeechResultListener(this) {
             @Override
             public void onSpeechResult() {
                 String result = recognizerService.getResult();
@@ -88,38 +88,6 @@ public class MainActivity2048 extends RecognizedActivity {
                         break;
                 }
             }
-
-            @Override
-            public void onStartRecognition() {
-                recognizerListening = true;
-                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
-            }
-
-            @Override
-            public void onStopRecognition() {
-                recognizerListening = false;
-                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
-            }
-
-            @Override
-            public void onNumberRecognition() {
-                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
-            }
-
-            @Override
-            public void onConfirm() {
-                exitGame(null);
-            }
-
-            @Override
-            public void onDeny() {
-                dismissExitDialog(null);
-            }
-
-            @Override
-            public void onSoundHeard() {
-
-            }
         };
     }
 
@@ -127,7 +95,7 @@ public class MainActivity2048 extends RecognizedActivity {
         final Dialog helpDialog = new Dialog(this);
         helpDialog.setContentView(R.layout.twenty48_help);
         recognizerService.swapSearch(Recognizer.HELP_SEARCH);
-        recognizerService.setListener(new SpeechResultListener() {
+        recognizerService.setListener(new SpeechResultListener(this) {
             @Override
             public void onSpeechResult() {
                 String result = recognizerService.getResult();
@@ -136,31 +104,6 @@ public class MainActivity2048 extends RecognizedActivity {
                     recognizerService.setListener(recognizerListener);
                     helpDialog.dismiss();
                 }
-            }
-
-            @Override
-            public void onStartRecognition() {
-            }
-
-            @Override
-            public void onStopRecognition() {
-            }
-
-            @Override
-            public void onNumberRecognition() {
-            }
-
-            @Override
-            public void onConfirm() {
-            }
-
-            @Override
-            public void onDeny() {
-            }
-
-            @Override
-            public void onSoundHeard() {
-
             }
         });
         helpDialog.show();
@@ -281,39 +224,22 @@ public class MainActivity2048 extends RecognizedActivity {
                     .show();
             recognizerService.swapSearch(Recognizer.YESNO_SEARCH);
             final SpeechResultListener oldListener = recognizerListener;
-            recognizerService.setListener(new SpeechResultListener() {
+            recognizerService.setListener(new SpeechResultListener(this) {
                 @Override
                 public void onSpeechResult() {
-                }
-
-                @Override
-                public void onStartRecognition() {
-                }
-
-                @Override
-                public void onStopRecognition() {
-                }
-
-                @Override
-                public void onNumberRecognition() {
-                }
-
-                @Override
-                public void onConfirm() {
-                    dialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
-                    recognizerService.setListener(oldListener);
-                    recognizerService.swapSearch(Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
-                }
-                @Override
-                public void onDeny() {
-                    dialog.getButton(DialogInterface.BUTTON_NEGATIVE).performClick();
-                    recognizerService.setListener(oldListener);
-                    recognizerService.swapSearch(Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
-                }
-
-                @Override
-                public void onSoundHeard() {
-
+                    String result = recognizerService.getResult();
+                    switch(result) {
+                        case "yes":
+                            dialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
+                            recognizerService.setListener(oldListener);
+                            recognizerService.swapSearch(Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
+                            break;
+                        case "no":
+                            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).performClick();
+                            recognizerService.setListener(oldListener);
+                            recognizerService.swapSearch(Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
+                            break;
+                    }
                 }
             });
         } else {

@@ -68,6 +68,7 @@
 package org.jfedor.frozenbubble;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -301,7 +302,7 @@ public class FrozenBubble extends RecognizedActivity
     mGameView.requestFocus();
     setFullscreen();
     bindRecognizer();
-    recognizerListener = new SpeechResultListener() {
+    recognizerListener = new SpeechResultListener(this) {
       @Override
       public void onSpeechResult() {
         String result = recognizerService.getResult();
@@ -320,42 +321,45 @@ public class FrozenBubble extends RecognizedActivity
       }
 
       @Override
-      public void onStartRecognition() {
-
-      }
-
-      @Override
-      public void onStopRecognition() {
-
-      }
-
-      @Override
-      public void onNumberRecognition() {
-
-      }
-
-      @Override
-      public void onConfirm() {
-        exitGame(null);
-      }
-
-      @Override
-      public void onDeny() {
-        dismissExitDialog(null);
-      }
-
-      @Override
       public void onSoundHeard() {
-        Log.d("onSoundHeard", "onSoundHeard");
-        pauseRotation();
+        mGameThread.rotateAllowed = false;
+      }
+
+      @Override
+      public void onFinishedRecognition() {
+        mGameThread.rotateAllowed = true;
       }
     };
 
     fire(); //hack-y workaround to get rotation started.
   }
 
-  private void pauseRotation() {
-    mGameThread.rotateAllowed = false;
+
+  @Override
+  public void showExitDialog() {
+    savedSearch = recognizerService.getSearchName();
+    savedListener = recognizerListener;
+    recognizerService.swapSearch(Recognizer.YESNO_SEARCH);
+    exitDialog = new Dialog(this);
+    recognizerService.setListener(new SpeechResultListener(this) {
+      @Override
+      public void onSpeechResult() {
+        String result = recognizerService.getResult();
+        switch(result) {
+          case "yes":
+            Log.d("status", "exitgame called");
+            exitGame(null);
+            break;
+          case "no":
+            mGameThread.rotateAllowed = true;
+            dismissExitDialog(null);
+            recognizerService.setListener(savedListener);
+            break;
+        }
+      }
+    });
+    exitDialog.setContentView(R.layout.exit_dialog);
+    exitDialog.show();
   }
 
   /* Taken from: https://stackoverflow.com/questions/23902892/

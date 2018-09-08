@@ -143,7 +143,7 @@ public class TeragramActivity extends RecognizedActivity {
          final Dialog helpDialog = new Dialog(this);
          helpDialog.setContentView(R.layout.teragram_help);
          recognizerService.swapSearch(Recognizer.HELP_SEARCH);
-         recognizerService.setListener(new SpeechResultListener() {
+         recognizerService.setListener(new SpeechResultListener(this) {
              @Override
              public void onSpeechResult() {
                  String result = recognizerService.getResult();
@@ -152,31 +152,6 @@ public class TeragramActivity extends RecognizedActivity {
                      recognizerService.setListener(recognizerListener);
                      helpDialog.dismiss();
                  }
-             }
-
-             @Override
-             public void onStartRecognition() {
-             }
-
-             @Override
-             public void onStopRecognition() {
-             }
-
-             @Override
-             public void onNumberRecognition() {
-             }
-
-             @Override
-             public void onConfirm() {
-             }
-
-             @Override
-             public void onDeny() {
-             }
-
-             @Override
-             public void onSoundHeard() {
-
              }
          });
          helpDialog.show();
@@ -244,7 +219,7 @@ public class TeragramActivity extends RecognizedActivity {
         recognizerButton = findViewById(R.id.recognizerStatus);
         setButton(getIntent());
 
-        recognizerListener = new SpeechResultListener() {
+        recognizerListener = new SpeechResultListener(this) {
             @Override
             public void onSpeechResult() {
                 String result = recognizerService.getResult();
@@ -310,38 +285,6 @@ public class TeragramActivity extends RecognizedActivity {
                             break;
                     }
                 }
-            }
-
-            @Override
-            public void onStartRecognition() {
-                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
-                recognizerListening = true;
-            }
-
-            @Override
-            public void onStopRecognition() {
-                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
-                recognizerListening = false;
-            }
-
-            @Override
-            public void onNumberRecognition() {
-                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
-            }
-
-            @Override
-            public void onConfirm() {
-                exitGame(null);
-            }
-
-            @Override
-            public void onDeny() {
-                dismissExitDialog(null);
-            }
-
-            @Override
-            public void onSoundHeard() {
-
             }
         };
 

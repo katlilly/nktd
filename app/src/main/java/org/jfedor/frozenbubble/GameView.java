@@ -423,7 +423,6 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
       }
     }
 
-
     @Override
     public void run()
     {

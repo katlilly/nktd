@@ -218,7 +218,7 @@ public class PowersofTwo extends RecognizedActivity {
         recognizerButton = findViewById(R.id.recognizerStatus);
         setButton(getIntent());
 
-        recognizerListener = new SpeechResultListener() {
+        recognizerListener = new SpeechResultListener(this) {
             @Override
             public void onSpeechResult() {
                 String result = recognizerService.getResult();
@@ -250,42 +250,6 @@ public class PowersofTwo extends RecognizedActivity {
                         showExitDialog();
                         break;
                 }
-            }
-
-
-            /*
-            * provide user feedback on when the app is listening for voice commands, and what
-            * voice commands are being interpreted.
-            * */
-            @Override
-            public void onStartRecognition() {
-                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
-            }
-
-            @Override
-            public void onStopRecognition() {
-                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.notlistening));
-            }
-
-            @Override
-            public void onNumberRecognition() {
-                recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening_number));
-            }
-
-            @Override
-            public void onConfirm() {
-                recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
-                finish();
-            }
-
-            @Override
-            public void onDeny() {
-                dismissExitDialog(null);
-            }
-
-            @Override
-            public void onSoundHeard() {
-
             }
         };
 

@@ -26,7 +26,7 @@ public abstract class RecognizedActivity extends AppCompatActivity {
     protected boolean recognizerListening = true;
     protected ImageButton recognizerButton;
 
-    Dialog exitDialog;
+    protected Dialog exitDialog;
 
     protected void bindRecognizer() {
         Log.d("binding", "");
@@ -34,11 +34,29 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         bindService(recognizerIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
-    String savedSearch;
-    public void showExitDialog() {
+    protected String savedSearch;
+    protected SpeechResultListener savedListener;
+    protected void showExitDialog() {
         savedSearch = recognizerService.getSearchName();
+        savedListener = recognizerListener;
         recognizerService.swapSearch(Recognizer.YESNO_SEARCH);
         exitDialog = new Dialog(this);
+        recognizerService.setListener(new SpeechResultListener(this) {
+            @Override
+            public void onSpeechResult() {
+                String result = recognizerService.getResult();
+                switch(result) {
+                    case "yes":
+                        Log.d("status", "exitgame called");
+                        exitGame(null);
+                        break;
+                    case "no":
+                        dismissExitDialog(null);
+                        recognizerService.setListener(savedListener);
+                        break;
+                }
+            }
+        });
         exitDialog.setContentView(R.layout.exit_dialog);
         exitDialog.show();
     }
