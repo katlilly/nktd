@@ -427,15 +427,16 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void run()
     {
         boolean rotatingClockwise = true;
+        double rotationAmount = 0.25;
         while (mRun) {
             if (rotateAllowed) {
                 if (rotatingClockwise) {
-                    mFrozenGame.launchBubblePosition += 0.5;
+                    mFrozenGame.launchBubblePosition += rotationAmount;
                     if (mFrozenGame.launchBubblePosition >= 39) {
                         rotatingClockwise = false;
                     }
                 } else {
-                    mFrozenGame.launchBubblePosition -= 0.5;
+                    mFrozenGame.launchBubblePosition -= rotationAmount;
                     if (mFrozenGame.launchBubblePosition <= 1) {
                         rotatingClockwise = true;
                     }
