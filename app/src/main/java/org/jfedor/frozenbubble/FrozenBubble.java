@@ -269,8 +269,12 @@ public class FrozenBubble extends RecognizedActivity {
                 !i.getExtras().containsKey("levels")) {
             // Default intent.
             activityCustomStarted = false;
-            setContentView(R.layout.main);
-            mGameView = (GameView) findViewById(R.id.game);
+            //setContentView(R.layout.main);
+            //mGameView = (GameView) findViewById(R.id.game);
+            setContentView(R.layout.activity_frozenbubble);
+            recognizerButton = findViewById(R.id.recognizerStatus);
+            mGameView = findViewById(R.id.frozenbubbleGameView);
+
         } else {
             // Get custom level last played.
             SharedPreferences sp = getSharedPreferences(
@@ -280,10 +284,15 @@ public class FrozenBubble extends RecognizedActivity {
             startingLevel = (startingLevelIntent == -2) ?
                     startingLevel : startingLevelIntent;
             activityCustomStarted = true;
-            mGameView = new GameView(this, i.getExtras().getByteArray("levels"),
-                    startingLevel);
-            setContentView(mGameView);
+//            mGameView = new GameView(this, i.getExtras().getByteArray("levels"),
+//                    startingLevel);
+//            setContentView(mGameView);
+            setContentView(R.layout.activity_frozenbubble);
+            recognizerButton = findViewById(R.id.recognizerStatus);
+            mGameView = findViewById(R.id.frozenbubbleGameView);
         }
+
+        setButton(getIntent());
 
         mGameThread = mGameView.getThread();
 
