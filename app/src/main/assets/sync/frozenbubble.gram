@@ -2,4 +2,4 @@
 
 grammar frozenbubble;
 
-public <command> = (fire | now | exit | pause);
+public <command> = (fire | now | exit | pause | continue);

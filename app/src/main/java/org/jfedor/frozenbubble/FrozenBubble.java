@@ -298,6 +298,9 @@ public class FrozenBubble extends RecognizedActivity {
             public void onSpeechResult() {
                 String result = recognizerService.getResult();
                 switch (result) {
+                    case "continue":
+                        lowerScreenClick();
+                        break;
                     case "fire":
                         fire();
                         break;

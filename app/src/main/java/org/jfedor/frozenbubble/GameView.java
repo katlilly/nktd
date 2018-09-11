@@ -426,6 +426,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void run()
     {
+        /* Code to auto-rotate launcher */
         boolean rotatingClockwise = true;
         double rotationAmount = 0.25;
         while (mRun) {
