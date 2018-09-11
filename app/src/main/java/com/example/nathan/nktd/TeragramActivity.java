@@ -294,19 +294,23 @@ public class TeragramActivity extends RecognizedActivity {
          * set the voice command recogniser to restart after response sounds have finished playing.
          * */
         correctSound = MediaPlayer.create(this, R.raw.correct);
-        correctSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                recognizerService.startRecognition();
-            }
-        });
+        if (recognizerListening) {
+            correctSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    recognizerService.startRecognition();
+                }
+            });
+        }
         tryagainSound = MediaPlayer.create(this, R.raw.tryagain);
-        tryagainSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                recognizerService.startRecognition();
-            }
-        });
+        if (recognizerListening) {
+            tryagainSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    recognizerService.startRecognition();
+                }
+            });
+        }
 
         // create references to the text elements and buttons
         question = (TextView) findViewById(R.id.question);
@@ -402,6 +406,30 @@ public class TeragramActivity extends RecognizedActivity {
          restartRecognizer();
     }
 
+    /* Ensure recognition restart after feedback sound only occurs
+    * if recogntion should be on.*/
+    @Override
+    public void onOff(View view) {
+        if(recognizerService.isListening()) {
+            recognizerService.stopRecognition();
+            correctSound.setOnCompletionListener(null);
+            tryagainSound.setOnCompletionListener(null);
+        } else {
+            recognizerService.startRecognition();
+            correctSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    recognizerService.startRecognition();
+                }
+            });
+            tryagainSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    recognizerService.startRecognition();
+                }
+            });
+        }
+    }
 
     /*
      * method for providing feedback to the user on what voice commands are being interpreted
