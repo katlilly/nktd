@@ -325,6 +325,7 @@ public class FrozenBubble extends RecognizedActivity {
 
             @Override
             public void onSoundHeard() {
+                super.onSoundHeard();
                 mGameThread.rotateAllowed = false;
             }
 

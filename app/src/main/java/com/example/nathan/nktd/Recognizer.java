@@ -94,7 +94,7 @@ public class Recognizer extends Service implements RecognitionListener {
     @Override
     public void onResult(Hypothesis hypothesis){}
 
-    private static String[] commands = {"addition", "back", "clear", "cancel", "down",
+    private static String[] commands = {"addition", "back", "clear", "cancel", "continue", "down",
     "easier", "eight", "enter", "exit", "fire", "five", "four", "game one", "game two", "game three",
             "game four", "harder", "help", "left", "multiplication", "new game", "new question", "nine",
             "now", "number", "okay", "one", "powers of two", "right", "seven", "six", "subtraction",
@@ -115,6 +115,7 @@ public class Recognizer extends Service implements RecognitionListener {
                 interpreter.stop();
                 previousResult = "";
                 repetitionCount = 0;
+                listener.onFailedRecognition();
             }
             previousResult = result;
             if (Arrays.asList(commands).contains(result)) {
