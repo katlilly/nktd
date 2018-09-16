@@ -360,6 +360,15 @@ public class PowersofTwo extends RecognizedActivity {
         recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
         finish();
     }
+
+    @Override
+    public void exitGame(View view) {
+        recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
+        if (recognizerBound) {
+            this.unbindService(serviceConnection);
+        }
+        finish();
+    }
 }
 
 
