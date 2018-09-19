@@ -117,6 +117,7 @@ public abstract class RecognizedActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Log.d("status", "onBackPressed");
         if(this.getClass() != MainActivity.class) {
             exitGame(null);
         }

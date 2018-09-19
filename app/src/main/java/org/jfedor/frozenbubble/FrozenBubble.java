@@ -209,6 +209,10 @@ public class FrozenBubble extends RecognizedActivity {
             case MENU_EDITOR:
                 startEditor();
                 return true;
+                /* Ensure recognizer search switching works correctly */
+            case android.R.id.home:
+                exitGame(null);
+                return true;
         }
         return false;
     }
