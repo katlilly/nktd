@@ -152,8 +152,10 @@ public abstract class RecognizedActivity extends AppCompatActivity {
     public void onOff(View view) {
         if(recognizerService.isListening()) {
             recognizerService.stopRecognition();
+            recognizerListening = false;
         } else {
             recognizerService.startRecognition();
+            recognizerListening = true;
         }
     }
 
@@ -173,7 +175,30 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (recognizerBound) {
+            stopRecognition();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (recognizerBound) {
+            startRecognition();
+        }
+    }
+
+    protected void stopRecognition() {
+        recognizerService.stopRecognition();
+    }
+
+    protected void startRecognition() {
+        recognizerService.startRecognition();
     }
 
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -184,6 +209,7 @@ public abstract class RecognizedActivity extends AppCompatActivity {
             recognizerBound = true;
             if(recognizerListener != null) {
                 recognizerService.setListener(recognizerListener);
+                recognizerListener.onBound();
             } else {
                 Log.d("ERROR", "listener not created");
             }

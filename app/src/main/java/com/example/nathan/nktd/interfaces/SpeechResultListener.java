@@ -21,12 +21,10 @@ public abstract class SpeechResultListener {
     public abstract void onSpeechResult();
 
     public void onStartRecognition() {
-        activity.recognizerListening = true;
         activity.recognizerButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.listening));
     }
 
     public void onStopRecognition() {
-        activity.recognizerListening = false;
         activity.recognizerButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.notlistening));
     }
 
@@ -42,6 +40,12 @@ public abstract class SpeechResultListener {
 
     public void onFailedRecognition() {
         activity.recognizerButton.startAnimation(recognitionFailedAnimation);
+    }
+
+    public void onBound() {
+        if (activity.recognizerListening) {
+            activity.startRecognition();
+        }
     }
 
 }
