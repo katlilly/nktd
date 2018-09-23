@@ -14,8 +14,6 @@ import com.example.nathan.nktd.interfaces.RecognizedActivity;
 import com.example.nathan.nktd.interfaces.SpeechResultListener;
 import com.example.nathan.nktd.nktd2048.MainActivity2048;
 
-import java.util.HashMap;
-import java.util.Map;
 import org.jfedor.frozenbubble.FrozenBubble;
 
 public class MainActivity extends RecognizedActivity{
@@ -30,9 +28,9 @@ public class MainActivity extends RecognizedActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* Recognizer Setup */
-        recognizerButton = findViewById(R.id.recognizerStatus);
+        /* Start recognizer */
         recognizerStarterIntent = new Intent(this, Recognizer.class);
+        startService(recognizerStarterIntent);
 
         recognizerListener = new SpeechResultListener(this) {
             @Override
@@ -68,9 +66,7 @@ public class MainActivity extends RecognizedActivity{
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSIONS_REQUEST_RECORD_AUDIO);
         }
-
-        startService(recognizerStarterIntent);
-        bindRecognizer();
+        setup();
     }
 
     @Override
@@ -92,35 +88,20 @@ public class MainActivity extends RecognizedActivity{
         }
     }
 
-    /* Searches to be switched to for each game */
-    private static Map<Class, String> defaultSearches = new HashMap<>();
-    static {
-        defaultSearches.put(TeragramActivity.class, Recognizer.TERAGRAM_SEARCH);
-        defaultSearches.put(MainActivity2048.class, Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
-        defaultSearches.put(FrozenBubble.class, Recognizer.FROZENBUBBLE_SEARCH);
-    }
-
-    private void startGame(Class game) {
-        recognizerService.swapSearch(defaultSearches.get(game));
-        Intent intent = new Intent(this, game);
-        intent.putExtra("listening", recognizerListening);
-        startActivity(intent);
-    }
-
     public void openTetris(View view){
         Intent intent = new Intent(this, TetrisActivity.class);
         startActivity(intent);
     }
 
     public void openG2(View view){
-        startGame(TeragramActivity.class);
+        swapActivity(com.example.nathan.nktd.TeragramActivity.class);
     }
 
     public void openG3(View view){
-        startGame(MainActivity2048.class);
+        swapActivity(com.example.nathan.nktd.nktd2048.MainActivity2048.class);
     }
 
     public void openG4(View view){
-        startGame(FrozenBubble.class);
+        swapActivity(org.jfedor.frozenbubble.FrozenBubble.class);
     }
 }

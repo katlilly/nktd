@@ -213,11 +213,7 @@ public class PowersofTwo extends RecognizedActivity {
         setContentView(R.layout.activity_powersoftwo);
 
         /* Voice command recognizer setup */
-        recognizerBound = false;
-        bindRecognizer();
-        recognizerButton = findViewById(R.id.recognizerStatus);
-        setButton(getIntent());
-
+        setup();
         recognizerListener = new SpeechResultListener(this) {
             @Override
             public void onSpeechResult() {
@@ -252,7 +248,6 @@ public class PowersofTwo extends RecognizedActivity {
                 }
             }
         };
-
 
         /*
         * set up media players for the sounds to play in response.
@@ -358,15 +353,6 @@ public class PowersofTwo extends RecognizedActivity {
     @Override
     public void onBackPressed() {
         recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
-        finish();
-    }
-
-    @Override
-    public void exitGame(View view) {
-        recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
-        if (recognizerBound) {
-            this.unbindService(serviceConnection);
-        }
         finish();
     }
 }

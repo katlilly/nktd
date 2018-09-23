@@ -276,7 +276,6 @@ public class FrozenBubble extends RecognizedActivity {
             //setContentView(R.layout.main);
             //mGameView = (GameView) findViewById(R.id.game);
             setContentView(R.layout.activity_frozenbubble);
-            recognizerButton = findViewById(R.id.recognizerStatus);
             mGameView = findViewById(R.id.frozenbubbleGameView);
 
         } else {
@@ -292,11 +291,10 @@ public class FrozenBubble extends RecognizedActivity {
 //                    startingLevel);
 //            setContentView(mGameView);
             setContentView(R.layout.activity_frozenbubble);
-            recognizerButton = findViewById(R.id.recognizerStatus);
             mGameView = findViewById(R.id.frozenbubbleGameView);
         }
 
-        setButton(getIntent());
+        setup();
 
         mGameThread = mGameView.getThread();
 
@@ -305,7 +303,6 @@ public class FrozenBubble extends RecognizedActivity {
         }
         mGameView.requestFocus();
         setFullscreen();
-        bindRecognizer();
         recognizerListener = new SpeechResultListener(this) {
             @Override
             public void onSpeechResult() {

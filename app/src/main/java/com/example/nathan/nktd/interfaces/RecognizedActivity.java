@@ -14,8 +14,16 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.nathan.nktd.MainActivity;
+import com.example.nathan.nktd.PowersofTwo;
 import com.example.nathan.nktd.R;
 import com.example.nathan.nktd.Recognizer;
+import com.example.nathan.nktd.TeragramActivity;
+import com.example.nathan.nktd.nktd2048.MainActivity2048;
+
+import org.jfedor.frozenbubble.FrozenBubble;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class RecognizedActivity extends AppCompatActivity {
 
@@ -28,8 +36,42 @@ public abstract class RecognizedActivity extends AppCompatActivity {
 
     protected Dialog exitDialog;
 
+    protected String callingClassSearch;
+
+    /* Default search modes for each game */
+    public static Map<Class, String> defaultSearches = new HashMap<>();
+    static {
+        defaultSearches.put(MainActivity.class, Recognizer.MENU_SEARCH);
+        defaultSearches.put(TeragramActivity.class, Recognizer.TERAGRAM_SEARCH);
+        defaultSearches.put(MainActivity2048.class, Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
+        defaultSearches.put(FrozenBubble.class, Recognizer.FROZENBUBBLE_SEARCH);
+        defaultSearches.put(PowersofTwo.class, Recognizer.POWERS_OF_TWO_SEARCH);
+    }
+
+    protected void swapActivity(Class swapTo) {
+        recognizerService.swapSearch(defaultSearches.get(swapTo));
+        Intent intent = new Intent(this, swapTo);
+        intent.putExtra("listening", recognizerListening);
+        intent.putExtra("callingClassSearch", defaultSearches.get(this.getClass()));
+        startActivity(intent);
+    }
+
+    /* Setup procedures common to all activities */
+    protected void setup() {
+        recognizerBound = false;
+        if (!(this.getIntent().getStringExtra("callingClassSearch") == null)) {
+            Intent callingIntent = this.getIntent();
+            callingClassSearch = callingIntent.getStringExtra("callingClassSearch");
+            recognizerListening = callingIntent.getBooleanExtra("listening", true);
+        } else {
+            recognizerListening = true;
+        }
+        recognizerButton = findViewById(R.id.recognizerStatus);
+        bindRecognizer();
+        setButton();
+    }
+
     protected void bindRecognizer() {
-        Log.d("binding", "");
         Intent recognizerIntent = new Intent(this, Recognizer.class);
         bindService(recognizerIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
@@ -62,7 +104,7 @@ public abstract class RecognizedActivity extends AppCompatActivity {
     }
 
     public void exitGame(View view) {
-        recognizerService.swapSearch(Recognizer.MENU_SEARCH);
+        recognizerService.swapSearch(callingClassSearch);
         if (recognizerBound) {
             this.unbindService(serviceConnection);
         }

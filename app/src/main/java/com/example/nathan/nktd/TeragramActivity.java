@@ -128,15 +128,11 @@ public class TeragramActivity extends RecognizedActivity {
          newQuestion();
     }
 
-
     /*
     * start up powers of two multi-choice quiz in a new page
     * */
     public void launchPowersTwo(View view){
-         recognizerService.swapSearch(Recognizer.POWERS_OF_TWO_SEARCH);
-        Intent intent = new Intent(this, PowersofTwo.class);
-        intent.putExtra("listening", recognizerListening);
-        startActivity(intent);
+        swapActivity(PowersofTwo.class);
     }
 
     public void showHelpDialog() {
@@ -213,12 +209,7 @@ public class TeragramActivity extends RecognizedActivity {
         setContentView(R.layout.activity_teragram);
 
         /* Recognizer Setup */
-        recognizerBound = false;
-        bindRecognizer();
-        recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
-        recognizerButton = findViewById(R.id.recognizerStatus);
-        setButton(getIntent());
-
+        setup();
         recognizerListener = new SpeechResultListener(this) {
             @Override
             public void onSpeechResult() {

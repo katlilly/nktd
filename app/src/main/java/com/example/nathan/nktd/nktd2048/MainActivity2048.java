@@ -49,12 +49,9 @@ public class MainActivity2048 extends RecognizedActivity {
         }
         //setContentView(view);
         setContentView(R.layout.activity_2048);
-        recognizerButton = findViewById(R.id.recognizerStatus);
         view = findViewById(R.id.view2048);
-        bindRecognizer();
-        recognizerListening = getIntent().getBooleanExtra("listening", true);
-        setButton();
-        recognizerService.swapSearch(Recognizer.TWENTY_FORTY_EIGHT_SEARCH);
+
+        setup();
 
         recognizerListener = new SpeechResultListener(this) {
             @Override
