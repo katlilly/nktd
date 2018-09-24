@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#EEE4DA" >
+    android:background="#FAF8EF" >
     <!--android:background="@drawable/background_sound"-->
 
 
@@ -30,13 +30,13 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="175dp"
-        android:layout_height="60dp"
-        android:background="@drawable/background_2048Style_button"
+        android:layout_width="179dp"
+        android:layout_height="65dp"
+        android:background="@drawable/background_2048style_button"
         android:onClick="openG2"
         android:text="Teragram"
+        android:textColor="#776E65"
         android:textAppearance="@android:style/TextAppearance.Material.Display2"
-        android:textColor="@android:color/background_dark"
         android:textSize="30dp"
         android:typeface="serif"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,13 +48,13 @@
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="182dp"
-        android:layout_height="60dp"
-        android:background="@drawable/background_2048Style_button"
+        android:layout_width="179dp"
+        android:layout_height="65dp"
+        android:background="@drawable/background_2048style_button"
         android:onClick="openG3"
         android:text="@string/button_bottomleft"
         android:textAppearance="@android:style/TextAppearance.Material.Display2"
-        android:textColor="@android:color/background_dark"
+        android:textColor="#776E65"
         android:textSize="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -65,12 +65,12 @@
     <Button
         android:id="@+id/button4"
         android:layout_width="179dp"
-        android:layout_height="59dp"
-        android:background="@drawable/background_2048Style_button"
+        android:layout_height="65dp"
+        android:background="@drawable/background_2048style_button"
         android:onClick="openG4"
         android:text="Frozen Bubble"
         android:textAppearance="@android:style/TextAppearance.Material.Display2"
-        android:textColor="@android:color/background_dark"
+        android:textColor="#776E65"
         android:textSize="23dp"
         android:typeface="serif"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -105,11 +105,18 @@
 
     <ImageView
         android:id="@+id/imageView10"
-        android:layout_width="252dp"
+        android:layout_width="250dp"
         android:layout_height="348dp"
-        app:srcCompat="@drawable/grid_background"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="105dp" />
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.666"
+        app:srcCompat="@drawable/grid_background" />
 
     <!--<Button-->
         <!--android:id="@+id/button5"-->
