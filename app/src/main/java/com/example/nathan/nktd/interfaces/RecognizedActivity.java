@@ -31,7 +31,7 @@ public abstract class RecognizedActivity extends AppCompatActivity {
 
     protected static boolean recognizerBound;
     public static Recognizer recognizerService;
-    protected boolean recognizerListening = true;
+    protected static boolean recognizerListening;
     protected ImageButton recognizerButton;
 
     protected Dialog exitDialog;
@@ -189,7 +189,11 @@ public abstract class RecognizedActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (recognizerBound) {
-            startRecognition();
+            if (recognizerListening) {
+                startRecognition();
+            } else {
+                stopRecognition();
+            }
         }
     }
 
