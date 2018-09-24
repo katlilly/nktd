@@ -169,9 +169,27 @@ public class PowersofTwo extends RecognizedActivity {
                     if (correctMC == 1) {
                         option_1.setText("correct!");
                         option_1.setChecked(false);
+                        correctCount++;
+                        wrongCount = 0;
+                        if (correctCount == 5) {
+                            levelp2++;
+                            correctCount = 0;
+                        }
+                        if (levelp2 > maxLevel) {
+                            levelp2 = maxLevel;
+                        }
                     } else {
                         option_1.setText("nope!");
                         option_1.setChecked(false);
+                        wrongCount++;
+                        correctCount = 0;
+                        if (wrongCount == 3) {
+                            levelp2--;
+                            wrongCount = 0;
+                        }
+                        if (levelp2 < 4) {
+                            levelp2 = 4;
+                        }
                     }
                     break;
             case R.id.radio_2:
@@ -179,9 +197,27 @@ public class PowersofTwo extends RecognizedActivity {
                     if (correctMC == 2) {
                         option_2.setText("correct!");
                         option_2.setChecked(false);
+                        correctCount++;
+                        wrongCount = 0;
+                        if (correctCount == 5) {
+                            levelp2++;
+                            correctCount = 0;
+                        }
+                        if (levelp2 > maxLevel) {
+                            levelp2 = maxLevel;
+                        }
                     } else {
                         option_2.setText("nope!");
                         option_2.setChecked(false);
+                        wrongCount++;
+                        correctCount = 0;
+                        if (wrongCount == 3) {
+                            levelp2--;
+                            wrongCount = 0;
+                        }
+                        if (levelp2 < 4) {
+                            levelp2 = 4;
+                        }
                     }
                     break;
             case R.id.radio_3:
@@ -189,9 +225,27 @@ public class PowersofTwo extends RecognizedActivity {
                     if (correctMC == 3) {
                         option_3.setText("correct!");
                         option_3.setChecked(false);
+                        correctCount++;
+                        wrongCount = 0;
+                        if (correctCount == 5) {
+                            levelp2++;
+                            correctCount = 0;
+                        }
+                        if (levelp2 > maxLevel) {
+                            levelp2 = maxLevel;
+                        }
                     } else {
                         option_3.setText("nope!");
                         option_3.setChecked(false);
+                        wrongCount++;
+                        correctCount = 0;
+                        if (wrongCount == 3) {
+                            levelp2--;
+                            wrongCount = 0;
+                        }
+                        if (levelp2 < 4) {
+                            levelp2 = 4;
+                        }
                     }
                     break;
             case R.id.radio_4:
@@ -199,9 +253,27 @@ public class PowersofTwo extends RecognizedActivity {
                     if (correctMC == 4) {
                         option_4.setText("correct!");
                         option_4.setChecked(false);
+                        correctCount++;
+                        wrongCount = 0;
+                        if (correctCount == 5) {
+                            levelp2++;
+                            correctCount = 0;
+                        }
+                        if (levelp2 > maxLevel) {
+                            levelp2 = maxLevel;
+                        }
                     } else {
                         option_4.setText("nope!");
                         option_4.setChecked(false);
+                        wrongCount++;
+                        correctCount = 0;
+                        if (wrongCount == 3) {
+                            levelp2--;
+                            wrongCount = 0;
+                        }
+                        if (levelp2 < 4) {
+                            levelp2 = 4;
+                        }
                     }
                     break;
         }
