@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#000000" >
+    android:background="#EEE4DA" >
     <!--android:background="@drawable/background_sound"-->
 
 
@@ -30,64 +30,60 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="180dp"
+        android:layout_width="175dp"
         android:layout_height="60dp"
-        android:background="@drawable/button_background_right"
+        android:background="@drawable/background_2048Style_button"
         android:onClick="openG2"
-        android:text="@string/button_topright"
+        android:text="Teragram"
         android:textAppearance="@android:style/TextAppearance.Material.Display2"
         android:textColor="@android:color/background_dark"
         android:textSize="30dp"
         android:typeface="serif"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="0.552" />
 
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="160dp"
+        android:layout_width="182dp"
         android:layout_height="60dp"
-        android:background="@drawable/button_background"
+        android:background="@drawable/background_2048Style_button"
         android:onClick="openG3"
         android:text="@string/button_bottomleft"
         android:textAppearance="@android:style/TextAppearance.Material.Display2"
         android:textColor="@android:color/background_dark"
         android:textSize="32dp"
-        android:typeface="serif"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.363" />
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:background="@drawable/button_background_right"
+        android:layout_width="179dp"
+        android:layout_height="59dp"
+        android:background="@drawable/background_2048Style_button"
         android:onClick="openG4"
+        android:text="Frozen Bubble"
         android:textAppearance="@android:style/TextAppearance.Material.Display2"
         android:textColor="@android:color/background_dark"
-        android:textSize="22dp"
+        android:textSize="23dp"
         android:typeface="serif"
-        android:text="@string/button_bottomright"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.745" />
 
 
     <ImageView
         android:id="@+id/NKTDLogo"
-        android:layout_width="160dp"
-        android:layout_height="120dp"
+        android:layout_width="195dp"
+        android:layout_height="152dp"
         android:rotation="-30"
         android:src="@drawable/nktd_logo"
         app:layout_constraintBottom_toTopOf="parent"
@@ -106,6 +102,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/listening" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="252dp"
+        android:layout_height="348dp"
+        app:srcCompat="@drawable/grid_background"
+        tools:layout_editor_absoluteX="66dp"
+        tools:layout_editor_absoluteY="105dp" />
 
     <!--<Button-->
         <!--android:id="@+id/button5"-->
