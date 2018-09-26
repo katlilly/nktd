@@ -320,6 +320,42 @@ public class FrozenBubble extends RecognizedActivity {
                     case "exit":
                         showExitDialog();
                         break;
+                    case "colorblind":
+                        if (!(getMode() == GAME_COLORBLIND)) {
+                            setMode(GAME_COLORBLIND);
+                        } else {
+                            setMode(GAME_NORMAL);
+                        }
+                        break;
+                    case "full screen":
+                        if (fullscreen) {
+                            fullscreen = false;
+                            setFullscreen();
+                        } else {
+                            fullscreen = true;
+                            setFullscreen();
+                        }
+                        break;
+                    case "rush me":
+                        if (dontRushMe) {
+                            setDontRushMe(false);
+                        } else {
+                            setDontRushMe(true);
+                        }
+                        break;
+                    case "don't rush me":
+                        if (dontRushMe) {
+                            setDontRushMe(false);
+                        } else {
+                            setDontRushMe(true);
+                        }
+                        break;
+                    case "about":
+                        mGameView.getThread().setState(GameView.GameThread.STATE_ABOUT);
+                        break;
+                    case "new game":
+                        mGameThread.newGame();
+                        break;
                 }
                 mGameThread.rotateAllowed = true;
             }
