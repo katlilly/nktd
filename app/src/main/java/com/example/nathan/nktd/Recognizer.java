@@ -120,7 +120,7 @@ public class Recognizer extends Service implements RecognitionListener {
             /* Stop interpreting if we find three identical results in a row without finding a
             finished command */
             if(previousResult.equals(result)) {
-                repetitionCount++;
+                repetitionCount--;
             }
             if(repetitionCount <= 0) {
                 interpreter.stop();
@@ -136,22 +136,6 @@ public class Recognizer extends Service implements RecognitionListener {
 
             Log.d("status", "Heard " + result);
 
-            /* Handle switching between searches here. */
-            switch (currentSearch) {
-                case TERAGRAM_SEARCH:
-                    if (result.equals("number")) {
-                        currentSearch = NUMBER_SEARCH;
-                        listener.onNumberRecognition();
-                    }
-                    break;
-
-                case NUMBER_SEARCH:
-                    if (result.equals("okay") || result.equals("cancel")) {
-                        currentSearch = TERAGRAM_SEARCH;
-                        listener.onStartRecognition();
-                    }
-                    break;
-            }
             interpreter.startListening(currentSearch);
 
             if (listener != null) {

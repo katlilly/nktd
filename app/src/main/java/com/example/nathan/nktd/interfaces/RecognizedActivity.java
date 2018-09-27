@@ -130,7 +130,7 @@ public abstract class RecognizedActivity extends AppCompatActivity {
      * Dismisses dialog box and swaps back from yes/no to previous search mode.
      * @param view The button pressed to call this method, null if it was called by voice.
      */
-    private void dismissExitDialog(View view) {
+    protected void dismissExitDialog(View view) {
         recognizerService.swapSearch(savedSearch);
         exitDialog.dismiss();
     }
@@ -185,10 +185,10 @@ public abstract class RecognizedActivity extends AppCompatActivity {
      */
     public void onOff(View view) {
         if(recognizerService.isListening()) {
-            recognizerService.stopRecognition();
+            stopRecognition();
             recognizerListening = false;
         } else {
-            recognizerService.startRecognition();
+            startRecognition();
             recognizerListening = true;
         }
     }

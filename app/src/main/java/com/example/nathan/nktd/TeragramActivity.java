@@ -236,10 +236,9 @@ public class TeragramActivity extends RecognizedActivity {
                         case "times tables":
                             timesTables();
                             break;
-                        case "okay":
-                            confirm();
-                            break;
                         case "number":
+                            recognizerService.swapSearch(Recognizer.NUMBER_SEARCH);
+                            recognizerListener.onNumberRecognition();
                             break;
                         case "exit":
                             showExitDialog();
@@ -269,6 +268,15 @@ public class TeragramActivity extends RecognizedActivity {
                                         .toString();
                                 setAnswerBoxValue(currentText);
                             }
+                            break;
+                        case "okay":
+                            confirm();
+                            recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
+                            recognizerListener.onStartRecognition();
+                            break;
+                        case "cancel":
+                            recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
+                            recognizerListener.onStartRecognition();
                             break;
                         default:
                             currentText = currentText + stringToDigit(result);
@@ -398,9 +406,13 @@ public class TeragramActivity extends RecognizedActivity {
     }
 
     /* Ensure recognition restart after feedback sound only occurs
-    * if recogntion should be on.*/
+    * if recognition should be on.*/
     @Override
     public void onOff(View view) {
+        /* Swap out of number search if necessary. */
+        if(recognizerService.getSearchName().equals(Recognizer.NUMBER_SEARCH)) {
+            recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
+        }
         if(recognizerService.isListening()) {
             recognizerService.stopRecognition();
             correctSound.setOnCompletionListener(null);
