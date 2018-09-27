@@ -89,20 +89,20 @@
         app:layout_constraintRight_toLeftOf="@id/times"
         app:layout_constraintTop_toTopOf="@id/gridTop" />
 
-    <Button
+    <ImageButton
         android:id="@+id/times"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/rounded_corners"
-        android:text="x"
-        android:textColor="#776E65"
-        android:textSize="22dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="@id/gridBottom"
         app:layout_constraintLeft_toRightOf="@id/minus"
         app:layout_constraintRight_toLeftOf="@id/powers"
-        app:layout_constraintTop_toTopOf="@id/gridTop" />
+        app:layout_constraintTop_toTopOf="@id/gridTop"
+        app:layout_constraintDimensionRatio="1:1"
+        app:srcCompat="@drawable/plus" />
 
     <Button
         android:id="@+id/powers"
