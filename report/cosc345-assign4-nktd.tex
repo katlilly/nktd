@@ -1,0 +1,265 @@
+\documentclass[11pt, oneside]{article}  
+\usepackage{geometry}                	
+\geometry{a4paper}
+\usepackage[parfill]{parskip}		
+\usepackage{graphicx}	
+\usepackage{pgfgantt}
+\usepackage{pgfcalendar}	
+\usepackage{pgfkeys}	
+\usepackage{amssymb}
+\usepackage{lscape}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\urlstyle{same} 
+
+\title{COSC 345 Assignment 4} \author{Nathan Kennedy \texttt{1006384},
+  Kat Lilly \texttt{8867318}, Tobyn Packer \texttt{5003352}, and
+  \\Daniel Davidson \texttt{375621}} \date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{The NKTD app}
+
+Our app now contains three functioning games which can be opened via
+speech commands from the main menu and controlled either by speech
+commands or through touch. Two of the games (2048 and Frozen Bubble)
+are open source games we have manipulated to work with voice commands
+and Teragram is an original game, a maths practice game for children.
+
+The application uses pocketSphinx to interpret speech commands:\linebreak
+\href{https://github.com/cmusphinx/pocketsphinx}{https://github.com/cmusphinx/pocketsphinx}
+
+\subsection{Since the Beta}
+
+{\em I have added some new stuff here, but I'm sure I've missed quite a few things -Kat}
+
+We have made the following improvements and enhancements since our
+beta release:
+
+\begin{itemize}
+
+\item The whole app now has a consistent design / colour scheme
+
+\item Fixed various bugs - do we want to mention any of these specifically??
+
+\item Fixed frozen bubble launcher thing so that game is now actually playable - launcher stops moving immediately on hearing a command, but waits to interpret it before launching the bubble, this means the delay in interpreting a speech command doesn't ruin the game.
+
+\item Added an animation to the listening button, which is intuitively easy to understand and shows the user when the app has heard something.
+
+\item Changed the way the radio buttons are labelled in multiple choice quizes in Teragram - we originally labelled them as ``a'', ``b'', ``c'' etc, but this was not suitable for voice recognition, so we changed it to numbers, but this was a bit weird looking and a bit distracting. We have changed the labelling of the options to colours instead.
+
+\end{itemize}
+
+\pagebreak
+
+\section{Known Issues and Intended improvements}
+
+{\em Some or all of these issues can be moved to previous section }
+
+\subsubsection*{Speech Recognition off-switch across all games}
+We have successfully implemented the on/off switch in the main menu, 2048 and 
+Teragram but still have to implement it in FrozenBubble.
+
+\subsubsection*{Visual feedback across all games}
+In Teragram, we have successfully implemented visual feedback which
+informs the user of how voice inputs are being interpreted, but are
+yet to implement it into the main menu, 2048 and FrozenBubble.
+
+
+\subsubsection*{More robust number entry}
+The current way of inputing numbers using speech is finicky and prone to
+errors. We are unsure whether or not there is some easier way to do this,
+but we would like to try different methods.
+
+
+\subsubsection*{Frozen Bubble Launcher Speed}
+Frozen Bubble is an open source game that is controlled strictly by touch. 
+In order for a user to be hands-free, we have had to manipulate the code 
+to have the launcher work with respect to time. This currently is working
+but not in a functional fashion as it travels far too fast. The issue is 
+that the launcher moves with respect to int values, however, for it to be 
+functional we need decimals values. When trying to manipulate this it 
+throws a chain of bugs where the values are used elsewhere in the game. 
+
+
+\subsubsection*{Frozen Bubble first level bubbles}
+On two of our devices, the initial load of Frozen Bubble has two rows of 
+bubbles that are generated directly in-front of the launcher therefore making
+the game impossible to play as they are blocking all angles of the launcher. 
+Still have debugging to do but currently at a state where all the files have 
+been compared with local, working states of the game and no differences are
+shown.
+
+
+\subsubsection*{Help Screen}
+
+We intend to add a help menu on the main page, similar to the help
+menus within Teragram and 2048.
+
+
+\section{Testing}
+
+{\em Do we have anything new to add to this section??}
+
+\subsubsection*{Voice control}
+
+Testing an application that is run by voice commands was not something
+we felt could be done through automated methods without devoting a
+large amount of time that could instead be spent implementing
+features. Instead, frequent testing was done manually either through
+emulators or by installing the apk on our own phones. We note that the
+microphone on a typical phone is significantly better than the
+microphone on a typical laptop or desktop computer, and so the app is
+significantly easier to play on a phone than on an emulator.
+
+
+\subsubsection*{Teragram}
+
+For the Teragram game, we had extensive user testing performed by two
+children, seven and four years old. In the months since the alpha and beta
+releases, they have still been playing it frequently, so it has passed
+the fun test and is clearly suitable for children of those ages, with
+some room to grow, as some parts are too hard for them for
+now. However, they do prefer to play it without using the voice
+control. This is partly because they do not often find themselves in a
+quiet enough place for the voice control to work reliably, but also
+because they get frustrated that voice controls are a bit slower and
+less reliable than entering answers via the touch screen.
+
+\pagebreak
+
+\section{User Documentation}
+
+{\em - I have made some small changes to this section - I think we can leave this mostly unchanged from our last assignment -Kat}
+
+\subsection{Teragram}
+
+The game starts up at level one, and the user can move to the easiest
+level by tapping the `too hard' button or go up levels by tapping the
+`too easy' button. When ten questions in a row are answered correctly,
+the game will automatically level up, otherwise if two questions are incorrect in a 
+row, it'll automatically level down.  The user is not aware of the actual level, it's just that
+questions get easier or harder - the bound on the random number
+generator used in setting new questions is related to the level.
+
+The game launches in addition mode, and the user can chose to move to
+subtraction problems, or practice times tables or powers of two.
+
+\subsection{2048}
+
+2048 is a popular number name released on March 20, 2014. This game is
+very simple; you can choose to slide the tiles up, down, left or right
+by swipping the screen or saying `left', `right' `up' or `down'. Every
+slide, all the digital squares will move in the direction the screen was slid. 
+This is a really neat game, and there are many open source
+implementations out there, but what makes it especially suitable for
+our app is the simplicity of its controls - it's an interesting and
+challenging game controlled with only four commands. Also there is no
+time pressure in this game, so if it takes half a second for the
+speech recogniser to work, this does not adversely affect the game
+play.
+
+\subsection{Frozen Bubble}
+The aim of this game is to clear the screen by shooting the current
+bubble from the launcher to its respective coloured bubbles on the
+level. Saying `fire'/'now' or swiping up will shoot the bubble.
+
+\subsection{Voice Controls}
+
+You can control the game with the following voice commands:
+
+\subsubsection{Main menu}
+
+\begin{itemize}
+  \item {\bf`Teragram'} or {\bf`game two'}  - this will take you to the game Teragram.
+  \item {\bf`Twenty Fourty Eight'} or {\bf`game three'} - this will take you to the game 2048.
+  \item {\bf`Frozen Bubble'} or {\bf`game four'} - this will take you to the game Frozen Bubble.
+\end{itemize}
+
+\subsubsection{Teragram}
+
+\begin{itemize}
+  \item {\bf`help'} - Brings up help menu with available voice commands. 
+  \item {\bf`harder'} - Provides a harder question. 
+  \item {\bf`easier'} - Provides an easier question.
+  \item {\bf`new question'} - Provides a new question of the same type
+  \item {\bf`addition'} -Provides an addition question
+  \item {\bf`subtraction'} - Provides a subtraction question
+  \item {\bf`times tables'} - Starts times tables practice mode
+  \item {\bf`powers of two'} - Starts powers of two quiz
+  \begin{itemize}
+  	\item Say the colour of the correct answer: {\bf`blue'}, {\bf`green'}, {\bf`pink'}, or {\bf`red'}
+  \end{itemize}
+  \item {\bf`number'} - Starts Number Input mode, see below
+  \item {\bf`exit'} - Prompts a message confirming if they want to exit
+ 
+\end{itemize}
+
+\subsubsection{2048}
+
+\begin{itemize}
+  	\item {\bf`help'} - Brings up help menu with available voice commands. 
+	\item {\bf`left'} - All blocks will move to the left if possible. 
+	\item {\bf`right'} - All blocks will move to the right if possible
+	\item {\bf`up'} - All blocks will move to up if possible. 
+	\item {\bf`down'} - All blocks will move to down if possible
+	\item {\bf`exit'} - Prompts a message confirming if they want to exit
+	
+\end{itemize}
+
+\subsubsection{Frozen Bubble}
+
+\begin{itemize}
+	\item {\bf`fire'} or {\bf`now'} - Will fire the bubble
+	\item {\bf`exit'} - Prompts a message confirming if they want to exit
+	
+\end{itemize}
+
+\pagebreak
+
+\subsubsection{Number Input}
+\begin{itemize}
+  \item {\bf numbers 0 to 9 inclusive} – Appends the spoken number
+    to the end of your answer, ie. Speaking `one', `two' will give you
+    12. Note that 0 is to be spoken `zero'
+  \item {\bf `okay'} - Submits the current answer and exits Number
+    Input mode
+  \item {\bf `back'} - Removes the last number from your answer
+  \item {\bf `clear'} - Removes the entirety of your answer
+  \item {\bf `cancel'} - Exits Number Input mode
+\end{itemize}
+
+When entering numbers, please wait until the number you have just spoken appears
+in the box before trying to input the next one.
+Good Luck!
+
+\section{Open Source components}
+
+The code for the speech recognizer setup/permissions/asset copying is
+taken almost directly from the pocketSphinx demo application here:
+\url{https://github.com/cmusphinx/pocketsphinx-android-demo}
+
+The phoneme definitions in our nktd.dic file are selectively taken
+from the cmudict-en-us.dict file in that same demo.
+
+The acoustic model we use is provided by CMUSphinx at
+\href{https://sourceforge.net/projects/cmusphinx/files/Acoustic\%20and\%20Language\%20Models/US\%20English/}{sourceforge.net}
+
+The game FrozenBubble taken from
+\url{https://github.com/kthakore/frozen-bubble}
+
+The game 2048 taken from
+\url{https://github.com/BuddyBuild/2048-Android}
+    
+
+
+\end{document}
