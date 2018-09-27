@@ -154,6 +154,20 @@ public class TeragramActivity extends RecognizedActivity {
     }
 
 
+
+    public void playResponse(int wrong) {
+        // add random number and list of different responses
+        if (wrong == 1) {
+            recognizerService.stopRecognition();
+            tryagainSound.start();
+        } else {
+            recognizerService.stopRecognition();
+            correctSound.start();
+        }
+    }
+
+
+
     /*
     * check for correct answer, and do automatic levelling up/down
     * */
@@ -169,8 +183,7 @@ public class TeragramActivity extends RecognizedActivity {
             Log.d("answer", answer.getText().toString());
             if (submittedAnswer == correctAnswer) {
                 response.setText("correct!");
-                recognizerService.stopRecognition();
-                correctSound.start();
+                playResponse(0);
                 correctCount++;
                 wrongCount = 0;
                 if (correctCount == 10) {
@@ -186,8 +199,7 @@ public class TeragramActivity extends RecognizedActivity {
                 }
             } else {
                 response.setText("try again");
-                recognizerService.stopRecognition();
-                tryagainSound.start();
+                playResponse(1);
                 wrongCount++;
                 correctCount = 0;
                 if (wrongCount == 3) {
