@@ -118,7 +118,7 @@ public abstract class RecognizedActivity extends AppCompatActivity {
      * Exits from this Activity.
      * @param view the button pressed to call this method, null if it was called by voice.
      */
-    protected void exitGame(View view) {
+    public void exitGame(View view) {
         recognizerService.swapSearch(callingClassSearch);
         if (recognizerBound) {
             this.unbindService(serviceConnection);
@@ -130,8 +130,9 @@ public abstract class RecognizedActivity extends AppCompatActivity {
      * Dismisses dialog box and swaps back from yes/no to previous search mode.
      * @param view The button pressed to call this method, null if it was called by voice.
      */
-    protected void dismissExitDialog(View view) {
+    public void dismissExitDialog(View view) {
         recognizerService.swapSearch(savedSearch);
+        recognizerService.setListener(savedListener);
         exitDialog.dismiss();
     }
 
