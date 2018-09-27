@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Lets practice powers of two"
+        android:text="Say the colour of the answer"
         android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.352"
@@ -155,7 +155,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="1: "
+            android:text="blue"
+            android:textColor="#0000FF"
             android:textSize="24dp" />
 
         <RadioButton
@@ -163,7 +164,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="2: "
+            android:text="green"
+            android:textColor="#1FDF1C"
+            android:backgroundTint="#FFFFFF"
             android:textSize="24dp" />
 
         <RadioButton
@@ -171,7 +174,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="3: "
+            android:text="pink"
+            android:textColor="#FF33F6"
             android:textSize="24dp" />
 
         <RadioButton
@@ -179,7 +183,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="4: "
+            android:text="red"
+            android:textColor="#FF0000"
             android:textSize="24dp" />
     </RadioGroup>
 

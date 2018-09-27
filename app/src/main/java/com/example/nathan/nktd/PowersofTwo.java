@@ -84,28 +84,28 @@ public class PowersofTwo extends RecognizedActivity {
         // set answer choices
         switch (pos) {
             case 1:
-                option_1.setText("1: " + (int) Math.pow(2, exponent));
-                option_2.setText("2: " + (int) Math.pow(2, exponent+1));
-                option_3.setText("3: " + (int) Math.pow(2, exponent+2));
-                option_4.setText("4: " + (int) Math.pow(2, exponent+3));
+                option_1.setText(" " + (int) Math.pow(2, exponent));
+                option_2.setText(" " + (int) Math.pow(2, exponent+1));
+                option_3.setText(" " + (int) Math.pow(2, exponent+2));
+                option_4.setText(" " + (int) Math.pow(2, exponent+3));
                 break;
             case 2:
-                option_1.setText("1: " + (int) Math.pow(2, exponent-1));
-                option_2.setText("2: " + (int) Math.pow(2, exponent));
-                option_3.setText("3: " + (int) Math.pow(2, exponent+1));
-                option_4.setText("4: " + (int) Math.pow(2, exponent+2));
+                option_1.setText(" " + (int) Math.pow(2, exponent-1));
+                option_2.setText(" " + (int) Math.pow(2, exponent));
+                option_3.setText(" " + (int) Math.pow(2, exponent+1));
+                option_4.setText(" " + (int) Math.pow(2, exponent+2));
                 break;
             case 3:
-                option_1.setText("1: " + (int) Math.pow(2, exponent-2));
-                option_2.setText("2: " + (int) Math.pow(2, exponent-1));
-                option_3.setText("3: " + (int) Math.pow(2, exponent));
-                option_4.setText("4: " + (int) Math.pow(2, exponent+1));
+                option_1.setText(" " + (int) Math.pow(2, exponent-2));
+                option_2.setText(" " + (int) Math.pow(2, exponent-1));
+                option_3.setText(" " + (int) Math.pow(2, exponent));
+                option_4.setText(" " + (int) Math.pow(2, exponent+1));
                 break;
             case 4:
-                option_1.setText("1: " + (int) Math.pow(2, exponent-3));
-                option_2.setText("2: " + (int) Math.pow(2, exponent-2));
-                option_3.setText("3: " + (int) Math.pow(2, exponent-1));
-                option_4.setText("4: " + (int) Math.pow(2, exponent));
+                option_1.setText(" " + (int) Math.pow(2, exponent-3));
+                option_2.setText(" " + (int) Math.pow(2, exponent-2));
+                option_3.setText(" " + (int) Math.pow(2, exponent-1));
+                option_4.setText(" " + (int) Math.pow(2, exponent));
                 break;
         }
     }
