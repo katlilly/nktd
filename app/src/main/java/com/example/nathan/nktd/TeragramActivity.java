@@ -3,6 +3,7 @@ package com.example.nathan.nktd;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.media.MediaPlayer;
 import android.text.Spannable;
@@ -14,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.nathan.nktd.interfaces.RecognizedActivity;
@@ -372,7 +374,7 @@ public class TeragramActivity extends RecognizedActivity {
             }
         });
 
-        Button plus = (Button) findViewById(R.id.plus);
+        ImageButton plus = (ImageButton) findViewById(R.id.plus);
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -380,7 +382,7 @@ public class TeragramActivity extends RecognizedActivity {
             }
         });
 
-        Button minus = (Button) findViewById(R.id.minus);
+        ImageButton minus = (ImageButton) findViewById(R.id.minus);
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -388,7 +390,7 @@ public class TeragramActivity extends RecognizedActivity {
             }
         });
 
-        Button times = (Button) findViewById(R.id.times);
+        ImageButton times = (ImageButton) findViewById(R.id.times);
         times.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -397,7 +399,7 @@ public class TeragramActivity extends RecognizedActivity {
         });
 
         /* use spannable class to format 2^n correctly */
-        final Button powers = (Button) findViewById(R.id.powers);
+        final ImageButton powers = (ImageButton) findViewById(R.id.powers);
         //SpannableStringBuilder p = new SpannableStringBuilder("2n");
         //p.setSpan(new SuperscriptSpan(), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //p.setSpan(new RelativeSizeSpan(0.75f), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
