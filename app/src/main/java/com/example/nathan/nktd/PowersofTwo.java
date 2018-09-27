@@ -170,6 +170,8 @@ public class PowersofTwo extends RecognizedActivity {
                         option_1.setText("correct!");
                         option_1.setChecked(false);
                         correctCount++;
+                        recognizerService.stopRecognition();
+                        correctSound.start();
                         wrongCount = 0;
                         if (correctCount == 5) {
                             levelp2++;
@@ -182,6 +184,8 @@ public class PowersofTwo extends RecognizedActivity {
                         option_1.setText("nope!");
                         option_1.setChecked(false);
                         wrongCount++;
+                        recognizerService.stopRecognition();
+                        tryagainSound.start();
                         correctCount = 0;
                         if (wrongCount == 3) {
                             levelp2--;
@@ -198,6 +202,8 @@ public class PowersofTwo extends RecognizedActivity {
                         option_2.setText("correct!");
                         option_2.setChecked(false);
                         correctCount++;
+                        recognizerService.stopRecognition();
+                        correctSound.start();
                         wrongCount = 0;
                         if (correctCount == 5) {
                             levelp2++;
@@ -210,6 +216,8 @@ public class PowersofTwo extends RecognizedActivity {
                         option_2.setText("nope!");
                         option_2.setChecked(false);
                         wrongCount++;
+                        recognizerService.stopRecognition();
+                        tryagainSound.start();
                         correctCount = 0;
                         if (wrongCount == 3) {
                             levelp2--;
@@ -226,6 +234,8 @@ public class PowersofTwo extends RecognizedActivity {
                         option_3.setText("correct!");
                         option_3.setChecked(false);
                         correctCount++;
+                        recognizerService.stopRecognition();
+                        correctSound.start();
                         wrongCount = 0;
                         if (correctCount == 5) {
                             levelp2++;
@@ -238,6 +248,8 @@ public class PowersofTwo extends RecognizedActivity {
                         option_3.setText("nope!");
                         option_3.setChecked(false);
                         wrongCount++;
+                        recognizerService.stopRecognition();
+                        tryagainSound.start();
                         correctCount = 0;
                         if (wrongCount == 3) {
                             levelp2--;
@@ -254,6 +266,8 @@ public class PowersofTwo extends RecognizedActivity {
                         option_4.setText("correct!");
                         option_4.setChecked(false);
                         correctCount++;
+                        recognizerService.stopRecognition();
+                        correctSound.start();
                         wrongCount = 0;
                         if (correctCount == 5) {
                             levelp2++;
@@ -266,6 +280,8 @@ public class PowersofTwo extends RecognizedActivity {
                         option_4.setText("nope!");
                         option_4.setChecked(false);
                         wrongCount++;
+                        recognizerService.stopRecognition();
+                        tryagainSound.start();
                         correctCount = 0;
                         if (wrongCount == 3) {
                             levelp2--;
