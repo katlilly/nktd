@@ -28,17 +28,17 @@ import java.util.Map;
 public abstract class RecognizedActivity extends AppCompatActivity {
 
     protected SpeechResultListener recognizerListener;
-
-    protected static boolean recognizerBound;
     public static Recognizer recognizerService;
-    protected static boolean recognizerListening;
-    protected ImageButton recognizerButton;
 
+    protected static boolean recognizerBound; //is there a bound recognizer?
+    protected static boolean recognizerListening; //should the recognizer be listening?
+
+    protected ImageButton recognizerButton;
     protected Dialog exitDialog;
 
-    protected String callingClassSearch;
+    protected String callingClassSearch; //the search to switch back to upon game exit.
 
-    /* Default search modes for each game */
+    /* Default search modes for each Activity */
     public static Map<Class, String> defaultSearches = new HashMap<>();
     static {
         defaultSearches.put(MainActivity.class, Recognizer.MENU_SEARCH);
@@ -48,6 +48,10 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         defaultSearches.put(PowersofTwo.class, Recognizer.POWERS_OF_TWO_SEARCH);
     }
 
+    /**
+     * Swaps to another RecognizedActivity.
+     * @param swapTo the class of the activity to swap to.
+     */
     protected void swapActivity(Class swapTo) {
         recognizerService.swapSearch(defaultSearches.get(swapTo));
         Intent intent = new Intent(this, swapTo);
@@ -56,7 +60,9 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /* Setup procedures common to all activities */
+    /**
+     * Setup procedures common to all RecognizedActivities.
+     */
     protected void setup() {
         recognizerBound = false;
         if (!(this.getIntent().getStringExtra("callingClassSearch") == null)) {
@@ -71,13 +77,19 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         setButton();
     }
 
-    protected void bindRecognizer() {
+    /**
+     * Bind a Recognizer service to this Activity.
+     */
+    private void bindRecognizer() {
         Intent recognizerIntent = new Intent(this, Recognizer.class);
         bindService(recognizerIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
     protected String savedSearch;
     protected SpeechResultListener savedListener;
+    /**
+     * Brings up an exit dialog box, swapping the Recognizer search to yes/no mode.
+     */
     protected void showExitDialog() {
         savedSearch = recognizerService.getSearchName();
         savedListener = recognizerListener;
@@ -89,7 +101,6 @@ public abstract class RecognizedActivity extends AppCompatActivity {
                 String result = recognizerService.getResult();
                 switch(result) {
                     case "yes":
-                        Log.d("status", "exitgame called");
                         exitGame(null);
                         break;
                     case "no":
@@ -103,7 +114,11 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         exitDialog.show();
     }
 
-    public void exitGame(View view) {
+    /**
+     * Exits from this Activity.
+     * @param view the button pressed to call this method, null if it was called by voice.
+     */
+    protected void exitGame(View view) {
         recognizerService.swapSearch(callingClassSearch);
         if (recognizerBound) {
             this.unbindService(serviceConnection);
@@ -111,12 +126,19 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         finish();
     }
 
-    public void dismissExitDialog(View view) {
+    /**
+     * Dismisses dialog box and swaps back from yes/no to previous search mode.
+     * @param view The button pressed to call this method, null if it was called by voice.
+     */
+    private void dismissExitDialog(View view) {
         recognizerService.swapSearch(savedSearch);
         exitDialog.dismiss();
     }
 
-    protected void setButton() {
+    /**
+     * Sets the Recognizer button to the correct image based on whether it is on or off.
+     */
+    private void setButton() {
         if (recognizerListening) {
             recognizerButton.setImageDrawable(getResources().getDrawable(R.drawable.listening));
         } else {
@@ -124,6 +146,11 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sets the Recognizer button to the correct image based on the 'listening' extra of
+     * the calling Intent.
+     * @param intent the calling Intent.
+     */
     protected void setButton(Intent intent) {
         recognizerListening = intent.getBooleanExtra("listening", true);
         if (recognizerListening) {
@@ -133,6 +160,9 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Reattaches a listener to the recognizer. To be called if focus has previously shifted from this Activity.
+     */
     protected void restartRecognizer() {
         if (recognizerBound) {
             if(recognizerListener != null) {
@@ -149,6 +179,10 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Toggles the Recognizer on or off.
+     * @param view The button pressed to call this method.
+     */
     public void onOff(View view) {
         if(recognizerService.isListening()) {
             recognizerService.stopRecognition();
@@ -159,6 +193,8 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         }
     }
 
+    /* Ensure proper Recognizer-related tasks are performed when back button is
+     * pressed. */
     @Override
     public void onBackPressed() {
         Log.d("status", "onBackPressed");
@@ -167,6 +203,8 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         }
     }
 
+    /* Ensure proper Recognizer-related tasks are performed when options menu back button
+     * is pressed. */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home) {
@@ -177,6 +215,7 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         }
     }
 
+    /* Ensure Recognizer stops when focus is shifted from this Activity. */
     @Override
     protected void onPause() {
         super.onPause();
@@ -185,6 +224,7 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         }
     }
 
+    /* Ensure Recognizer restarts when focus returns to this Activity. */
     @Override
     protected void onResume() {
         super.onResume();
@@ -197,14 +237,22 @@ public abstract class RecognizedActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Stop Recognizer.
+     */
     protected void stopRecognition() {
         recognizerService.stopRecognition();
     }
 
+    /**
+     * Start Recognizer.
+     */
     protected void startRecognition() {
         recognizerService.startRecognition();
     }
 
+    /* A connection between this Activity and a Recognizer service.
+     * Ensure a SpeechResultListener is attached to the service. */
     public ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
