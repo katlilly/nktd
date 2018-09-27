@@ -19,9 +19,19 @@ import edu.cmu.pocketsphinx.RecognitionListener;
 import edu.cmu.pocketsphinx.SpeechRecognizer;
 import edu.cmu.pocketsphinx.SpeechRecognizerSetup;
 
+/**
+ * Service that runs alongside RecognizedActivities to provide speech interpretation.
+ */
 public class Recognizer extends Service implements RecognitionListener {
 
+    /**
+     * An object that provides a binding for a RecognizedActivity.
+     */
     public class RecognizerBinder extends Binder {
+        /**
+         * Gets the instance of the running activity.
+         * @return this service.
+         */
         public Recognizer getService() {
             return Recognizer.this;
         }
@@ -31,6 +41,7 @@ public class Recognizer extends Service implements RecognitionListener {
     private RecognizerBinder binder = new RecognizerBinder();
     private WeakReference<Service> reference = new WeakReference<>((Service)this);
 
+    /* Search names */
     public static final String MENU_SEARCH = "menu";
     public static final String TERAGRAM_SEARCH = "teragram";
     public static final String NUMBER_SEARCH = "number";
@@ -62,6 +73,7 @@ public class Recognizer extends Service implements RecognitionListener {
         }
     }
 
+    /* Upon starting this service, set up recognizer to interpret for MainActivity */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
         interpreter.startListening(Recognizer.MENU_SEARCH);
@@ -78,13 +90,11 @@ public class Recognizer extends Service implements RecognitionListener {
 
     @Override
     public boolean onUnbind(Intent intent) {
-        Log.d("bind", "unbinding");
         return true;
     }
 
     @Override
     public void onBeginningOfSpeech() {
-        Log.d("speech", "heard");
         listener.onSoundHeard();
     }
 
@@ -94,34 +104,38 @@ public class Recognizer extends Service implements RecognitionListener {
     @Override
     public void onResult(Hypothesis hypothesis){}
 
-    private static String[] commands = {"about", "addition", "back", "clear", "cancel", "colorblind", "continue", "down",
+    private static String[] finishedCommands = {"about", "addition", "back", "clear", "cancel", "colorblind", "continue", "down",
     "don't rush me", "easier", "eight", "enter", "exit", "fire", "five", "four", "full screen", "game one", "game two", "game three",
             "game four", "harder", "help", "left", "multiplication", "new game", "new question", "nine",
             "now", "number", "okay", "one", "powers of two", "right", "rush me", "seven", "six", "subtraction",
             "tear a gram", "three", "times tables", "twenty forty eight", "two", "up", "zero"};
 
-    private int repetitionCount = 0;
+    private int repetitionCount = 3;
     private String previousResult = "";
     @Override
     public void onPartialResult(Hypothesis hypothesis) {
 
         if (hypothesis != null) {
             result = hypothesis.getHypstr();
+            /* Stop interpreting if we find three identical results in a row without finding a
+            finished command */
             if(previousResult.equals(result)) {
                 repetitionCount++;
             }
-            if(repetitionCount >= 3) {
-                Log.d("status", "cancel");
+            if(repetitionCount <= 0) {
                 interpreter.stop();
                 previousResult = "";
-                repetitionCount = 0;
+                repetitionCount = 3;
                 listener.onFailedRecognition();
             }
             previousResult = result;
-            if (Arrays.asList(commands).contains(result)) {
+
+            if (Arrays.asList(finishedCommands).contains(result)) {
                 interpreter.stop();
             }
+
             Log.d("status", "Heard " + result);
+
             /* Handle switching between searches here. */
             switch (currentSearch) {
                 case TERAGRAM_SEARCH:
@@ -139,7 +153,7 @@ public class Recognizer extends Service implements RecognitionListener {
                     break;
             }
             interpreter.startListening(currentSearch);
-            /* Let all listeners know there's a result. */
+
             if (listener != null) {
                 listener.onSpeechResult();
             }
@@ -154,35 +168,61 @@ public class Recognizer extends Service implements RecognitionListener {
     @Override
     public void onError(Exception ex) {}
 
+    /**
+     * Set a listener to talk to.
+     * @param listener listener handed from a RecognizedActivity.
+     */
     public void setListener(SpeechResultListener listener) {
         this.listener = listener;
     }
 
+    /**
+     * Get the interpreters result.
+     * @return what the interpreter heard.
+     */
     public String getResult() {
         return result;
     }
 
+    /**
+     * Get the search mode of the interpreter.
+     * @return The search name of the interpreter.
+     */
     public String getSearchName() {
         return interpreter.getSearchName();
     }
 
+    /**
+     * Stop interpreter
+     */
     public void stopRecognition() {
         this.interpreter.stop();
         listening = false;
         listener.onStopRecognition();
     }
 
+    /**
+     * Start interpreter.
+     */
     public void startRecognition() {
         this.interpreter.startListening(currentSearch);
         listening = true;
         listener.onStartRecognition();
     }
 
+    /**
+     * Is the interpreter listening or not?
+     * @return true if the interpreter is listening, false otherwise.
+     */
     public boolean isListening() {
         return listening;
     }
 
-    /* Set model, dictionary and grammars for interpreter. */
+    /**
+     * Sets model, grammar files and dictionary of the interpreter.
+     * @param assetsDir the directory the model, grammar files and dictionary are to be found.
+     * @throws IOException if a requested file isn't found.
+     */
     private void setupRecognizer(File assetsDir) throws IOException {
 
         interpreter = SpeechRecognizerSetup.defaultSetup()
@@ -210,6 +250,10 @@ public class Recognizer extends Service implements RecognitionListener {
         this.setupComplete = true;
     }
 
+    /**
+     * Swaps between search modes.
+     * @param newSearch The search name to switch to.
+     */
     public void swapSearch(String newSearch) {
         Log.d("swapping", newSearch);
         currentSearch = newSearch;
