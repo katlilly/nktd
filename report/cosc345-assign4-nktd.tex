@@ -49,62 +49,25 @@ beta release:
 
 \item The whole app now has a consistent design / colour scheme
 
-\item Fixed various bugs - do we want to mention any of these specifically??
+\item Bugfixes:
+\begin{itemize}
+	\item Fixed memory leaks upon closing Activities
+	\item Frozenbubble: Fixed launcher rotation
+	\item Teragram: Recognition doesn't restart after confirmation noise if it isn't supposed to.
+\end{itemize}
 
 \item Fixed frozen bubble launcher thing so that game is now actually playable - launcher stops moving immediately on hearing a command, but waits to interpret it before launching the bubble, this means the delay in interpreting a speech command doesn't ruin the game.
+
+\item Frozenbubble speech implementation was finished, making it completely playable hands-free.
 
 \item Added an animation to the listening button, which is intuitively easy to understand and shows the user when the app has heard something.
 
 \item Changed the way the radio buttons are labelled in multiple choice quizes in Teragram - we originally labelled them as ``a'', ``b'', ``c'' etc, but this was not suitable for voice recognition, so we changed it to numbers, but this was a bit weird looking and a bit distracting. We have changed the labelling of the options to colours instead.
 
+\item Speech recognition stops when focus shifts from NKTD such as the phone going to sleep. 
 \end{itemize}
 
 \pagebreak
-
-\section{Known Issues and Intended improvements}
-
-{\em Some or all of these issues can be moved to previous section }
-
-\subsubsection*{Speech Recognition off-switch across all games}
-We have successfully implemented the on/off switch in the main menu, 2048 and 
-Teragram but still have to implement it in FrozenBubble.
-
-\subsubsection*{Visual feedback across all games}
-In Teragram, we have successfully implemented visual feedback which
-informs the user of how voice inputs are being interpreted, but are
-yet to implement it into the main menu, 2048 and FrozenBubble.
-
-
-\subsubsection*{More robust number entry}
-The current way of inputing numbers using speech is finicky and prone to
-errors. We are unsure whether or not there is some easier way to do this,
-but we would like to try different methods.
-
-
-\subsubsection*{Frozen Bubble Launcher Speed}
-Frozen Bubble is an open source game that is controlled strictly by touch. 
-In order for a user to be hands-free, we have had to manipulate the code 
-to have the launcher work with respect to time. This currently is working
-but not in a functional fashion as it travels far too fast. The issue is 
-that the launcher moves with respect to int values, however, for it to be 
-functional we need decimals values. When trying to manipulate this it 
-throws a chain of bugs where the values are used elsewhere in the game. 
-
-
-\subsubsection*{Frozen Bubble first level bubbles}
-On two of our devices, the initial load of Frozen Bubble has two rows of 
-bubbles that are generated directly in-front of the launcher therefore making
-the game impossible to play as they are blocking all angles of the launcher. 
-Still have debugging to do but currently at a state where all the files have 
-been compared with local, working states of the game and no differences are
-shown.
-
-
-\subsubsection*{Help Screen}
-
-We intend to add a help menu on the main page, similar to the help
-menus within Teragram and 2048.
-
 
 \section{Testing}
 
@@ -188,7 +151,7 @@ You can control the game with the following voice commands:
 \subsubsection{Teragram}
 
 \begin{itemize}
-  \item {\bf`help'} - Brings up help menu with available voice commands. 
+  \item {\bf`help me'} - Brings up help menu with available voice commands. 
   \item {\bf`harder'} - Provides a harder question. 
   \item {\bf`easier'} - Provides an easier question.
   \item {\bf`new question'} - Provides a new question of the same type
@@ -207,7 +170,7 @@ You can control the game with the following voice commands:
 \subsubsection{2048}
 
 \begin{itemize}
-  	\item {\bf`help'} - Brings up help menu with available voice commands. 
+  	\item {\bf`help me'} - Brings up help menu with available voice commands. 
 	\item {\bf`left'} - All blocks will move to the left if possible. 
 	\item {\bf`right'} - All blocks will move to the right if possible
 	\item {\bf`up'} - All blocks will move to up if possible. 
@@ -221,6 +184,13 @@ You can control the game with the following voice commands:
 \begin{itemize}
 	\item {\bf`fire'} or {\bf`now'} - Will fire the bubble
 	\item {\bf`exit'} - Prompts a message confirming if they want to exit
+	\item {\bf`continue'} - Continues the launcher's auto-rotation after a pause.
+	\item {\bf`colorblind'} - Toggles colorblind mode.
+	\item {\bf`full screen'} - Toggles fullscreen mode.
+	\item {\bf`(don't) rush me'} - Toggles 'Rush Me' mode.
+	\item {\bf`about frozen bubble'} - Displays Frozen Bubble credits.
+	\item {\bf`new game'} - Starts a new game.
+	\item {\bf`help me'} - Displays a help screen.
 	
 \end{itemize}
 
