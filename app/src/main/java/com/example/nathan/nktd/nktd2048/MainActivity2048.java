@@ -80,7 +80,7 @@ public class MainActivity2048 extends RecognizedActivity {
                             view.game.revertUndoState();
                         }
                         break;
-                    case "help":
+                    case "help me":
                         showHelp();
                         break;
                 }

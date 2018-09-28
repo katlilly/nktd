@@ -260,7 +260,7 @@ public class TeragramActivity extends RecognizedActivity {
                         case "powers of two":
                             launchPowersTwo(null);
                             break;
-                        case "help":
+                        case "help me":
                             showHelpDialog();
                             break;
                     }

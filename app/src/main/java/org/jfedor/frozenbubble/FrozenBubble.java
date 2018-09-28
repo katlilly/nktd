@@ -350,11 +350,14 @@ public class FrozenBubble extends RecognizedActivity {
                             setDontRushMe(true);
                         }
                         break;
-                    case "about":
+                    case "about frozen bubble":
                         mGameView.getThread().setState(GameView.GameThread.STATE_ABOUT);
                         break;
                     case "new game":
                         mGameThread.newGame();
+                        break;
+                    case "help me":
+                        showHelpDialog();
                         break;
                 }
                 mGameThread.rotateAllowed = true;
@@ -403,6 +406,28 @@ public class FrozenBubble extends RecognizedActivity {
         exitDialog.setContentView(R.layout.exit_dialog);
         exitDialog.show();
     }
+
+    /**
+     * Shows a help dialog.
+     */
+    public void showHelpDialog() {
+        final Dialog helpDialog = new Dialog(this);
+        helpDialog.setContentView(R.layout.frozenbubble_help);
+        recognizerService.swapSearch(Recognizer.HELP_SEARCH);
+        recognizerService.setListener(new SpeechResultListener(this) {
+            @Override
+            public void onSpeechResult() {
+                String result = recognizerService.getResult();
+                if (result.equals("exit")) {
+                    recognizerService.swapSearch(Recognizer.FROZENBUBBLE_SEARCH);
+                    recognizerService.setListener(recognizerListener);
+                    helpDialog.dismiss();
+                }
+            }
+        });
+        helpDialog.show();
+    }
+
 
     /* Taken from: https://stackoverflow.com/questions/23902892/
     how-to-programmatically-trigger-the-touch-event-in-android */

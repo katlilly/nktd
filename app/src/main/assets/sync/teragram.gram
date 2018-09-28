@@ -4,4 +4,4 @@ grammar teragram;
 
 <timesTables> = (times + tables);
 <powersOfTwo> = (powers + of + two);
-public <option> = (new question | exit | easier | harder | addition | subtraction | <timesTables> | <powersOfTwo> | number | help);
+public <option> = (new question | exit | easier | harder | addition | subtraction | <timesTables> | <powersOfTwo> | number | help me);

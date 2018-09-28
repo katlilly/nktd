@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/voiceCommandsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Main Commands:"
+        android:textSize="40px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/commandsRowA"
+        android:layout_width="wrap_content"
+        android:layout_height="223dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="Fire:\n\nContinue:\n\nExit:\n\nColorblind:\n\nFull Screen:\n\n(Don't) Rush Me:\n\nAbout Frozen Bubble:\n\n"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/voiceCommandsLabel" />
+
+    <TextView
+        android:id="@+id/mainDescriptions"
+        android:layout_width="wrap_content"
+        android:layout_height="223dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="Shoots current orb.\n\nRestarts rotation\n\nBrings up the exit dialog.\n\nToggles colourblind mode.\n\nToggles fullscreen mode.\n\nToggles 'Rush Me' mode.\n\nShows credits.\n\n"
+        app:layout_constraintStart_toEndOf="@+id/commandsRowA"
+        app:layout_constraintTop_toBottomOf="@+id/voiceCommandsLabel" />
+
+    <TextView
+        android:id="@+id/exitInstructions"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Say exit to close this dialog."
+        app:layout_constraintEnd_toEndOf="@+id/mainDescriptions"
+        app:layout_constraintTop_toBottomOf="@+id/commandsRowA" />
+</android.support.constraint.ConstraintLayout>

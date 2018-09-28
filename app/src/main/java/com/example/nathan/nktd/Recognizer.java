@@ -104,9 +104,9 @@ public class Recognizer extends Service implements RecognitionListener {
     @Override
     public void onResult(Hypothesis hypothesis){}
 
-    private static String[] finishedCommands = {"about", "addition", "back", "clear", "cancel", "colorblind", "continue", "down",
-    "don't rush me", "easier", "eight", "enter", "exit", "fire", "five", "four", "full screen", "game one", "game two", "game three",
-            "game four", "harder", "help", "left", "multiplication", "new game", "new question", "nine",
+    private static String[] finishedCommands = {"about frozen bubble", "addition", "back", "clear", "cancel", "colorblind", "continue", "down",
+    "don't rush me", "easier", "eight", "enter", "exit", "fire", "five", "four", "frozen bubble", "full screen", "game one", "game two", "game three",
+            "game four", "harder", "help me", "left", "multiplication", "new game", "new question", "nine",
             "now", "number", "okay", "one", "powers of two", "right", "rush me", "seven", "six", "subtraction",
             "tear a gram", "three", "times tables", "twenty forty eight", "two", "up", "zero", "blue", "green", "red", "pink"};
 
