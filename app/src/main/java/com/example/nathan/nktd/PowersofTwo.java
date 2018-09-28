@@ -318,16 +318,16 @@ public class PowersofTwo extends RecognizedActivity {
                     case "new question":
                         newp2Question();
                         break;
-                    case "one":
+                    case "blue":
                         option_1.performClick();
                         break;
-                    case "two":
+                    case "green":
                         option_2.performClick();
                         break;
-                    case "three":
+                    case "pink":
                         option_3.performClick();
                         break;
-                    case "four":
+                    case "red":
                         option_4.performClick();
                         break;
                     case "exit":
@@ -442,6 +442,35 @@ public class PowersofTwo extends RecognizedActivity {
     public void onBackPressed() {
         recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
         finish();
+    }
+
+    /* Ensure recognition restart after feedback sound only occurs
+     * if recognition should be on.*/
+    @Override
+    public void onOff(View view) {
+        /* Swap out of number search if necessary. */
+        if(recognizerService.getSearchName().equals(Recognizer.NUMBER_SEARCH)) {
+            recognizerService.swapSearch(Recognizer.TERAGRAM_SEARCH);
+        }
+        if(recognizerService.isListening()) {
+            recognizerService.stopRecognition();
+            correctSound.setOnCompletionListener(null);
+            tryagainSound.setOnCompletionListener(null);
+        } else {
+            recognizerService.startRecognition();
+            correctSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    recognizerService.startRecognition();
+                }
+            });
+            tryagainSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    recognizerService.startRecognition();
+                }
+            });
+        }
     }
 }
 

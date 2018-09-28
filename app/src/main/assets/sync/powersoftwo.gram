@@ -2,4 +2,4 @@
 
 grammar powersOfTwo;
 
-public <option> = (new question | exit | easier | harder | one | two | three | four);
+public <option> = (new question | exit | easier | harder | blue | green | red | pink);

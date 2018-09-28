@@ -108,7 +108,7 @@ public class Recognizer extends Service implements RecognitionListener {
     "don't rush me", "easier", "eight", "enter", "exit", "fire", "five", "four", "full screen", "game one", "game two", "game three",
             "game four", "harder", "help", "left", "multiplication", "new game", "new question", "nine",
             "now", "number", "okay", "one", "powers of two", "right", "rush me", "seven", "six", "subtraction",
-            "tear a gram", "three", "times tables", "twenty forty eight", "two", "up", "zero"};
+            "tear a gram", "three", "times tables", "twenty forty eight", "two", "up", "zero", "blue", "green", "red", "pink"};
 
     private int repetitionCount = 3;
     private String previousResult = "";
