@@ -2,7 +2,7 @@
 \usepackage{geometry}                	
 \geometry{a4paper}
 \usepackage[parfill]{parskip}		
-\usepackage{graphicx}	
+\usepackage{graphicx}
 \usepackage{pgfgantt}
 \usepackage{pgfcalendar}	
 \usepackage{pgfkeys}	
@@ -198,8 +198,6 @@ You can control the game with the following voice commands:
 	
 \end{itemize}
 
-\pagebreak
-
 \subsubsection{Number Input}
 \begin{itemize}
   \item {\bf numbers 0 to 9 inclusive} – Appends the spoken number
@@ -215,6 +213,30 @@ You can control the game with the following voice commands:
 When entering numbers, please wait until the number you have just spoken appears
 in the box before trying to input the next one.
 Good Luck!
+
+\pagebreak
+
+\section{Developer Documentation}
+
+\subsection{Build Instructions}
+The project can be built using Android Studio standard settings.
+
+\subsection{Application Architecture}
+The application consists of multiple RecognizedActivities that interact with a Recognizer service with assistance from a SpeechResultListener.
+
+\begin{figure}[!h]
+	\includegraphics[width=0.7\columnwidth]{speechsequence}
+	\caption{Interpreting a voice command.}
+\end{figure}
+
+\subsubsection{RecognizedActivity}
+RecognizedActivity is an extension of AppCompatActivity that contains extra functionality for keeping the Recognizer service running in the correct mode throughout Activity switching and Dialog popups. In each implementation, the method, setup(), needs to be called. This binds the recognizer and initializes the status button.
+
+\subsubsection{Recognizer}
+Recognizer is a Service that implements a CMUSphinx interpreter to interpret speech from a user and use the interpretations to control a RecognizedActivity. It is important that the Recognizer is able to switch between different modes of search to represent the RecognizedActivity that the user is currently interacting with. It does this by switching between 'grammar' files written in JSpeech Grammar Format. These files tell the interpreter what words and in what order it should expect them.
+
+\subsubsection{SpeechResultListener}
+SpeechResultListener listens for events in the Recognizer Service and informs the current RecognizedActivity that they have happened. It contains code that maintains the RecognizedActivity's recognizerButton such as swapping the image and initiating animations. The most important method is onSpeechResult() which informs the Activity that there is a new speech result for it to fetch. This method is abstract and needs to be implemented in each individual Activity and should contain code to handle each speech command the Activity can expect to find. 
 
 \section{Open Source components}
 
