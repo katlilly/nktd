@@ -237,9 +237,7 @@ SpeechResultListener.
 \subsubsection{RecognizedActivity}
 RecognizedActivity is an extension of AppCompatActivity that contains
 extra functionality for keeping the Recognizer service running in the
-correct mode throughout Activity switching and Dialog popups. In each
-implementation, the method, setup(), needs to be called. This binds
-the recognizer and initializes the status button.
+correct mode throughout Activity switching and Dialog popups. In each implementation the method 'setup()' needs to be called in its 'onCreate()' method. Each RecognizedActivity needs to have an ImageButton in its layout with the id recognizerStatus and a listener that implements the method 'onSpeechResult()'. 'setup()' will add functionality to these for you as well as binding the Recognizer.
 
 \subsubsection{Recognizer}
 Recognizer is a Service that implements a CMUSphinx interpreter to
