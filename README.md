@@ -4,7 +4,7 @@
 
 ### Technologies: Android Studio, Java, pocketSphinx 
 
-### Initilisation
+### Initialisation
 - Clone the repository from terminal:
   $ git clone https://github.com/katlilly/nktd.git
 - The application will build and run under Android Studio's standard settings.
@@ -19,7 +19,7 @@ Feel free to make changes and/or improvements to nktd! Simply fork and open a pu
 
 ### Main menu:  
 - "Teragram" or "game two" - Wlll start the game Teragram.  
-- 'Twenty Fourty Eight' or ‘game three’ - Will start the game 2048  
+- 'Twenty Fourty Eight' or 'game three’ - Will start the game 2048  
 - 'Frozen Bubble' or ‘game four’ - Will start the game Frozen Bubble  
 
 ### Teragram:
