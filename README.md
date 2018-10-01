@@ -10,7 +10,7 @@
 - The application will build and run under Android Studio's standard settings.
 
 ### Contributing
-Feel free to make changes and/or improvements to nktd! Simply fork and open a pull request. Make sure your changes are in a specific branch and request to pull into master. To speed up the process, please insure that your changes are debugged and the game is fully working!
+Feel free to make changes and/or improvements to nktd! Simply fork and open a pull request. Make sure your changes are in a specific branch and request to pull into master. To speed up the process, please insure that your changes are debugged and the game is fully working!  See https://github.com/katlilly/nktd/wiki for more on how to get started.          
 
 ### License
 - nktd is licensed under the BSD 3-Clause "New" or "Revised" License
