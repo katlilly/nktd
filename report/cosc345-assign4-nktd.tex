@@ -45,6 +45,10 @@ beta release:
 
 \begin{itemize}
 
+\item Much of out codebase was refactored to have more functionality defined in RecognizedActivity to ensure consistent behaviour among its implementations
+
+\item Much more of our code was commented to document intent in preparation for the full release
+
 \item Bugfixes:
 \begin{itemize}
 	\item Fixed memory leaks upon closing Activities.
@@ -66,7 +70,7 @@ beta release:
 
 \item Added an animation to the listening button, which is intuitively
   easy to understand and shows the user when the app has heard
-  something.
+  something or when recognition has failed.
 
 \item Changed the way the radio buttons are labelled in multiple
   choice quizes in Teragram - we originally labelled them as ``a'',
@@ -76,7 +80,7 @@ beta release:
   instead.
 
 \item Speech recognition stops when focus shifts from NKTD such as
-  when the phone goes to sleep.
+  when the phone goes to sleep. It will restart when focus is returned.
 \end{itemize}
 
 \pagebreak
@@ -110,6 +114,14 @@ does work less well with voice control than touch control.
 
 \section{User Documentation}
 
+\subsection{Common to all games}
+As a user, you can say 'help me' on each of NKTD's games to bring up a
+help screen displaying all speech commands available to you.
+The small ear button in the bottom-right will pulse when it hears your voice 
+and is going to interpret what you have said. It will shake side to side if
+what it hears doesn't match a known phrase, meaning you should repeat
+yourself. You can tap this button to turn speech recognition off or on.
+
 \subsection{Teragram}
 
 The game starts up at level one, and the user can move to the easiest
@@ -141,7 +153,7 @@ play.
 \subsection{Frozen Bubble}
 The aim of this game is to clear the screen by shooting the current
 bubble from the launcher to its respective coloured bubbles on the
-level. Saying `fire'/'now' or swiping up will shoot the bubble.
+level. The launcher will automatically move from side to side. Saying `fire'/'now' or swiping up will shoot the bubble.
 
 \subsection{Voice Controls}
 
@@ -189,13 +201,15 @@ You can control the game with the following voice commands:
 \subsubsection{Frozen Bubble}
 
 \begin{itemize}
-	\item {\bf`fire'} or {\bf`now'} - Will fire the bubble
+	\item {\bf`fire'} or {\bf`now'} - Will fire the bubble or proceed to the next
+	level upon level completion.
 	\item {\bf`exit'} - Prompts a message confirming if they want to exit
 	\item {\bf`continue'} - Continues the launcher's auto-rotation after a pause.
 	\item {\bf`colorblind'} - Toggles colorblind mode.
 	\item {\bf`full screen'} - Toggles fullscreen mode.
 	\item {\bf`(don't) rush me'} - Toggles `Rush Me' mode.
-	\item {\bf`about frozen bubble'} - Displays Frozen Bubble credits.
+	\item {\bf`about frozen bubble'} - Displays Frozen Bubble credits. Say 'continue'
+	to close it.
 	\item {\bf`new game'} - Starts a new game.
 	\item {\bf`help me'} - Displays a help screen.
 	
