@@ -75,17 +75,18 @@
         android:id="@+id/plus"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:adjustViewBounds="true"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
         android:background="@null"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@id/gridBottom"
-        app:layout_constraintLeft_toLeftOf="@id/backgroundRectangle"
-        app:layout_constraintRight_toLeftOf="@id/minus"
-        app:layout_constraintTop_toTopOf="@id/gridTop"
         app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toLeftOf="@id/backgroundRectangle"
+        app:layout_constraintRight_toLeftOf="@id/verticalLeftQuad"
+        app:layout_constraintTop_toTopOf="@id/gridTop"
         app:srcCompat="@drawable/plus" />
 
 
@@ -93,33 +94,37 @@
         android:id="@+id/minus"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:adjustViewBounds="true"
         android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
         android:background="@null"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@id/gridBottom"
-        app:layout_constraintLeft_toRightOf="@id/plus"
-        app:layout_constraintRight_toLeftOf="@id/times"
-        app:layout_constraintTop_toTopOf="@id/gridTop"
         app:layout_constraintDimensionRatio="1:1"
-        app:srcCompat = "@drawable/minus"/>
+        app:layout_constraintLeft_toRightOf="@id/verticalLeftQuad"
+        app:layout_constraintRight_toLeftOf="@id/verticalCentre"
+        app:layout_constraintTop_toTopOf="@id/gridTop"
+        app:srcCompat="@drawable/minus" />
 
 
     <ImageButton
         android:id="@+id/times"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:adjustViewBounds="true"
         android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
         android:background="@null"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@id/gridBottom"
-        app:layout_constraintLeft_toRightOf="@id/minus"
-        app:layout_constraintRight_toLeftOf="@id/powers"
-        app:layout_constraintTop_toTopOf="@id/gridTop"
         app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toRightOf="@id/verticalCentre"
+        app:layout_constraintRight_toLeftOf="@id/verticalRightQuad"
+        app:layout_constraintTop_toTopOf="@id/gridTop"
         app:srcCompat="@drawable/times" />
 
 
@@ -127,18 +132,19 @@
         android:id="@+id/powers"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:adjustViewBounds="true"
         android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
         android:background="@null"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@id/gridBottom"
-        app:layout_constraintLeft_toRightOf="@id/times"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toRightOf="@id/verticalRightQuad"
         app:layout_constraintRight_toRightOf="@id/backgroundRectangle"
         app:layout_constraintTop_toTopOf="@id/gridTop"
-        app:layout_constraintDimensionRatio="1:1"
-        app:srcCompat="@drawable/powers2"/>
+        app:srcCompat="@drawable/powers2" />
 
 
     <Button
@@ -239,6 +245,20 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/verticalLeftQuad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2715" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/verticalRightQuad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7285" />
 
 
 </android.support.constraint.ConstraintLayout>
