@@ -2,6 +2,18 @@
 345 group project - Nathan, Kat, Tobyn, Daniel  
 [![Build Status](https://travis-ci.org/katlilly/nktd.svg?branch=master)](https://travis-ci.org/katlilly/nktd)  
 
+### Technologies: Android Studio, Java, pocketSphinx 
+
+### Initilisation
+- Clone the repository from terminal:
+  $ git clone https://github.com/katlilly/nktd.git
+- The application will build and run under Android Studio's standard settings.
+
+### Contributing
+Feel free to make changes and/or improvements to nktd! Simply fork and open a pull request. Make sure your changes are in a specific branch and request to pull into master. To speed up the process, please insure that your changes are debugged and the game is fully working!
+
+### License
+- nktd is licensed under the BSD 3-Clause "New" or "Revised" License
 
 ## Voice Commands:
 
