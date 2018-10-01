@@ -38,44 +38,50 @@ and Teragram is an original game, a maths practice game for children.
 The application uses pocketSphinx to interpret speech commands:\linebreak
 \href{https://github.com/cmusphinx/pocketsphinx}{https://github.com/cmusphinx/pocketsphinx}
 
-\subsection{Open source project stuff}
-
-{\em update github page with info for developers that might be interested in joining the project and talk about that here}
-
 \subsection{Since the Beta}
-
-{\em I have added some new stuff here, but I'm sure I've missed quite a few things -Kat}
 
 We have made the following improvements and enhancements since our
 beta release:
 
 \begin{itemize}
 
-\item The whole app now has a consistent design / colour scheme
-
 \item Bugfixes:
 \begin{itemize}
-	\item Fixed memory leaks upon closing Activities
-	\item Frozenbubble: Fixed launcher rotation
-	\item Teragram: Recognition doesn't restart after confirmation noise if it isn't supposed to.
+	\item Fixed memory leaks upon closing Activities.
+	\item Frozenbubble: Fixed launcher rotation speed.
+	\item Teragram: Voice Recognition only restarts when it is
+          supposed to.
 \end{itemize}
 
-\item Fixed frozen bubble launcher thing so that game is now actually playable - launcher stops moving immediately on hearing a command, but waits to interpret it before launching the bubble, this means the delay in interpreting a speech command doesn't ruin the game.
+\item The whole app now has a consistent design and colour scheme.
 
-\item Frozenbubble speech implementation was finished, making it completely playable hands-free.
+\item Modified frozen bubble launcher so that gameplay is not
+  negatively impacted by the time taken inprepret commands. The
+  launcher stops moving immediately on hearing a command, but waits to
+  interpret it before launching the bubble, this means the delay in
+  interpreting a speech command doesn't ruin the game.
 
-\item Added an animation to the listening button, which is intuitively easy to understand and shows the user when the app has heard something.
+\item Frozenbubble speech implementation was finished, making it
+  completely playable hands-free.
 
-\item Changed the way the radio buttons are labelled in multiple choice quizes in Teragram - we originally labelled them as ``a'', ``b'', ``c'' etc, but this was not suitable for voice recognition, so we changed it to numbers, but this was a bit weird looking and a bit distracting. We have changed the labelling of the options to colours instead.
+\item Added an animation to the listening button, which is intuitively
+  easy to understand and shows the user when the app has heard
+  something.
 
-\item Speech recognition stops when focus shifts from NKTD such as the phone going to sleep. 
+\item Changed the way the radio buttons are labelled in multiple
+  choice quizes in Teragram - we originally labelled them as ``a'',
+  ``b'', ``c'' etc, but this was not suitable for voice recognition,
+  so we changed it to numbers. This wasn't a satisfactory solution
+  either, and we have now changed it to be labelled by colours
+  instead.
+
+\item Speech recognition stops when focus shifts from NKTD such as
+  when the phone goes to sleep.
 \end{itemize}
 
 \pagebreak
 
 \section{Testing}
-
-{\em Do we have anything new to add to this section??}
 
 \subsubsection*{Voice control}
 
@@ -88,35 +94,32 @@ microphone on a typical phone is significantly better than the
 microphone on a typical laptop or desktop computer, and so the app is
 significantly easier to play on a phone than on an emulator.
 
-
 \subsubsection*{Teragram}
 
-For the Teragram game, we had extensive user testing performed by two
-children, seven and four years old. In the months since the alpha and beta
-releases, they have still been playing it frequently, so it has passed
-the fun test and is clearly suitable for children of those ages, with
-some room to grow, as some parts are too hard for them for
-now. However, they do prefer to play it without using the voice
-control. This is partly because they do not often find themselves in a
-quiet enough place for the voice control to work reliably, but also
-because they get frustrated that voice controls are a bit slower and
-less reliable than entering answers via the touch screen.
+For the Teragram game, as well as testing it ourselves it has been
+user tested by two children, seven and four years old. They still love
+this game, and have still been playing it frequently.  However, they
+do prefer to play it without using the voice control. This is partly
+because they do not often find themselves in a quiet enough place for
+the voice control to work reliably, but also because they get
+frustrated that voice controls are a bit slower and less reliable than
+entering answers via the touch screen. Unfortunately our app really
+does work less well with voice control than touch control.
 
 \pagebreak
 
 \section{User Documentation}
-
-{\em - I have made some small changes to this section - I think we can leave this mostly unchanged from our last assignment -Kat}
 
 \subsection{Teragram}
 
 The game starts up at level one, and the user can move to the easiest
 level by tapping the `too hard' button or go up levels by tapping the
 `too easy' button. When ten questions in a row are answered correctly,
-the game will automatically level up, otherwise if two questions are incorrect in a 
-row, it'll automatically level down.  The user is not aware of the actual level, it's just that
-questions get easier or harder - the bound on the random number
-generator used in setting new questions is related to the level.
+the game will automatically level up, otherwise if two questions are
+incorrect in a row, it'll automatically level down.  The user is not
+aware of the actual level, it's just that questions get easier or
+harder - the bound on the random number generator used in setting new
+questions is related to the level.
 
 The game launches in addition mode, and the user can chose to move to
 subtraction problems, or practice times tables or powers of two.
@@ -222,7 +225,9 @@ Good Luck!
 The project can be built using Android Studio standard settings.
 
 \subsection{Application Architecture}
-The application consists of multiple RecognizedActivities that interact with a Recognizer service with assistance from a SpeechResultListener.
+The application consists of multiple RecognizedActivities that
+interact with a Recognizer service with assistance from a
+SpeechResultListener.
 
 \begin{figure}[!h]
 	\includegraphics[width=0.7\columnwidth]{speechsequence}
@@ -230,13 +235,30 @@ The application consists of multiple RecognizedActivities that interact with a R
 \end{figure}
 
 \subsubsection{RecognizedActivity}
-RecognizedActivity is an extension of AppCompatActivity that contains extra functionality for keeping the Recognizer service running in the correct mode throughout Activity switching and Dialog popups. In each implementation, the method, setup(), needs to be called. This binds the recognizer and initializes the status button.
+RecognizedActivity is an extension of AppCompatActivity that contains
+extra functionality for keeping the Recognizer service running in the
+correct mode throughout Activity switching and Dialog popups. In each implementation the method 'setup()' needs to be called in its 'onCreate()' method. Each RecognizedActivity needs to have an ImageButton in its layout with the id recognizerStatus and a listener that implements the method 'onSpeechResult()'. 'setup()' will add functionality to these for you as well as binding the Recognizer.
 
 \subsubsection{Recognizer}
-Recognizer is a Service that implements a CMUSphinx interpreter to interpret speech from a user and use the interpretations to control a RecognizedActivity. It is important that the Recognizer is able to switch between different modes of search to represent the RecognizedActivity that the user is currently interacting with. It does this by switching between 'grammar' files written in JSpeech Grammar Format. These files tell the interpreter what words and in what order it should expect them.
+Recognizer is a Service that implements a CMUSphinx interpreter to
+interpret speech from a user and use the interpretations to control a
+RecognizedActivity. It is important that the Recognizer is able to
+switch between different modes of search to represent the
+RecognizedActivity that the user is currently interacting with. It
+does this by switching between 'grammar' files written in JSpeech
+Grammar Format. These files tell the interpreter what words and in
+what order it should expect them.
 
 \subsubsection{SpeechResultListener}
-SpeechResultListener listens for events in the Recognizer Service and informs the current RecognizedActivity that they have happened. It contains code that maintains the RecognizedActivity's recognizerButton such as swapping the image and initiating animations. The most important method is onSpeechResult() which informs the Activity that there is a new speech result for it to fetch. This method is abstract and needs to be implemented in each individual Activity and should contain code to handle each speech command the Activity can expect to find. 
+SpeechResultListener listens for events in the Recognizer Service and
+informs the current RecognizedActivity that they have happened. It
+contains code that maintains the RecognizedActivity's recognizerButton
+such as swapping the image and initiating animations. The most
+important method is onSpeechResult() which informs the Activity that
+there is a new speech result for it to fetch. This method is abstract
+and needs to be implemented in each individual Activity and should
+contain code to handle each speech command the Activity can expect to
+find.
 
 \section{Open Source components}
 

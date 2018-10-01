@@ -151,7 +151,7 @@ public class FrozenBubble extends RecognizedActivity {
         menu.add(0, MENU_RUSH_ME, 0, R.string.menu_rush_me);
         menu.add(0, MENU_ABOUT, 0, R.string.menu_about);
         menu.add(0, MENU_NEW_GAME, 0, R.string.menu_new_game);
-        menu.add(0, MENU_EDITOR, 0, R.string.menu_editor);
+        //menu.add(0, MENU_EDITOR, 0, R.string.menu_editor);
         return true;
     }
 
